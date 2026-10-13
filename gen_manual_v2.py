@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Generate manual_jogador_v2.docx — updated player manual for Operacao Atlantico Sul."""
 
+import os
 from docx import Document
 from docx.shared import Pt, Cm, RGBColor, Inches
 from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_LINE_SPACING
@@ -743,6 +744,6 @@ rf = p_foot.add_run('Operação Atlântico Sul — Manual do Jogador  |  Versão
 rf.font.name = 'Calibri'; rf.font.size = Pt(8.5); rf.font.color.rgb = DIM; rf.font.italic = True
 
 # Save
-out = '/home/user/wargame-naval/manual_jogador_v2.docx'
+out = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'manual_jogador_v2.docx')
 doc.save(out)
 print(f'Saved: {out}')

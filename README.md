@@ -4,6 +4,12 @@ Wargame naval por turnos, multiplayer online, ambientado no Atlântico Sul:
 a Força Azul (Marinha do Brasil) defende suas águas jurisdicionais contra a
 Força Vermelha, uma força expedicionária adversária.
 
+> **Repositório:** `velhomarinheiro/oas-maritimesecurity` — projeto principal.
+> O código parte do jogo do repositório
+> [`velhomarinheiro/wargame-naval`](https://github.com/velhomarinheiro/wargame-naval)
+> (commit `cfaf5d8`), que serve de referência para o design visual e para as
+> mecânicas de movimentação e detecção.
+
 ## Como rodar
 
 ```bash

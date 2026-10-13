@@ -2,7 +2,7 @@
 
 import os, math
 
-OUT = '/home/user/wargame-naval/public/icons'
+OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'public', 'icons')
 os.makedirs(OUT, exist_ok=True)
 
 # Coordinate system: 64×64 viewBox, centre (32,32), effective sz=28

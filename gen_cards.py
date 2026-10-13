@@ -4,6 +4,7 @@ Formato: PowerPoint, 1 card por slide (63.5 mm × 88.9 mm)
 Saída:   cards_super_trunfo.pptx
 """
 
+import os
 from pptx import Presentation
 from pptx.util import Mm, Pt, Emu
 from pptx.dml.color import RGBColor
@@ -707,7 +708,7 @@ def main():
             build_card(slide, unit, team)
             total += 1
 
-    out = '/home/user/wargame-naval/cards_super_trunfo.pptx'
+    out = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cards_super_trunfo.pptx')
     prs.save(out)
     print(f"Salvo: {out}  ({total} cards)")
 

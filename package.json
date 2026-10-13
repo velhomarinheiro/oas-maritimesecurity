@@ -1,5 +1,5 @@
 {
-  "name": "wargame-naval",
+  "name": "oas-maritimesecurity",
   "version": "0.1.0",
   "description": "Operação Atlântico Sul — Wargame Naval Multiplayer por Turnos",
   "main": "server.js",

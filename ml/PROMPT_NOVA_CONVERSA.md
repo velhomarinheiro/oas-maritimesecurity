@@ -8,8 +8,8 @@ Cole o texto abaixo no início de uma nova conversa com Claude Code
 Estou desenvolvendo um wargame naval multiplayer chamado "Operação Atlântico Sul"
 (Node.js + Socket.IO) e quero treinar um bot de imitation learning usando PyTorch.
 
-**Repositório:** velhomarinheiro/wargame-naval
-**Branch de trabalho:** claude/wargame-web-multiplayer-OlPTM
+**Repositório:** velhomarinheiro/oas-maritimesecurity
+**Branch de trabalho:** main
 
 **Contexto do projeto:**
 - O jogo já registra todas as partidas em `data/game-logs/*.jsonl`

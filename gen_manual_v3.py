@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Generate manual_jogador_v3.docx — player manual v3.0 for Operacao Atlantico Sul."""
 
+import os
 from docx import Document
 from docx.shared import Pt, Cm, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
@@ -989,6 +990,6 @@ p_foot.alignment = WD_ALIGN_PARAGRAPH.CENTER
 rf = p_foot.add_run('Operação Atlântico Sul — Manual do Jogador  |  Versão 3.0')
 rf.font.name = 'Calibri'; rf.font.size = Pt(8.5); rf.font.color.rgb = DIM; rf.font.italic = True
 
-out = '/home/user/wargame-naval/manual_jogador_v3.docx'
+out = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'manual_jogador_v3.docx')
 doc.save(out)
 print(f'Salvo: {out}')

@@ -8,10 +8,14 @@ name: Sync Game Logs
 #   RAILWAY_LOGS_URL  - URL base do deploy no Railway (ex: https://meu-jogo.up.railway.app)
 #   RENDER_LOGS_URL   - URL base do deploy no Render  (ex: https://meu-jogo.onrender.com)
 # Qualquer um dos dois pode ser omitido se a plataforma não estiver em uso.
+#
+# DESATIVADO no oas-maritimesecurity: o agendamento automático foi removido.
+# Para reativar, restaure o gatilho abaixo em `on:`:
+#   schedule:
+#     - cron: '*/15 * * * *'  # a cada 15 minutos
+# A execução manual (Actions > Sync Game Logs > Run workflow) continua possível.
 
 on:
-  schedule:
-    - cron: '*/15 * * * *'  # a cada 15 minutos
   workflow_dispatch: {}
 
 permissions:
