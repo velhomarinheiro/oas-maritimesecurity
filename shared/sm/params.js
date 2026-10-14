@@ -308,6 +308,71 @@ const APOIOS = {
 // Sal da sub-sequência dos apoios concedidos (independente das demais).
 const SAL_APOIO = 0xC2B2AE35;
 
+// ─── Campanha (Conceito §8) ───────────────────────────────────────────────────
+
+// Duração da campanha em turnos de 24 h (§9.5).
+const DURACAO_DIAS = { min: 30, max: 60, padrao: 45 };
+
+// Vetores do ator híbrido (Tabela 4.1), com a negabilidade que o motor de
+// encontro usa no ganho de evidência. Lawfare não é contato no mar.
+const VETORES_HIBRIDOS = {
+  frota_sombra:        { rotulo: 'Frota-sombra (dark shipping)', negabilidade: 'alta' },
+  milicia_maritima:    { rotulo: 'Milícia marítima',             negabilidade: 'alta' },
+  sabotagem_submarina: { rotulo: 'Sabotagem submarina',          negabilidade: 'muito_alta' },
+  usv_uav:             { rotulo: 'USV/UAV anônimos',             negabilidade: 'alta' },
+  gnss:                { rotulo: 'Interferência GNSS',           negabilidade: 'media' },
+  ciber:               { rotulo: 'Ciberataque a terminais/portos', negabilidade: 'media' },
+  minagem:             { rotulo: 'Minagem encoberta',            negabilidade: 'alta' },
+  lawfare:             { rotulo: 'Lawfare e narrativas',         negabilidade: null },
+};
+
+// Fatores de capacidade da variante (Desenho §2) — o mapeamento para a OOB é
+// da SM-6; aqui o configurador só os valida e registra (−1/+1).
+const FATORES_SM = ['A_MPA', 'B_NPaOc', 'C_Fusao', 'D_USV', 'E_GVI'];
+
+// Dificuldade como névoa de atribuição (§8.2, Tabela 8.1). Não altera a
+// física: só o ritmo de evidência (atribuição), o que o Azul vê da intenção
+// e dos meios do híbrido, e a adaptação do adversário (respostas repetidas
+// rendem menos evidência).
+//   ritmo                multiplicador do ganho de evidência (SM-1)
+//   intencaoAPartirDe    atribuição a partir da qual a intenção do híbrido aparece
+//   ocultacaoAteContato  meios do híbrido fora do quadro até um encontro efetivo
+//   adaptacao            { fator, piso }: ritmo × fator^(repetições), ≥ piso
+// TODO: validar com especialista
+const DIFICULDADES = {
+  basico:        { rotulo: 'Básico',        ritmo: 1.5, intencaoAPartirDe: 0,  ocultacaoAteContato: false, adaptacao: null },
+  intermediario: { rotulo: 'Intermediário', ritmo: 1.0, intencaoAPartirDe: 40, ocultacaoAteContato: false, adaptacao: null },
+  avancado:      { rotulo: 'Avançado',      ritmo: 0.6, intencaoAPartirDe: 70, ocultacaoAteContato: true,
+                   adaptacao: { fator: 0.85, piso: 0.4 } },
+};
+
+// Repertório de crises (Tabela 8.2). Por tipo: trilha; marcos de Detecção e
+// de Resposta com prazo ideal (nota 1) e prazo máximo (nota 0), em turnos
+// contados do início do episódio; efeito que o episódio injeta.
+// TODO: validar com especialista
+const CRISES = {
+  crimes_ilicitos: { rotulo: 'Crimes e ilícitos no mar',            trilha: 'constabular',
+                     deteccao: { ideal: 1, max: 3 }, resposta: { ideal: 2, max: 5 },
+                     efeito: { ocorrencias: { tipo: 'narcotrafico', n: 3 } } },
+  sabotagem_ic:    { rotulo: 'Sabotagem de infraestrutura crítica', trilha: 'defesa',
+                     deteccao: { ideal: 1, max: 4 }, resposta: { ideal: 2, max: 6 },
+                     efeito: { hibrido: { tipo: 'dano_infra', atribuicao: 20 } } },
+  pesca_massa:     { rotulo: 'Pesca ilegal em massa',               trilha: 'constabular',
+                     deteccao: { ideal: 1, max: 3 }, resposta: { ideal: 3, max: 6 },
+                     efeito: { ocorrencias: { tipo: 'pesca_iuu', n: 8 } } },
+  sar:             { rotulo: 'Salvaguarda da vida humana no mar (SAR)', trilha: 'constabular',
+                     deteccao: { ideal: 0, max: 2 }, resposta: { ideal: 1, max: 3 },
+                     efeito: { sar: { pessoas: 30 } } },
+  desastre:        { rotulo: 'Resposta a desastres',                trilha: 'constabular',
+                     deteccao: { ideal: 1, max: 3 }, resposta: { ideal: 2, max: 5 },
+                     efeito: { desastre: { escala: 1 } } },
+};
+const N_CRISES = { min: 2, max: 3 };
+const SAL_CRISES = 0x27D4EB2F;
+
+// Parâmetros que a Célula Branca pode ajustar durante o exercício (§8.5).
+const AJUSTAVEIS_CELULA_BRANCA = ['intensidadeHibrida', 'areaAlvoHibrida', 'mostrarNumeros', 'dificuldade'];
+
 // ─── Boletim (Conceito §8.4) ──────────────────────────────────────────────────
 
 // Probabilidade em palavras (limite inferior inclusivo).
@@ -326,6 +391,8 @@ const PARAMS = {
   NIVEIS, ACOES, GATILHOS_ESCALADA, TURNOS_PARA_DESESCALAR,
   AREAS_DN, DIST_MAX_COSTA, TIPOS_OCORRENCIA, TETO_CONSTABULAR, ACOPLAMENTO, SAL_CONSTAB,
   ESTACOES, MODALIDADES, FONTES, TETO_FUSAO_SEM_C, APOIOS, SAL_APOIO,
+  DURACAO_DIAS, VETORES_HIBRIDOS, FATORES_SM, DIFICULDADES, CRISES, N_CRISES, SAL_CRISES,
+  AJUSTAVEIS_CELULA_BRANCA,
 };
 
 module.exports = { PARAMS, ...PARAMS };
