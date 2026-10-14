@@ -9,27 +9,48 @@
  * desconhecido, e nada em shared/ pode requerer server.js.
  */
 
-// Grade 20×10, hexágonos odd-q (espelho de public/js/terrain.js).
-const GRID_W = 20;
-const GRID_H = 10;
+// Grade 28×20 (A–AB × 1–20), hexágonos odd-q — carta OAS-MAP-001 Ed. 2.0
+// (13°S–34°S), espelho de public/js/terrain.js. Gerada por
+// scripts/mapa_oas_map_001.py: nas colunas G–Z, linhas 6–15 (a área da carta
+// anterior, 20×10, deslocada de +6 colunas e +5 linhas) o terreno é o do jogo
+// base, inalterado; fora dela vem da própria carta.
+const GRID_W = 28;
+const GRID_H = 20;
 
 const T_LAND = 0, T_SHALLOW = 1, T_SHELF = 2, T_DEEP = 3, T_OIL = 4;
 const TERRAIN_MAP = [
-  [0,0,0,0,0,0,1,2,3,3,3,3,3,3,3,3,3,3,3,3],
-  [0,0,0,0,0,1,1,2,3,3,3,3,3,3,3,3,3,3,3,3],
-  [0,0,0,0,1,1,2,4,3,3,3,3,3,3,3,3,3,3,3,3],
-  [0,0,0,1,1,2,4,4,3,3,3,3,3,3,3,3,3,3,3,3],
-  [0,0,1,1,2,4,4,2,3,3,3,3,3,3,3,3,3,3,3,3],
-  [0,1,1,2,4,4,2,3,3,3,3,3,3,3,3,3,3,3,3,3],
-  [1,1,2,4,4,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
-  [1,2,2,4,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
-  [1,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
-  [1,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3],  //  1  ~14°S  Salvador/BA
+  [0,0,0,0,0,0,0,0,0,0,0,0,0,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3],  //  2  ~15°S  Ilhéus
+  [0,0,0,0,0,0,0,0,0,0,0,0,0,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3],  //  3  ~16°S
+  [0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3],  //  4  ~17°S  Porto Seguro
+  [0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3],  //  5  ~18°S  Abrolhos
+  [0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3],  //  6  ~19°S
+  [0,0,0,0,0,0,0,0,0,0,0,1,1,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3],  //  7  ~20°S  Vitória/ES
+  [0,0,0,0,0,0,0,0,0,0,1,1,2,4,3,3,3,3,3,3,3,3,3,3,3,3,3,3],  //  8  ~21°S
+  [0,0,0,0,0,0,0,0,0,1,1,2,4,4,3,3,3,3,3,3,3,3,3,3,3,3,3,3],  //  9  ~22°S  ★PLT-04/05 · Açu
+  [0,0,0,0,0,0,0,0,1,1,2,4,4,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3],  // 10  ~23°S  Rio de Janeiro
+  [0,0,0,0,0,0,0,1,1,2,4,4,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],  // 11  ~24°S  ★PLT-02/03 · Santos
+  [0,0,0,0,0,1,1,2,2,4,4,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],  // 12  ~25°S  ★PLT-01
+  [0,0,0,0,1,2,2,2,2,4,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],  // 13  ~26°S  Paranaguá
+  [0,0,0,0,1,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],  // 14  ~27°S  Itajaí
+  [0,0,0,0,1,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],  // 15  ~28°S  Imbituba
+  [0,0,0,0,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],  // 16  ~29°S
+  [0,0,0,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],  // 17  ~30°S  Porto Alegre
+  [0,0,0,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],  // 18  ~31°S
+  [0,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],  // 19  ~32°S  Rio Grande
+  [0,1,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],  // 20  ~33°S
 ];
 const TERRAIN_NAMES = {
   [T_LAND]: 'terra', [T_SHALLOW]: 'águas rasas', [T_SHELF]: 'plataforma continental',
   [T_DEEP]: 'águas profundas', [T_OIL]: 'bacia petrolífera',
 };
+
+// Letra da coluna, como na carta: A…Z, AA, AB (espelho de hexLabel em
+// public/js/hex.js).
+function colLetra(col) {
+  return col < 26 ? String.fromCharCode(65 + col)
+                  : colLetra(Math.floor(col / 26) - 1) + String.fromCharCode(65 + col % 26);
+}
 
 function getTerrain(col, row) {
   if (row < 0 || row >= GRID_H || col < 0 || col >= GRID_W) return T_LAND;
@@ -79,6 +100,6 @@ const DISPLAY_TYPE_FALLBACK = { surface: 'fragata', submarine: 'submarino', air:
 module.exports = {
   GRID_W, GRID_H,
   T_LAND, T_SHALLOW, T_SHELF, T_DEEP, T_OIL,
-  TERRAIN_MAP, TERRAIN_NAMES, getTerrain, canEnterTerrain,
+  TERRAIN_MAP, TERRAIN_NAMES, colLetra, getTerrain, canEnterTerrain,
   COMP_DISPLAY_TYPE, DISPLAY_TYPE_FALLBACK,
 };

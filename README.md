@@ -49,8 +49,9 @@ O servidor sobe em `http://localhost:3000` (porta configurável via `PORT`).
 
 ## Mecânicas principais
 
-- Grade hexagonal 20×10 sobre carta náutica, com terrenos (terra, águas rasas,
-  plataforma, águas profundas, campos de petróleo).
+- Grade hexagonal 28×20 (A–AB × 1–20) sobre a carta náutica OAS-MAP-001
+  Ed. 2.0 (13°S–34°S, de Salvador a Rio Grande), com terrenos (terra, águas
+  rasas, plataforma, águas profundas, campos de petróleo).
 - Turnos com períodos diurno/noturno; movimentação simultânea seguida de fase
   de combate com rodadas, interceptação e contra-ataques.
 - Névoa de guerra com alcances de detecção por categoria (noite reduz detecção;
@@ -80,6 +81,8 @@ O servidor sobe em `http://localhost:3000` (porta configurável via `PORT`).
 | `shared/metrics.js` | Medidas E1/E2/E3 + M Dsp e perda de SP por grupo-tarefa |
 | `shared/conditions.js` | Delineamentos experimentais: fatorial 2⁵ e ablação |
 | `shared/constructive_sim.js` | Motor headless da simulação construtiva e agregação dos lotes |
+| `shared/sm/` | Variante de Segurança Marítima (OAS-SM) — ver `docs/sm/` |
+| `scripts/mapa_oas_map_001.py` | Calibra a grade sobre a carta OAS-MAP-001 e gera o terreno 28×20 |
 | `public/` | Cliente web (landing, jogo em canvas, CSS, ícones, cards) |
 | `public/js/facilitator.js` | Painéis e comandos do facilitador na sala arbitrada |
 | `data/game-logs/` | Logs de partidas reais (dataset para treinar o bot) |

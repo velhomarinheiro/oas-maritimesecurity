@@ -28,7 +28,7 @@
 const ExcelJS = require('exceljs');
 const { FACTOR_KEYS } = require('./capability_factors');
 const { OBJECTIVE_THRESHOLDS, OBJECTIVE_LABELS } = require('./objectives');
-const { GRID_W, GRID_H } = require('./board');
+const { GRID_W, GRID_H, colLetra } = require('./board');
 const S = require('./scenario');
 
 // ─── Vocabulário da planilha (português) ↔ códigos do motor ──────────────────
@@ -37,7 +37,7 @@ const LADO      = { azul: 'blue', vermelho: 'red' };
 const LADO_PT   = { blue: 'azul', red: 'vermelho' };
 const CATEG     = { superficie: 'surface', submarino: 'submarine', aereo: 'air', terrestre: 'land', opesp: 'specops' };
 const CATEG_PT  = Object.fromEntries(Object.entries(CATEG).map(([pt, en]) => [en, pt]));
-const LETRAS    = Array.from({ length: GRID_W }, (_, i) => String.fromCharCode(65 + i));
+const LETRAS    = Array.from({ length: GRID_W }, (_, i) => colLetra(i));
 const RANGE_PT  = { surface: 'superficie', air: 'aereo', submarine: 'submarino', land: 'terrestre' };
 const CAP_PT    = { navalGun: 'canhao', airDefense: 'defesa_aerea', bmd: 'bmd', asw: 'asw', airAttack: 'ataque_aereo' };
 const ALVO_PT   = { carrier: 'alvo_porta_avioes', logistics: 'alvo_logistico', amphib: 'alvo_anfibio',

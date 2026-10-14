@@ -6,24 +6,27 @@
 // Flat-top hexagons (topo reto)
 // ═════════════════════════════════════════════════════════════════════════════
 
-const GRID_W = 20; // A–T
-const GRID_H = 10; // 1–10
+const GRID_W = 28; // A–AB
+const GRID_H = 20; // 1–20
 
 // ─── Geometria da grade ────────────────────────────────────────────────────
-// Medida na grade impressa na carta (scripts/ampliar_mapa.py): passo de
-// 202,04 px entre colunas e 233,26 px de altura na imagem, à metade aqui.
-const HEX_R = 67.35;
+// Medida na grade impressa na carta OAS-MAP-001 Ed. 2.0 (1900×1521 px;
+// ajuste por mínimos quadrados em scripts/mapa_oas_map_001.py): raio de
+// 38,64 px, passo de 57,96 px entre colunas e 66,93 px de altura.
+const HEX_R = 38.64;
 const HEX_W = HEX_R * 2;
 const HEX_H = HEX_R * Math.sqrt(3);
 
-// ─── Canvas: imagem 4254×2832 exibida a 50% ───────────────────────────────
-const CVS_W = 2127;
-const CVS_H = 1416;
+// ─── Canvas: imagem 1900×1521 exibida a 100% ──────────────────────────────
+// A carta é desenhada esticada para CVS_W×CVS_H; uma exportação de maior
+// resolução da mesma carta pode substituir mapa.jpeg sem mudar nada aqui.
+const CVS_W = 1900;
+const CVS_H = 1521;
 
 // ─── Origem da grade sobre o mapa ──────────────────────────────────────────
-// Centro do hexágono A-1 (= pixel (234,5; 382,1) na imagem ÷ 2)
-const OX = 117.25;
-const OY = 191.05;
+// Centro do hexágono A-1
+const OX = 67.25;
+const OY = 108.25;
 
 // ═════════════════════════════════════════════════════════════════════════════
 // CONVERSÕES
@@ -207,6 +210,8 @@ function drawHex(ctx, cx, cy, fill, stroke, lw = 1) {
   }
 }
 
+// A…Z, AA, AB… (como na carta)
 function hexLabel(col) {
-  return String.fromCharCode(65 + col);
+  return col < 26 ? String.fromCharCode(65 + col)
+                  : hexLabel(Math.floor(col / 26) - 1) + String.fromCharCode(65 + col % 26);
 }

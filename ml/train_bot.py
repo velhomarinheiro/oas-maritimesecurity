@@ -33,7 +33,7 @@ LOG_DIR    = pathlib.Path(__file__).parent.parent / "data" / "game-logs"
 MODEL_DIR  = pathlib.Path(__file__).parent / "models"
 MODEL_DIR.mkdir(parents=True, exist_ok=True)
 
-GRID_H, GRID_W = 10, 16
+GRID_H, GRID_W = 20, 28   # espelho de shared/board.js (carta OAS-MAP-001)
 N_CHANNELS = 9          # canais de features por célula do grid
 BATCH_SIZE = 64
 EPOCHS     = 40

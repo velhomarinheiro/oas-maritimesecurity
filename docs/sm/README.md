@@ -21,8 +21,17 @@ Em caso de conflito entre o prompt e os documentos, **os documentos prevalecem**
 - **Linguagem:** JavaScript (CommonJS, `'use strict'`, tipos em JSDoc), no
   estilo do repositório. Os nomes `*.ts` da especificação correspondem a
   `shared/sm/*.js`.
-- **Mapa:** a grade hexagonal é ampliada para cobrir a carta OAS-MAP-001
-  (2º DN ao norte, 5º DN ao sul).
+- **Mapa:** a grade passa a 28×20 (A–AB × 1–20) sobre a carta OAS-MAP-001
+  Ed. 2.0, cobrindo do 2º DN (Salvador) ao 5º DN (Rio Grande). A carta nova
+  contém a anterior deslocada de +6 colunas e +5 linhas: todo hexágono antigo
+  (c, r) é o novo (c + 6, r + 5), com as mesmas distâncias. Nessa área o
+  terreno do jogo base foi mantido (é a referência de movimentação e
+  detecção); fora dela vem da carta (`scripts/mapa_oas_map_001.py`).
+  **Efeito no equilíbrio do jogo base** (2.000 partidas bot × bot,
+  `scripts/balance_sim.js`): Azul 76% → 49%, Vermelho 22% → 41%, sem
+  vencedor 2% → 10%, turno médio 6,4 → 7,9. A causa é o mar novo a leste e
+  ao norte do grupo Vermelho, que começa no canto nordeste da área antiga;
+  com só a área antiga aberta o resultado volta a 75%/24%.
 - **Isolamento:** a variante vive em `shared/sm/`; o jogo base e seus testes
   não são alterados pelos módulos da variante.
 

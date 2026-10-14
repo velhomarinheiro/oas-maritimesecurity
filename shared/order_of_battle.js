@@ -11,7 +11,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":3,"air":1,"submarine":2,"land":2},
         "weapons":{"mss":{"quantity":16,"range":3}},
         "capabilities":{"airDefense":3,"asw":4,"airAttack":6},
-        "position":{"col":3,"row":4},
+        "position":{"col":9,"row":9},
         "notes":"NAM Atlântico + Helicópteros orgânicos. Unidade principal de defesa."
       },
       {
@@ -22,7 +22,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":2,"air":1,"submarine":1,"land":1},
         "weapons":{"mss":{"quantity":18,"range":2}},
         "capabilities":{"navalGun":3,"airDefense":6,"asw":3,"airAttack":3},
-        "position":{"col":5,"row":4},
+        "position":{"col":11,"row":9},
         "notes":"3x Fragatas Tamandaré."
       },
       {
@@ -33,7 +33,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":2,"air":1,"submarine":1,"land":1},
         "weapons":{"mss":{"quantity":24,"range":2}},
         "capabilities":{"navalGun":4,"airDefense":6,"asw":4,"airAttack":2},
-        "position":{"col":3,"row":5},
+        "position":{"col":9,"row":10},
         "notes":"2x Fragatas Tamandaré + 2x Corvetas Barroso."
       },
       {
@@ -44,7 +44,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":3,"air":1,"submarine":2,"land":2},
         "weapons":{},
         "capabilities":{"navalGun":3,"airDefense":3,"asw":4},
-        "position":{"col":2,"row":4},
+        "position":{"col":8,"row":9},
         "notes":"NDM Bahia + Oiapoque (LPD) + NCC Sabóia. Transporta BtlLit."
       },
       {
@@ -54,7 +54,7 @@ const ORDER_OF_BATTLE = {
         "detectionRange":{"surface":1,"air":1,"submarine":0,"land":0},
         "attackRange":{"surface":0,"air":0,"submarine":0,"land":0},
         "weapons":{},"capabilities":{},
-        "position":{"col":3,"row":3},
+        "position":{"col":9,"row":8},
         "notes":"NApLog. Sem combate. Reabastece unidades amigas."
       },
       {
@@ -64,7 +64,7 @@ const ORDER_OF_BATTLE = {
         "detectionRange":{"surface":1,"air":1,"submarine":0,"land":0},
         "attackRange":{"surface":0,"air":0,"submarine":0,"land":0},
         "weapons":{},"capabilities":{},
-        "position":{"col":5,"row":1},
+        "position":{"col":11,"row":6},
         "notes":"NT Alte Gastão Motta. 40 FP. Só reabastece LOG-A."
       },
       {
@@ -75,7 +75,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":2,"air":1,"submarine":0,"land":0},
         "weapons":{"mss":{"quantity":4,"range":2}},
         "capabilities":{"navalGun":2,"airDefense":2,"airAttack":2},
-        "position":{"col":7,"row":1},
+        "position":{"col":13,"row":6},
         "notes":"2x NPaOc Apa. ISR oceânico norte da AO."
       },
       {
@@ -86,7 +86,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":2,"air":1,"submarine":0,"land":0},
         "weapons":{"mss":{"quantity":4,"range":2}},
         "capabilities":{"navalGun":2,"airDefense":2,"airAttack":2},
-        "position":{"col":4,"row":7},
+        "position":{"col":10,"row":12},
         "notes":"2x NPaOc Amazonas. ISR oceânico sul/leste."
       },
       {
@@ -97,7 +97,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":1,"air":0,"submarine":0,"land":0},
         "weapons":{"mss":{"quantity":2,"range":1}},
         "capabilities":{"navalGun":2},
-        "position":{"col":4,"row":4},
+        "position":{"col":10,"row":9},
         "notes":"2x NPa Macaé. Opera em zona costeira."
       },
       {
@@ -108,7 +108,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":1,"air":0,"submarine":0,"land":0},
         "weapons":{"mss":{"quantity":2,"range":1}},
         "capabilities":{"navalGun":2},
-        "position":{"col":5,"row":2},
+        "position":{"col":11,"row":7},
         "notes":"4x NPa Grajaú. Opera em zona costeira."
       },
       {
@@ -119,7 +119,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":3,"air":0,"submarine":2,"land":1},
         "weapons":{"ascm":{"quantity":2,"range":6},"mss":{"quantity":4,"range":2},"torpedo":{"quantity":12,"range":2}},
         "capabilities":{"asw":1},
-        "position":{"col":7,"row":4},
+        "position":{"col":13,"row":9},
         "notes":"SNAC Álvaro Alberto. Nuclear, submerso permanente. Posição secreta."
       },
       {
@@ -130,7 +130,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":2,"air":0,"submarine":1,"land":0},
         "weapons":{"mss":{"quantity":2,"range":2},"torpedo":{"quantity":6,"range":2}},
         "capabilities":{"asw":1},
-        "position":{"col":6,"row":2},
+        "position":{"col":12,"row":7},
         "notes":"S40 Riachuelo. Posição secreta."
       },
       {
@@ -141,7 +141,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":2,"air":0,"submarine":1,"land":0},
         "weapons":{"mss":{"quantity":2,"range":2},"torpedo":{"quantity":6,"range":2}},
         "capabilities":{"asw":1},
-        "position":{"col":3,"row":6},
+        "position":{"col":9,"row":11},
         "notes":"S41 Humaitá. Posição secreta."
       },
       {
@@ -152,7 +152,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":2,"air":0,"submarine":1,"land":0},
         "weapons":{"mss":{"quantity":2,"range":2},"torpedo":{"quantity":6,"range":2}},
         "capabilities":{"asw":1},
-        "position":{"col":4,"row":4},
+        "position":{"col":10,"row":9},
         "notes":"S42 Tonelero. Posição secreta."
       },
       {
@@ -163,7 +163,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":1,"air":0,"submarine":0,"land":2},
         "weapons":{"raid":{"quantity":3,"range":2}},
         "capabilities":{},
-        "position":{"col":6,"row":2},
+        "position":{"col":12,"row":7},
         "hostId":"BLUE-SUB-1",
         "stealthy":true,
         "notes":"Equipe de Operações Especiais. Embarcada no SB1."
@@ -176,7 +176,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":3,"air":0,"submarine":1,"land":0},
         "weapons":{"mss":{"quantity":4,"range":2},"torpedo":{"quantity":2,"range":2}},
         "capabilities":{"asw":2,"airAttack":2},
-        "position":{"col":1,"row":3},
+        "position":{"col":7,"row":8},
         "notes":"P-3AM Orion. Raio 60 hex. ASW + anti-superfície. Base Santos."
       },
       {
@@ -187,7 +187,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":3,"air":0,"submarine":1,"land":0},
         "weapons":{"mss":{"quantity":4,"range":2},"torpedo":{"quantity":2,"range":2}},
         "capabilities":{"asw":2,"airAttack":2},
-        "position":{"col":1,"row":3},
+        "position":{"col":7,"row":8},
         "notes":"P-3AM Orion. Base Vitória."
       },
       {
@@ -198,7 +198,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":0,"air":2,"submarine":0,"land":0},
         "weapons":{},
         "capabilities":{"airDefense":6,"airAttack":6},
-        "position":{"col":0,"row":3},
+        "position":{"col":6,"row":8},
         "notes":"F-39E Gripen 5a ger. Base RJ."
       },
       {
@@ -209,7 +209,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":0,"air":2,"submarine":0,"land":0},
         "weapons":{},
         "capabilities":{"airDefense":6,"airAttack":6},
-        "position":{"col":0,"row":3},
+        "position":{"col":6,"row":8},
         "notes":"F-39E Gripen 5a ger. Base Santos."
       },
       {
@@ -220,7 +220,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":1,"air":1,"submarine":0,"land":1},
         "weapons":{"ascm":{"quantity":4,"range":6},"mss":{"quantity":2,"range":2},"lacm":{"quantity":2,"range":10}},
         "capabilities":{"airAttack":2},
-        "position":{"col":3,"row":3},
+        "position":{"col":9,"row":8},
         "notes":"AF-1 A-4 Skyhawk 4a ger. Buddy-tank. Base Santos/NAM."
       },
       {
@@ -231,7 +231,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":1,"air":1,"submarine":0,"land":1},
         "weapons":{"ascm":{"quantity":4,"range":6},"mss":{"quantity":2,"range":2},"lacm":{"quantity":2,"range":10}},
         "capabilities":{"airAttack":2},
-        "position":{"col":3,"row":3},
+        "position":{"col":9,"row":8},
         "notes":"AF-1 A-4 Skyhawk 4a ger. Base Vitória."
       },
       {
@@ -242,7 +242,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":3,"air":0,"submarine":0,"land":0},
         "weapons":{"mss":{"quantity":10,"range":3}},
         "capabilities":{"airDefense":2},
-        "position":{"col":4,"row":2},
+        "position":{"col":10,"row":7},
         "notes":"2x Baterias MANSUP-ER costeiras. Fixo. Raio 5 hex."
       },
       {
@@ -253,7 +253,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":3,"air":0,"submarine":0,"land":0},
         "weapons":{"mss":{"quantity":10,"range":3}},
         "capabilities":{"airDefense":2},
-        "position":{"col":1,"row":4},
+        "position":{"col":7,"row":9},
         "notes":"2x Baterias MANSUP-ER costeiras. Fixo. Raio 5 hex."
       },
       {
@@ -264,7 +264,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":0,"air":1,"submarine":0,"land":0},
         "weapons":{},
         "capabilities":{"airDefense":6,"bmd":2},
-        "position":{"col":3,"row":1},
+        "position":{"col":9,"row":6},
         "notes":"1x Btl ADA EB SHORAD/MANPADS. Rio de Janeiro."
       },
       {
@@ -275,7 +275,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":0,"air":1,"submarine":0,"land":0},
         "weapons":{},
         "capabilities":{"airDefense":6,"bmd":2},
-        "position":{"col":0,"row":5},
+        "position":{"col":6,"row":10},
         "notes":"1x Btl ADA EB GBAD Médio. Santos."
       },
       {
@@ -285,7 +285,7 @@ const ORDER_OF_BATTLE = {
         "detectionRange":{"surface":1,"air":1,"submarine":0,"land":0},
         "attackRange":{"surface":0,"air":0,"submarine":0,"land":0},
         "weapons":{},"capabilities":{},
-        "position":{"col":6,"row":3}
+        "position":{"col":12,"row":8}
       },
       {
         "id":"BLUE-FPSO2","name":"FPSO2","category":"surface",
@@ -294,7 +294,7 @@ const ORDER_OF_BATTLE = {
         "detectionRange":{"surface":1,"air":1,"submarine":0,"land":0},
         "attackRange":{"surface":0,"air":0,"submarine":0,"land":0},
         "weapons":{},"capabilities":{},
-        "position":{"col":5,"row":3}
+        "position":{"col":11,"row":8}
       },
       {
         "id":"BLUE-FPSO3","name":"FPSO3","category":"surface",
@@ -303,7 +303,7 @@ const ORDER_OF_BATTLE = {
         "detectionRange":{"surface":1,"air":1,"submarine":0,"land":0},
         "attackRange":{"surface":0,"air":0,"submarine":0,"land":0},
         "weapons":{},"capabilities":{},
-        "position":{"col":4,"row":5}
+        "position":{"col":10,"row":10}
       },
       {
         "id":"BLUE-FPSO4","name":"FPSO4","category":"surface",
@@ -312,7 +312,7 @@ const ORDER_OF_BATTLE = {
         "detectionRange":{"surface":1,"air":1,"submarine":0,"land":0},
         "attackRange":{"surface":0,"air":0,"submarine":0,"land":0},
         "weapons":{},"capabilities":{},
-        "position":{"col":2,"row":6}
+        "position":{"col":8,"row":11}
       },
       {
         "id":"BLUE-PORTO-S","name":"Porto de Santos","category":"land",
@@ -321,7 +321,7 @@ const ORDER_OF_BATTLE = {
         "detectionRange":{"surface":1,"air":0,"submarine":0,"land":1},
         "attackRange":{"surface":0,"air":0,"submarine":0,"land":0},
         "weapons":{},"capabilities":{},
-        "position":{"col":0,"row":5},
+        "position":{"col":6,"row":10},
         "notes":"Porto de Santos. SP=20. Hub logístico sul."
       },
       {
@@ -331,7 +331,7 @@ const ORDER_OF_BATTLE = {
         "detectionRange":{"surface":1,"air":0,"submarine":0,"land":1},
         "attackRange":{"surface":0,"air":0,"submarine":0,"land":0},
         "weapons":{},"capabilities":{},
-        "position":{"col":2,"row":4},
+        "position":{"col":8,"row":9},
         "notes":"Porto do RJ. SP=20. Hub naval central."
       },
       {
@@ -341,7 +341,7 @@ const ORDER_OF_BATTLE = {
         "detectionRange":{"surface":1,"air":0,"submarine":0,"land":1},
         "attackRange":{"surface":0,"air":0,"submarine":0,"land":0},
         "weapons":{},"capabilities":{},
-        "position":{"col":5,"row":1},
+        "position":{"col":11,"row":6},
         "notes":"Porto de Vitória. SP=16."
       },
       {
@@ -351,7 +351,7 @@ const ORDER_OF_BATTLE = {
         "detectionRange":{"surface":1,"air":0,"submarine":0,"land":1},
         "attackRange":{"surface":0,"air":0,"submarine":0,"land":0},
         "weapons":{},"capabilities":{},
-        "position":{"col":4,"row":3},
+        "position":{"col":10,"row":8},
         "notes":"Porto do Açu. SP=12. Terminal offshore."
       },
       {
@@ -361,7 +361,7 @@ const ORDER_OF_BATTLE = {
         "detectionRange":{"surface":1,"air":2,"submarine":0,"land":1},
         "attackRange":{"surface":0,"air":0,"submarine":0,"land":0},
         "weapons":{},"capabilities":{},
-        "position":{"col":0,"row":3},
+        "position":{"col":6,"row":8},
         "notes":"Base Aérea de Santa Cruz / Galeão. Fixo. Recompletamento F-39 Gripen."
       },
       {
@@ -371,7 +371,7 @@ const ORDER_OF_BATTLE = {
         "detectionRange":{"surface":1,"air":2,"submarine":0,"land":1},
         "attackRange":{"surface":0,"air":0,"submarine":0,"land":0},
         "weapons":{},"capabilities":{},
-        "position":{"col":1,"row":3},
+        "position":{"col":7,"row":8},
         "notes":"Base Aérea de Santos / Campo de Marte. Fixo. Recompletamento P-3AM."
       },
       {
@@ -382,7 +382,7 @@ const ORDER_OF_BATTLE = {
         "detectionRange":{"surface":1,"air":2,"submarine":0,"land":1},
         "attackRange":{"surface":0,"air":0,"submarine":0,"land":0},
         "weapons":{},"capabilities":{},
-        "position":{"col":2,"row":3},
+        "position":{"col":8,"row":8},
         "notes":"Aeroporto de Cabo Frio + BAN São Pedro da Aldeia. Fixo. Alternativa de recompletamento."
       }
     ],
@@ -395,7 +395,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":4,"air":1,"submarine":2,"land":2},
         "weapons":{"mss":{"quantity":10,"range":3}},
         "capabilities":{"airDefense":3,"asw":6,"airAttack":8},
-        "position":{"col":19,"row":1},
+        "position":{"col":25,"row":6},
         "notes":"KCV Aurelius Magnus"
       },
       {
@@ -406,7 +406,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":6,"air":1,"submarine":2,"land":8},
         "weapons":{"ascm":{"quantity":14,"range":6},"mss":{"quantity":18,"range":3},"lacm":{"quantity":10,"range":10}},
         "capabilities":{"navalGun":6,"airDefense":13,"bmd":4,"asw":11},
-        "position":{"col":18,"row":1},
+        "position":{"col":24,"row":6},
         "notes":"1x CG Drakhmar + 2x DDG Volnaria. SAM/BMD/ASCM."
       },
       {
@@ -417,7 +417,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":6,"air":1,"submarine":2,"land":8},
         "weapons":{"ascm":{"quantity":8,"range":6},"mss":{"quantity":12,"range":3},"lacm":{"quantity":4,"range":10}},
         "capabilities":{"navalGun":4,"airDefense":8,"bmd":1,"asw":8},
-        "position":{"col":18,"row":2},
+        "position":{"col":24,"row":7},
         "notes":"1x CG Drakhmar + 2x DDG Volnaria. Espelhado com GE-1."
       },
       {
@@ -428,7 +428,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":2,"air":1,"submarine":1,"land":1},
         "weapons":{"mss":{"quantity":12,"range":3}},
         "capabilities":{"navalGun":3,"airDefense":6,"asw":3},
-        "position":{"col":18,"row":0},
+        "position":{"col":24,"row":5},
         "notes":"3x Fragatas Cl. Volnaria. Escolta de reserva."
       },
       {
@@ -438,7 +438,7 @@ const ORDER_OF_BATTLE = {
         "detectionRange":{"surface":1,"air":1,"submarine":0,"land":0},
         "attackRange":{"surface":0,"air":0,"submarine":0,"land":0},
         "weapons":{},"capabilities":{},
-        "position":{"col":19,"row":0},
+        "position":{"col":25,"row":5},
         "notes":"AOR Cl. Korvas. Reabastecedor primário do GBPA. Proteger."
       },
       {
@@ -449,7 +449,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":2,"air":1,"submarine":0,"land":2},
         "weapons":{},
         "capabilities":{"navalGun":4,"airDefense":4},
-        "position":{"col":19,"row":2},
+        "position":{"col":25,"row":7},
         "notes":"1x LPD Harnax + 2x LST Morvask. Carrega BdaIN. Crítico."
       },
       {
@@ -459,7 +459,7 @@ const ORDER_OF_BATTLE = {
         "detectionRange":{"surface":1,"air":1,"submarine":0,"land":0},
         "attackRange":{"surface":0,"air":0,"submarine":0,"land":0},
         "weapons":{},"capabilities":{},
-        "position":{"col":19,"row":3},
+        "position":{"col":25,"row":8},
         "notes":"AOR Korvas + AOT Brennar. Abastecimento no mar. Alvo prioritário adversário."
       },
       {
@@ -469,7 +469,7 @@ const ORDER_OF_BATTLE = {
         "detectionRange":{"surface":1,"air":1,"submarine":0,"land":0},
         "attackRange":{"surface":0,"air":0,"submarine":0,"land":0},
         "weapons":{},"capabilities":{},
-        "position":{"col":19,"row":4},
+        "position":{"col":25,"row":9},
         "notes":"AKE Cl. Yarven. Navio de munições: reabastece unidades empilhadas ao fim do turno. Alvo do objetivo logístico Azul — proteger."
       },
       {
@@ -480,7 +480,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":3,"air":0,"submarine":2,"land":8},
         "weapons":{"ascm":{"quantity":8,"range":6},"torpedo":{"quantity":12,"range":2},"lacm":{"quantity":8,"range":10}},
         "capabilities":{"asw":1},
-        "position":{"col":17,"row":2},
+        "position":{"col":23,"row":7},
         "notes":"KAR Veylan (SSN). Nuclear, submerso permanente. Posição secreta."
       },
       {
@@ -491,7 +491,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":2,"air":0,"submarine":1,"land":0},
         "weapons":{"ascm":{"quantity":4,"range":6},"torpedo":{"quantity":6,"range":2}},
         "capabilities":{"asw":1},
-        "position":{"col":1,"row":8},
+        "position":{"col":7,"row":13},
         "notes":"KAR Skarn. Posição secreta."
       },
       {
@@ -502,7 +502,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":2,"air":2,"submarine":0,"land":1},
         "weapons":{},
         "capabilities":{"airDefense":8,"airAttack":8},
-        "position":{"col":19,"row":1},
+        "position":{"col":25,"row":6},
         "embarked":"RED-GBPA",
         "notes":"KMF-22 Sturmadler 4.5a ger. Embarcado no KCV. Raio 20 hex."
       },
@@ -514,7 +514,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":2,"air":2,"submarine":0,"land":1},
         "weapons":{},
         "capabilities":{"airDefense":8,"airAttack":8},
-        "position":{"col":19,"row":1},
+        "position":{"col":25,"row":6},
         "embarked":"RED-GBPA",
         "notes":"KMF-22 Sturmadler 4.5a ger. Embarcado no KCV."
       },
@@ -526,7 +526,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":2,"air":0,"submarine":1,"land":0},
         "weapons":{"ascm":{"quantity":2,"range":6},"mss":{"quantity":2,"range":2},"torpedo":{"quantity":2,"range":2}},
         "capabilities":{"asw":2,"airAttack":2},
-        "position":{"col":19,"row":1},
+        "position":{"col":25,"row":6},
         "embarked":"RED-GBPA"
       },
       {
@@ -537,7 +537,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":2,"air":0,"submarine":1,"land":0},
         "weapons":{"ascm":{"quantity":2,"range":6},"mss":{"quantity":2,"range":2},"torpedo":{"quantity":2,"range":2}},
         "capabilities":{"asw":2,"airAttack":2},
-        "position":{"col":19,"row":1},
+        "position":{"col":25,"row":6},
         "embarked":"RED-GBPA",
         "notes":"K-32 Stormwatch. Raio 60 hex. ASW + anti-superfície. Embarcado KCV."
       },
@@ -548,7 +548,7 @@ const ORDER_OF_BATTLE = {
         "detectionRange":{"surface":3,"air":4,"submarine":0,"land":1},
         "attackRange":{"surface":0,"air":0,"submarine":0,"land":0},
         "weapons":{},"capabilities":{},
-        "position":{"col":19,"row":1},
+        "position":{"col":25,"row":6},
         "embarked":"RED-GBPA",
         "notes":"K-99 Argus. Raio ISR 9 hex. Crítico. Embarcado KCV."
       },
@@ -560,7 +560,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":1,"air":0,"submarine":0,"land":2},
         "weapons":{"raid":{"quantity":3,"range":2}},
         "capabilities":{},
-        "position":{"col":19,"row":1},
+        "position":{"col":25,"row":6},
         "hostId":"RED-GBPA",
         "stealthy":true,
         "notes":"Equipe de Operações Especiais. Embarcada no CSG."
@@ -573,7 +573,7 @@ const ORDER_OF_BATTLE = {
         "attackRange":{"surface":1,"air":0,"submarine":0,"land":2},
         "weapons":{"raid":{"quantity":3,"range":2}},
         "capabilities":{},
-        "position":{"col":1,"row":8},
+        "position":{"col":7,"row":13},
         "hostId":"RED-KS-1",
         "stealthy":true,
         "notes":"Equipe de Operações Especiais. Embarcada no submarino convencional."

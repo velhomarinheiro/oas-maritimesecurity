@@ -15,7 +15,7 @@ Estou desenvolvendo um wargame naval multiplayer chamado "Operação Atlântico 
 - O jogo já registra todas as partidas em `data/game-logs/*.jsonl`
 - Cada arquivo JSONL contém eventos: `game_start`, `movement_committed`,
   `attacks_declared`, `engagement_resolved`, `game_over`
-- O estado do jogo usa um grid hexagonal flat-top de 10×16 células
+- O estado do jogo usa um grid hexagonal flat-top de 28×20 células (carta OAS-MAP-001)
 - Unidades têm: posição (col, row), HP, categoria, combustível e armas
 
 **O que precisa ser feito agora:**

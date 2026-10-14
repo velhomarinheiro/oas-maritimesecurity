@@ -55,8 +55,8 @@ function pathLegal(state, unitId, path) {
   for (const mut of [0, 1, 2]) {
     const s = newGame();
     if (mut === 1) { // frotas avançadas
-      byId(s, 'RED-GE-1').col = 9; byId(s, 'RED-GE-2').col = 10;
-      byId(s, 'BLUE-SAG-P').col = 7; byId(s, 'BLUE-SAG-P').row = 3;
+      byId(s, 'RED-GE-1').col = 15; byId(s, 'RED-GE-2').col = 16;
+      byId(s, 'BLUE-SAG-P').col = 13; byId(s, 'BLUE-SAG-P').row = 8;
     }
     if (mut === 2) { // combustíveis baixos
       for (const u of s.units) if (u.fuel?.fuelType === 'naval') u.fuel.current = 3;
@@ -80,7 +80,7 @@ function pathLegal(state, unitId, path) {
   const pat  = byId(s, 'BLUE-PAT-O1');
   // afasta os demais azuis p/ fora do raio de oportunidade (dist > 2)
   for (const u of s.units) {
-    if (u.team === 'blue' && u.id !== fpso.id && u.id !== pat.id) { u.col = 15; u.row = 9; }
+    if (u.team === 'blue' && u.id !== fpso.id && u.id !== pat.id) { u.col = 21; u.row = 14; }
   }
   // posiciona atacante equidistante de FPSO e patrulha (ambos a dist 2)
   att.col = fpso.col + 2; att.row = fpso.row;
@@ -116,8 +116,8 @@ function pathLegal(state, unitId, path) {
   const att = byId(s, 'RED-GE-2');
   const frig = byId(s, 'BLUE-SAG-1') || s.units.find(u => u.team === 'blue' && ['fragata','destroier','corveta','cruzador'].includes(u.type));
   const fpso = byId(s, 'BLUE-FPSO1');
-  att.col = 10; att.row = 4;
-  frig.col = 11; frig.row = 4;          // dist 1 — colado
+  att.col = 16; att.row = 9;
+  frig.col = 17; frig.row = 9;          // dist 1 — colado
   // FPSO fica onde está (longe)
   const w = botObjectiveWeights(s, 'red');
   const tgt = botPickTarget(att, s.units.filter(u => u.team === 'blue' && u.hp > 0), w);
@@ -190,7 +190,7 @@ function pathLegal(state, unitId, path) {
   const s = newGame();
   const jet = s.units.find(u => u.team === 'blue' && u.category === 'air' && u.airStatus === 'ready');
   // inimigos todos muito longe: empurra todos os vermelhos para o canto
-  for (const u of s.units) if (u.team === 'red') { u.col = 15; u.row = 9; }
+  for (const u of s.units) if (u.team === 'red') { u.col = 21; u.row = 14; }
   jet.fuel.current = 4; // alcance de voo 2
   const mv = computeBotMoves(s, 'blue').find(m => m.unitId === jet.id);
   check('caça com 2 hexes de voo não decola p/ alvo inalcançável', !mv, mv && `moveu ${mv.path.length - 1}`);

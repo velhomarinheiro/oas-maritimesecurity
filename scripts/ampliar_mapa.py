@@ -2,6 +2,10 @@
 """
 ampliar_mapa.py — Amplia a carta náutica do jogo de 16 para 20 colunas (A–T).
 
+HISTÓRICO: a carta de 20×10 foi substituída pela OAS-MAP-001 Ed. 2.0 (28×20);
+ver scripts/mapa_oas_map_001.py. Este script fica como registro de como a
+carta de 20 colunas foi produzida.
+
 A carta (public/mapa.jpeg) é uma imagem raster com a grade hexagonal, os
 rótulos dos hexágonos, o graticulado, as sondagens, a moldura e o título já
 impressos; não há fonte vetorial. Este script estende a própria imagem para

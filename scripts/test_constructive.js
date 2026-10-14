@@ -565,7 +565,7 @@ async function testesPlanilha() {
     set('BLUE-SAG-S1', 'SP', 12);
     const r = u.rowCount + 1;
     const novo = { lado: 'azul', id: 'BLUE-FRAG-N1', nome: 'Fragata Nova', categoria: 'superficie', pacote: 'C_Azuis',
-                   grupo: 'VIG', SP: 4, movimento: 4, coluna: 'F', linha: 6, mss_qtd: 8, mss_alc: 2,
+                   grupo: 'VIG', SP: 4, movimento: 4, coluna: 'L', linha: 11, mss_qtd: 8, mss_alc: 2,
                    det_superficie: 2, det_aereo: 2, alc_superficie: 2, defesa_aerea: 2 };
     for (const [k, val] of Object.entries(novo)) u.getCell(r, col[k]).value = val;
     c.addRow(['BLUE-FRAG-N1', 'fragata', 1]);
@@ -606,7 +606,7 @@ async function testesPlanilha() {
 
   // (4) Cada erro aponta a célula certa.
   const comErros = await lerEValidar(await editar(({ u, c, col, linha, set }) => {
-    set('BLUE-SUB-1', 'coluna', 'G'); set('BLUE-SUB-1', 'linha', 1);
+    set('BLUE-SUB-1', 'coluna', 'M'); set('BLUE-SUB-1', 'linha', 6);
     set('RED-GE-2', 'movimento', 'quatro');
     set('RED-GE-3', 'SP', new Date(2026, 0, 1));
     set('RED-GBPA', 'pacote', 'C_Azuis');
@@ -616,7 +616,7 @@ async function testesPlanilha() {
     c.addRow(['BLUE-SAG-P', 'navio_espacial', 1]);
   }));
   const tem = (re, msg) => ok(comErros.erros.some(e => re.test(e)), msg);
-  tem(/^Unidades!P\d+: G1 é águas rasas/,         'submarino em águas rasas: erro na célula da coluna');
+  tem(/^Unidades!P\d+: M6 é águas rasas/,         'submarino em águas rasas: erro na célula da coluna');
   tem(/^Unidades!O\d+: movimento — "quatro"/,      'texto em campo numérico: erro na célula');
   tem(/^Unidades!N\d+: a célula virou data/,       'data no lugar de número: erro na célula');
   tem(/^Unidades!E\d+: pacote de capacidade só existe na Força Azul/, 'pacote numa unidade vermelha');
