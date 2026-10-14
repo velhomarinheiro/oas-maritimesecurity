@@ -255,7 +255,8 @@ const SAL_CONSTAB = { rotina: 0x9E3779B9, saturacao: 0x85EBCA6B };
 // estação pode tomar; `area` liga os Distritos Navais às áreas de AREAS_DN.
 const ESTACOES = [
   { id: 'COMPAAz', nome: 'Comando de Patrulha Azul',     nivel: 'apice',   trilha: 'transversal',
-    papeis: ['autorizar_escalada', 'priorizar_esforco', 'alocar_isr', 'solicitar_mpa', 'solicitar_apoio', 'alocar_npaoc'] },
+    papeis: ['autorizar_escalada', 'priorizar_esforco', 'alocar_isr', 'solicitar_mpa', 'solicitar_apoio', 'alocar_npaoc',
+             'campanha_informacional'] },
   { id: 'ComemCh', nome: 'Comando-em-Chefe da Esquadra', nivel: 'subord', trilha: 'defesa',
     papeis: ['propor_escalada', 'empregar_esquadra', 'engajar_n3'] },
   { id: 'Com2ºDN', nome: 'Comando do 2º Distrito Naval', nivel: 'subord', trilha: 'constabular', area: '2DN',
@@ -396,6 +397,43 @@ const PRONTIDAO = {
 // TODO: validar com especialista
 const FATOR_SEM_GVI = 0.5;
 
+// ─── Dimensão informacional e cognitiva (Conceito §6, §11.3) ──────────────────
+
+// Indicador de apoio público / confiança (0–100) e custo político.
+// TODO: validar com especialista
+const INFOCOG = {
+  apoioInicial: 60,
+  apoioReferencia: 60,     // para onde o apoio tende sem eventos
+  retornoPorTurno: 0.05,   // fração da distância à referência recuperada por turno
+  // Largura da ROE (§6.3): abaixo de `estreita` perde-se um degrau; a partir
+  // de `amplia`, ganha-se um (nunca o emprego de força fora de N3).
+  faixasRoe: { estreita: 30, amplia: 75 },
+  // Custo político de uma ação Azul (§11.3): risco por atribuição frágil
+  // (SM-1) + excesso de força sobre a ROE (SM-2) + danos a terceiros,
+  // multiplicado por 1 + modulacao × (referência − apoio) / referência.
+  custo: { pesoExcesso: 2, pesoDanos: 3, modulacao: 0.5 },
+  tetoCustoPolitico: 25,   // ultrapassá-lo é derrota estratégica Azul
+  apoioPorCusto: 3,        // pontos de apoio perdidos por unidade de custo político
+  // Eventos no mar que movem o apoio (pontos).
+  eventosMar: {
+    reprimida: +0.5, sar_sucesso: +3, sar_falha: -4, dano_infra: -2,
+    incidente_nao_respondido: -1, dano_terceiros: -5,
+  },
+  // Desinformação Vermelha (§6.1): queda do apoio; o gatilho real (ação Azul
+  // frágil ainda não esclarecida) multiplica o efeito.
+  desinformacao: { base: 6, gatilhoReal: 1.5 },
+  // Campanhas informacionais Azuis (§6.2) — ações próprias do COMPAAz, uma
+  // por turno, com efeito no turno seguinte. Eficácia × (0,5 + 0,5 × fusão).
+  campanhas: {
+    comunicacao_estrategica: { rotulo: 'Comunicação estratégica', ganho: 3 },
+    transparencia:           { rotulo: 'Transparência proativa',  ganho: 2, esclareceGatilho: true },
+    prova_documentada:       { rotulo: 'Divulgação de prova documentada', ganho: 6, exigeProva: true, esclareceGatilho: true },
+    prebunking:              { rotulo: 'Prebunking',              ganho: 0, protecao: 0.5, duracao: 3 },
+  },
+  campanhasPorTurno: 1,
+  prazoCampanha: 1,
+};
+
 // ─── Boletim (Conceito §8.4) ──────────────────────────────────────────────────
 
 // Probabilidade em palavras (limite inferior inclusivo).
@@ -417,6 +455,7 @@ const PARAMS = {
   DURACAO_DIAS, VETORES_HIBRIDOS, FATORES_SM, DIFICULDADES, CRISES, N_CRISES, SAL_CRISES,
   AJUSTAVEIS_CELULA_BRANCA,
   PRONTIDAO, FATOR_SEM_GVI,
+  INFOCOG,
 };
 
 module.exports = { PARAMS, ...PARAMS };

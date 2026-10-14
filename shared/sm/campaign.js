@@ -16,7 +16,8 @@
  *    8.2, avaliados em dois marcos (Detecção e Resposta). No jogador único,
  *    tipo, local e momento saem da semente; com Célula Branca, ela os injeta.
  *  - Boletim de situação (§8.4), com probabilidades em palavras e o
- *    interruptor "mostrar os números".
+ *    interruptor "mostrar os números", apoio público, custo político e a
+ *    largura da ROE (SM-7).
  *  - Célula Branca (§8.5): injeta eventos, ocorrências e crises, ajusta
  *    parâmetros, transfere áreas e anula lances — sempre com justificativa,
  *    tudo registrado. Sem Célula Branca, o motor exerce essas funções.
@@ -32,6 +33,7 @@ const CO = require('./constab');
 const ES = require('./escalation');
 const AP = require('./apoio');
 const EN = require('./encounter');
+const IC = require('./infocog');
 
 // ─── Configurador ────────────────────────────────────────────────────────────
 
@@ -182,6 +184,7 @@ function iniciarCampanha(cfg, params = P) {
       : null,
     apoio: AP.criarEstadoApoio({ seed: config.seed, apoioExterno: config.apoioExterno, mpaOrganica: config.fatores.A_MPA === 1 }, params),
     crises: agendarCrises(config, params),
+    infocog: IC.criarEstadoInfocog(params),
     responsavelPorArea: Object.fromEntries(params.AREAS_DN.map(a => [a.id, a.estacao])),
     padroes: {},          // contagem de respostas repetidas (adaptação do adversário)
     revelados: [],        // contatos híbridos já encontrados (ocultação até o contato)
@@ -304,6 +307,8 @@ function gerarBoletim(estado, dados = {}, params = P) {
     : estado.config.dificuldade === 'basico' ? { rotulo: params.CRISES[prox.tipo].rotulo, area: prox.area, turno: prox.inicio }
     : { rotulo: 'indefinido' };
 
+  const info = estado.infocog ? IC.metricas(estado.infocog) : null;
+  const roe = estado.infocog ? IC.roeEfetiva(estado.escalada.nivel, estado.infocog.apoio, params) : null;
   const linhas = [
     `Turno ${estado.turno} · postura ${nivel.sigla} ${nivel.postura}`,
     ...acoes.map(a => `${a.unidade} → ${a.contato}: ${a.etapas.map(x => `${x.etapa} (${x.chance}) ${x.sucesso ? '✓' : '✗'}`).join(' · ') || '—'} ⇒ ${a.resultado}`),
@@ -311,11 +316,14 @@ function gerarBoletim(estado, dados = {}, params = P) {
     ...(constab ? [`Ordem marítima: ${constab.ocorr_reprimidas}/${constab.n_ocorr_crim} ocorrências reprimidas`
                  + ` · ${estado.constab.ativas.length} abertas`
                  + ((dados.constabTurno?.escaparam?.length) ? ` · ${dados.constabTurno.escaparam.length} escaparam no turno` : '')] : []),
+    ...(info ? [`Apoio público ${Math.round(info.apoio_publico)}% · custo político ${info.E4_custopol.toFixed(1)}`
+               + `/${params.INFOCOG.tetoCustoPolitico} · ROE ${roe.largura < 0 ? 'estreitada' : roe.largura > 0 ? 'ampliada' : 'normal'}`] : []),
     ...ativas.map(c => `Crise em curso: ${c.rotulo} (${c.area})`),
     `Próximo evento: ${proximoEvento ? (proximoEvento.turno ? `${proximoEvento.rotulo} (${proximoEvento.area}, turno ${proximoEvento.turno})` : 'indefinido') : 'nenhum previsto'}`,
   ];
   return { turno: estado.turno, postura: { nivel: nivel.nivel, sigla: nivel.sigla, postura: nivel.postura },
-           acoes, atribuicoes, constabular: constab, crisesAtivas: ativas, proximoEvento, linhas };
+           acoes, atribuicoes, constabular: constab, crisesAtivas: ativas, proximoEvento,
+           informacional: info && { ...info, roe }, linhas };
 }
 
 // ─── Célula Branca ───────────────────────────────────────────────────────────
