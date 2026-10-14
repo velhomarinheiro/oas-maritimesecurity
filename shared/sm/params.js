@@ -131,6 +131,51 @@ const CLASSES_ATRIBUICAO = [
   { min: 0,   classe: 'nula' },
 ];
 
+// ─── Escada de escalada (Conceito §9.3, Tabela 9.1) ───────────────────────────
+
+// Níveis de postura. `tetoRoe` é a etapa máxima do motor de encontro que a
+// ROE do nível permite; `acoes` são as respostas autorizadas (catálogo
+// ACOES abaixo). Em N1 a abordagem é só consentida; a coercitiva, o
+// apresamento e a zona de exclusão começam em N2; o emprego de força (e a
+// salva) só em N3.
+const NIVEIS = [
+  { nivel: 0, sigla: 'N0', postura: 'Rotina',   tetoRoe: 'identificacao',
+    acoes: ['vigilancia', 'presenca', 'registro'] },
+  { nivel: 1, sigla: 'N1', postura: 'Tensão',   tetoRoe: 'inspecao',
+    acoes: ['vigilancia', 'presenca', 'registro', 'interrogacao', 'escolta', 'abordagem_consentida'] },
+  { nivel: 2, sigla: 'N2', postura: 'Crise',    tetoRoe: 'apresamento',
+    acoes: ['vigilancia', 'presenca', 'registro', 'interrogacao', 'escolta', 'abordagem_consentida',
+            'abordagem_coercitiva', 'apresamento', 'zona_exclusao'] },
+  { nivel: 3, sigla: 'N3', postura: 'Conflito', tetoRoe: 'apresamento',
+    acoes: ['vigilancia', 'presenca', 'registro', 'interrogacao', 'escolta', 'abordagem_consentida',
+            'abordagem_coercitiva', 'apresamento', 'zona_exclusao', 'emprego_forca'] },
+];
+
+// Catálogo de respostas, na ordem de coerção crescente; o índice é o "nível
+// mínimo" implícito de cada uma (lido de NIVEIS).
+const ACOES = [
+  'vigilancia', 'presenca', 'registro', 'interrogacao', 'escolta', 'abordagem_consentida',
+  'abordagem_coercitiva', 'apresamento', 'zona_exclusao', 'emprego_forca',
+];
+
+// Gatilhos de subida (Tabela 9.1), avaliados sobre os eventos do turno e a
+// janela recente.
+// TODO: validar com especialista
+const GATILHOS_ESCALADA = {
+  // N0 → N1: padrão de incidentes (N incidentes híbridos na janela) OU um
+  // incidente com atribuição parcial.
+  N1: { incidentesJanela: 3, janelaTurnos: 3, atribuicaoMin: 40 },
+  // N1 → N2: dano a infraestrutura com atribuição robusta.
+  N2: { atribuicaoMin: 70 },
+  // N2 → N3: ataque armado atribuído (robusta) ou emprego aberto de meios.
+  N3: { atribuicaoMin: 70 },
+};
+
+// Turnos consecutivos sem gatilho do nível corrente para propor descida de
+// um nível.
+// TODO: validar com especialista
+const TURNOS_PARA_DESESCALAR = 4;
+
 // ─── Boletim (Conceito §8.4) ──────────────────────────────────────────────────
 
 // Probabilidade em palavras (limite inferior inclusivo).
@@ -146,6 +191,7 @@ const PARAMS = {
   CAPACIDADE_POR_TIPO, GANHO_EVIDENCIA, FATOR_NEGABILIDADE, NEGABILIDADE_PADRAO,
   PISO_FUSAO_EVIDENCIA, LIMIAR_ATRIBUICAO, PESO_POLITICO, CLASSES_ATRIBUICAO,
   ROTULOS_PROBABILIDADE,
+  NIVEIS, ACOES, GATILHOS_ESCALADA, TURNOS_PARA_DESESCALAR,
 };
 
 module.exports = { PARAMS, ...PARAMS };
