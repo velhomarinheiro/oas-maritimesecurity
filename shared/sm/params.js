@@ -78,6 +78,12 @@ const CAPACIDADE_POR_TIPO = {
   specops:          { sensor: 0.40, gvi: 1.00 },
   logistico:        { sensor: 0.30, gvi: 0.20 },
   tanque:           { sensor: 0.30, gvi: 0.10 },
+  // Meios de MarSec (SM-6)
+  inspecao_naval:   { sensor: 0.40, gvi: 0.90 },  // lanchas/avisos de inspeção naval dos DN
+  mcm:              { sensor: 0.50, gvi: 0.30 },  // Varredores Cl. Aratu, Caça-Minas Amorim do Valle
+  usv:              { sensor: 0.70, gvi: 0.00 },  // fator D_USV
+  uav:              { sensor: 0.80, gvi: 0.00 },
+  rov:              { sensor: 0.60, gvi: 0.00 },
 };
 
 // ─── Atribuição (Conceito §9.2) ───────────────────────────────────────────────
@@ -373,6 +379,23 @@ const SAL_CRISES = 0x27D4EB2F;
 // Parâmetros que a Célula Branca pode ajustar durante o exercício (§8.5).
 const AJUSTAVEIS_CELULA_BRANCA = ['intensidadeHibrida', 'areaAlvoHibrida', 'mostrarNumeros', 'dificuldade'];
 
+// ─── OOB de MarSec e prontidão (Conceito §10) ─────────────────────────────────
+
+// Escalões de prontidão (Tabela 10.4), em turnos de 24 h entre o acionamento
+// e o início do movimento. `porEstacao`: quantos meios do escalão cada
+// estação designa (o COMPAAz não tem meios de superfície próprios).
+// TODO: validar com especialista
+const PRONTIDAO = {
+  sar:    { rotulo: 'Navio SAR',                    atraso: 0, porEstacao: { ComemCh: 1, DN: 1 } },
+  fpe:    { rotulo: 'Força de Pronto Emprego',      atraso: 1, porEstacao: { ComemCh: 3, DN: 2 } },
+  demais: { rotulo: 'Demais unidades (aprestamento)', atraso: 2 },
+};
+
+// Sem grupamento de Fuzileiros embarcado (fator E_GVI), a capacidade de
+// abordagem dos navios da estação cai a esta fração.
+// TODO: validar com especialista
+const FATOR_SEM_GVI = 0.5;
+
 // ─── Boletim (Conceito §8.4) ──────────────────────────────────────────────────
 
 // Probabilidade em palavras (limite inferior inclusivo).
@@ -393,6 +416,7 @@ const PARAMS = {
   ESTACOES, MODALIDADES, FONTES, TETO_FUSAO_SEM_C, APOIOS, SAL_APOIO,
   DURACAO_DIAS, VETORES_HIBRIDOS, FATORES_SM, DIFICULDADES, CRISES, N_CRISES, SAL_CRISES,
   AJUSTAVEIS_CELULA_BRANCA,
+  PRONTIDAO, FATOR_SEM_GVI,
 };
 
 module.exports = { PARAMS, ...PARAMS };

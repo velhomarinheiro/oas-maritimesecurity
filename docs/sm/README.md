@@ -63,3 +63,4 @@ construtivo existente.
 | SM-3 — gerador constabular e dupla função | [`SM-3.md`](SM-3.md) | concluída |
 | SM-4 — C2: estações, barramento, modalidades, apoios | [`SM-4.md`](SM-4.md) | concluída |
 | SM-5 — configurador, dificuldade, crises, boletim, Célula Branca | [`SM-5.md`](SM-5.md) | concluída |
+| SM-6 — OOB estendida, fatores e prontidão | [`SM-6.md`](SM-6.md) | concluída |
