@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OAS-SM — Segurança Marítima</title>
+  <meta name="description" content="Operação Atlântico Sul — variante de Segurança Marítima: jogador único, confronto 1×1 e estações distribuídas.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="css/game.css">
+  <link rel="stylesheet" href="css/sm.css">
+</head>
+<body>
+
+<!-- ── LOBBY ─────────────────────────────────────────────────────────────── -->
+<section id="lobby" class="sm-lobby">
+  <header class="sm-lobby-head">
+    <div class="header-title">OPERAÇÃO ATLÂNTICO SUL · SEGURANÇA MARÍTIMA</div>
+    <a class="sm-link" href="/">← Jogo base</a>
+  </header>
+  <div class="sm-cards">
+    <form id="form-criar" class="sm-card" autocomplete="off">
+      <h2>Configurar cenário</h2>
+      <label>Seu nome <input name="nome" maxlength="40" value="Comandante"></label>
+      <fieldset><legend>Modalidade</legend>
+        <label><input type="radio" name="modalidade" value="unico" checked> Jogador único</label>
+        <label><input type="radio" name="modalidade" value="1x1"> Confronto 1×1 (Azul × Vermelho)</label>
+        <label><input type="radio" name="modalidade" value="distribuido"> Estações distribuídas (EM)</label>
+      </fieldset>
+      <label>Seu assento <select name="assento" id="criar-assento"></select></label>
+      <fieldset><legend>Áreas ativas</legend>
+        <label><input type="checkbox" name="area" value="2DN" checked> 2º DN (BA–SE)</label>
+        <label><input type="checkbox" name="area" value="1DN" checked> 1º DN (RJ–ES)</label>
+        <label><input type="checkbox" name="area" value="8DN" checked> 8º DN (SP)</label>
+        <label><input type="checkbox" name="area" value="5DN" checked> 5º DN (SC–RS)</label>
+      </fieldset>
+      <fieldset><legend>Trilhas</legend>
+        <label><input type="checkbox" name="defesa" checked> Defesa (híbrido)</label>
+        <label><input type="checkbox" name="constabular" checked> Constabular</label>
+      </fieldset>
+      <div class="sm-row">
+        <label>Dificuldade <select name="dificuldade">
+          <option value="basico">Básico</option><option value="intermediario" selected>Intermediário</option><option value="avancado">Avançado</option>
+        </select></label>
+        <label>Duração (dias) <input name="duracaoDias" type="number" min="30" max="60" value="30"></label>
+      </div>
+      <div class="sm-row">
+        <label>Intensidade híbrida <input name="intensidadeHibrida" type="range" min="0" max="1" step="0.1" value="0.5"></label>
+        <label>Postura inicial <select name="nivelInicial"><option value="0">N0 Rotina</option><option value="1">N1 Tensão</option><option value="2">N2 Crise</option></select></label>
+      </div>
+      <fieldset><legend>Fontes de dados de embarcações (§8.7)</legend>
+        <label><input type="checkbox" name="fonte" value="ais" checked> AIS</label>
+        <label><input type="checkbox" name="fonte" value="preps" checked> PREPS</label>
+        <label><input type="checkbox" name="fonte" value="radar" checked> Radares costeiros</label>
+        <label><input type="checkbox" name="fonte" value="unidades" checked> Unidades em patrulha</label>
+        <label><input type="checkbox" name="fonte" value="satelite" checked> Satélite</label>
+        <label><input type="checkbox" name="fonte" value="inteligencia" checked> Inteligência</label>
+      </fieldset>
+      <fieldset><legend>Opções</legend>
+        <label><input type="checkbox" name="apoioExterno" checked> Apoio externo via COMPAAz (FAB, interagências)</label>
+        <label id="lbl-celula"><input type="checkbox" name="celulaBranca"> Célula Branca (arbitragem)</label>
+      </fieldset>
+      <button class="act-btn blue" type="submit">Criar sala</button>
+    </form>
+
+    <form id="form-entrar" class="sm-card" autocomplete="off">
+      <h2>Entrar em sala</h2>
+      <label>Seu nome <input name="nome" maxlength="40" value="Oficial"></label>
+      <label>Código da sala <input name="codigo" maxlength="5" placeholder="ABCDE" class="sm-codigo"></label>
+      <button class="act-btn" type="button" id="btn-consultar">Ver assentos</button>
+      <div id="entrar-assentos" class="sm-assentos"></div>
+      <p class="sm-nota">No modo de estações distribuídas, assentos vazios são conduzidos pelo agente (doutrina).</p>
+    </form>
+  </div>
+  <div id="lobby-erro" class="sm-erro" role="alert"></div>
+</section>
+
+<!-- ── SALA DE ESPERA ────────────────────────────────────────────────────── -->
+<section id="espera" class="sm-lobby hidden">
+  <header class="sm-lobby-head"><div class="header-title">SALA <span id="espera-codigo"></span></div></header>
+  <div class="sm-cards">
+    <div class="sm-card">
+      <h2 id="espera-modalidade"></h2>
+      <p>Compartilhe o código <b id="espera-codigo2"></b> com os demais participantes.</p>
+      <ul id="espera-assentos" class="sm-lista"></ul>
+      <button id="btn-iniciar" class="act-btn blue">Iniciar partida</button>
+    </div>
+  </div>
+</section>
+
+<!-- ── JOGO ──────────────────────────────────────────────────────────────── -->
+<div id="jogo" class="hidden">
+  <header class="game-header">
+    <div class="header-title">OAS-SM</div>
+    <div id="sm-vez" class="my-turn-banner">▶ SUA VEZ</div>
+    <div class="header-meta">
+      <span id="sm-papel" class="team-badge"></span>
+      <span id="sm-turno" class="meta-item"></span>
+      <span id="sm-postura" class="sm-postura"></span>
+      <span class="sm-medidor" title="Apoio público"><span>Apoio</span><b id="sm-apoio-bar"><i></i></b><em id="sm-apoio-txt"></em></span>
+      <span class="sm-medidor custo" title="Custo político / teto"><span>Custo pol.</span><b id="sm-custo-bar"><i></i></b><em id="sm-custo-txt"></em></span>
+      <span id="sm-fase" class="meta-item phase"></span>
+      <label class="sm-toggle" title="Mostrar os números das probabilidades"><input type="checkbox" id="tg-numeros"> nº</label>
+      <label class="sm-toggle" title="Limites dos Distritos Navais"><input type="checkbox" id="tg-dn" checked> DN</label>
+      <label class="sm-toggle" title="Faixa aproximada da ZEE (200 mn)"><input type="checkbox" id="tg-zee"> ZEE</label>
+    </div>
+  </header>
+  <div class="game-body">
+    <div class="canvas-wrap">
+      <canvas id="sm-canvas" aria-label="Carta OAS-MAP-001 com o quadro operacional"></canvas>
+      <div class="zoom-controls">
+        <button id="zoom-in" class="zoom-btn" title="Zoom +">+</button>
+        <button id="zoom-reset" class="zoom-btn" title="Resetar zoom">⊙</button>
+        <button id="zoom-out" class="zoom-btn" title="Zoom −">−</button>
+      </div>
+      <div id="sm-tip" class="terrain-tip"></div>
+      <div id="sm-erro" class="error-flash hidden" role="alert"></div>
+    </div>
+    <aside class="sidebar sm-sidebar">
+      <nav class="sm-abas" role="tablist">
+        <button data-aba="ordens" class="ativa">Ordens</button>
+        <button data-aba="boletim">Boletim</button>
+        <button data-aba="registro">Registro</button>
+      </nav>
+      <div id="aba-ordens" class="sm-aba"></div>
+      <div id="aba-boletim" class="sm-aba hidden"></div>
+      <div id="aba-registro" class="sm-aba hidden"></div>
+    </aside>
+  </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/hex.js"></script>
+<script src="js/terrain.js"></script>
+<script src="js/units.js"></script>
+<script src="js/sm_client.js"></script>
+</body>
+</html>

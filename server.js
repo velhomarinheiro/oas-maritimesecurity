@@ -1500,6 +1500,9 @@ app.get('/',     (_, res) => res.sendFile(path.join(__dirname, 'public', 'index.
 app.get('/game', (_, res) => res.sendFile(path.join(__dirname, 'public', 'game.html')));
 app.get('/construtivo', (_, res) => res.sendFile(path.join(__dirname, 'public', 'construtivo.html')));
 app.get('/replay',      (_, res) => res.sendFile(path.join(__dirname, 'public', 'replay.html')));
+// Variante de Segurança Marítima (OAS-SM): salas no namespace /sm (sm_server.js).
+app.get('/sm',          (_, res) => res.sendFile(path.join(__dirname, 'public', 'sm.html')));
+require('./sm_server').attach(io.of('/sm'));
 
 // ─── Simulação construtiva (PBC) ──────────────────────────────────────────────
 // Lotes de partidas bot-vs-bot, sem jogadores: a página /construtivo monta um
