@@ -196,7 +196,6 @@ const DIST_MAX_COSTA = 3;
 //   etapaRepressao  etapa do motor de encontro que conta como reprimida;
 //   duracao      turnos até a ocorrência se encerrar sem resposta (escapa);
 //   evasao       evasão do contato nas etapas de percepção (SM-1);
-//   orgao        apoio interagências pertinente (SM-4, Tabela 7.2);
 //   exploravel   peso relativo do tipo quando o híbrido instrumentaliza
 //                ocorrências para saturação (0 = nunca).
 // Terrenos: 1 águas rasas, 2 plataforma, 3 águas profundas, 4 bacia petrolífera.
@@ -204,22 +203,22 @@ const DIST_MAX_COSTA = 3;
 const TIPOS_OCORRENCIA = {
   narcotrafico:    { rotulo: 'Narcotráfico',             terrenos: [1, 2, 3],
                      lambda: { '2DN': 0.15, '1DN': 0.20, '8DN': 0.30, '5DN': 0.15 },
-                     etapaRepressao: 'apresamento', duracao: 2, evasao: 0.30, orgao: 'pf',    exploravel: 1 },
+                     etapaRepressao: 'apresamento', duracao: 2, evasao: 0.30, exploravel: 1 },
   contrabando:     { rotulo: 'Contrabando / descaminho', terrenos: [1, 2],
                      lambda: { '2DN': 0.10, '1DN': 0.15, '8DN': 0.20, '5DN': 0.15 },
-                     etapaRepressao: 'apresamento', duracao: 2, evasao: 0.20, orgao: 'rf',    exploravel: 1 },
+                     etapaRepressao: 'apresamento', duracao: 2, evasao: 0.20, exploravel: 1 },
   pesca_iuu:       { rotulo: 'Pesca irregular (IUU)',    terrenos: [1, 2, 3, 4],
                      lambda: { '2DN': 0.25, '1DN': 0.15, '8DN': 0.15, '5DN': 0.30 },
-                     etapaRepressao: 'apresamento', duracao: 3, evasao: 0.10, orgao: 'ibama', exploravel: 3 },
+                     etapaRepressao: 'apresamento', duracao: 3, evasao: 0.10, exploravel: 3 },
   crime_ambiental: { rotulo: 'Crime ambiental',          terrenos: [1, 2, 4],
                      lambda: { '2DN': 0.05, '1DN': 0.15, '8DN': 0.10, '5DN': 0.05 },
-                     etapaRepressao: 'inspecao',    duracao: 3, evasao: 0.20, orgao: 'ibama', exploravel: 2 },
+                     etapaRepressao: 'inspecao',    duracao: 3, evasao: 0.20, exploravel: 2 },
   pirataria:       { rotulo: 'Pirataria / roubo armado', terrenos: [1, 2, 4],
                      lambda: { '2DN': 0.05, '1DN': 0.10, '8DN': 0.10, '5DN': 0.05 },
-                     etapaRepressao: 'abordagem',   duracao: 1, evasao: 0.25, orgao: 'pf',    exploravel: 1 },
+                     etapaRepressao: 'abordagem',   duracao: 1, evasao: 0.25, exploravel: 1 },
   imigracao:       { rotulo: 'Imigração irregular',      terrenos: [1, 2],
                      lambda: { '2DN': 0.10, '1DN': 0.05, '8DN': 0.05, '5DN': 0.10 },
-                     etapaRepressao: 'abordagem',   duracao: 2, evasao: 0.05, orgao: 'pf',    exploravel: 2 },
+                     etapaRepressao: 'abordagem',   duracao: 2, evasao: 0.05, exploravel: 2 },
 };
 
 // Autoridade de polícia marítima: a resposta constabular é aplicação da lei,
@@ -244,6 +243,71 @@ const ACOPLAMENTO = {
 // acoplamento (mesma semente ⇒ mesmas ocorrências de rotina em toda condição).
 const SAL_CONSTAB = { rotina: 0x9E3779B9, saturacao: 0x85EBCA6B };
 
+// ─── C2: estações, papéis e fusão (Conceito §7) ───────────────────────────────
+
+// As seis estações Azuis (Tabela 7.1). `papeis` são as decisões que só a
+// estação pode tomar; `area` liga os Distritos Navais às áreas de AREAS_DN.
+const ESTACOES = [
+  { id: 'COMPAAz', nome: 'Comando de Patrulha Azul',     nivel: 'apice',   trilha: 'transversal',
+    papeis: ['autorizar_escalada', 'priorizar_esforco', 'alocar_isr', 'solicitar_mpa', 'solicitar_apoio', 'alocar_npaoc'] },
+  { id: 'ComemCh', nome: 'Comando-em-Chefe da Esquadra', nivel: 'subord', trilha: 'defesa',
+    papeis: ['propor_escalada', 'empregar_esquadra', 'engajar_n3'] },
+  { id: 'Com2ºDN', nome: 'Comando do 2º Distrito Naval', nivel: 'subord', trilha: 'constabular', area: '2DN',
+    papeis: ['responder_ocorrencia', 'empregar_meios_distrito'] },
+  { id: 'Com1ºDN', nome: 'Comando do 1º Distrito Naval', nivel: 'subord', trilha: 'constabular', area: '1DN',
+    papeis: ['responder_ocorrencia', 'empregar_meios_distrito'] },
+  { id: 'Com8ºDN', nome: 'Comando do 8º Distrito Naval', nivel: 'subord', trilha: 'constabular', area: '8DN',
+    papeis: ['responder_ocorrencia', 'empregar_meios_distrito'] },
+  { id: 'Com5ºDN', nome: 'Comando do 5º Distrito Naval', nivel: 'subord', trilha: 'constabular', area: '5DN',
+    papeis: ['responder_ocorrencia', 'empregar_meios_distrito'] },
+];
+
+// Modalidades (§7.3). Só muda quem decide cada estação; as regras não mudam.
+const MODALIDADES = ['unico', '1x1', 'distribuido'];
+
+// Fontes de dados de embarcações (Tabela 8.3). `peso` é a contribuição para
+// a qualidade da fusão; `confiabilidade`, a confiança de um contato reportado
+// só por ela; `latencia`, turnos até o reporte chegar ao barramento.
+// TODO: validar com especialista
+const FONTES = {
+  ais:          { rotulo: 'AIS',                              peso: 0.20, confiabilidade: 0.70, latencia: 0 },
+  preps:        { rotulo: 'PREPS',                            peso: 0.10, confiabilidade: 0.80, latencia: 0 },
+  radar:        { rotulo: 'Radares costeiros',                peso: 0.15, confiabilidade: 0.85, latencia: 0 },
+  unidades:     { rotulo: 'Contatos de unidades em patrulha', peso: 0.20, confiabilidade: 0.95, latencia: 0 },
+  satelite:     { rotulo: 'Satélite',                         peso: 0.20, confiabilidade: 0.60, latencia: 1 },
+  inteligencia: { rotulo: 'Sistemas de inteligência',         peso: 0.15, confiabilidade: 0.50, latencia: 1 },
+};
+// Sem o fator C_Fusão (SisGAAz ampliado), a fusão não passa deste teto.
+// TODO: validar com especialista
+const TETO_FUSAO_SEM_C = 0.55;
+
+// ─── Apoio externo via COMPAAz (Conceito §7.4, Tabela 7.2) ────────────────────
+
+// Por apoio: `prazo` em turnos até entrar em vigor; `duracao` em turnos de
+// vigência; `disponibilidade` = probabilidade de o pedido ser atendido;
+// `pertinencia` = tipos de ação/ocorrência sobre os quais atua; efeito:
+//   fatorCapacidade  multiplica a capacidade da unidade no encontro;
+//   bonusFusao       soma à qualidade da fusão no encontro;
+//   fatorRitmo       multiplica o ritmo de evidência (atribuição).
+// 'hibrido' na pertinência = contatos da trilha de defesa.
+// TODO: validar com especialista
+const APOIOS = {
+  mpa:      { rotulo: 'Patrulha marítima (FAB)',  prazo: 1, duracao: 1, disponibilidade: 0.80,
+              pertinencia: ['*'],                      bonusFusao: 0.20 },
+  pf:       { rotulo: 'Polícia Federal',          prazo: 1, duracao: 3, disponibilidade: 0.90,
+              pertinencia: ['narcotrafico'],           fatorCapacidade: 1.30 },
+  rf:       { rotulo: 'Receita Federal',          prazo: 1, duracao: 3, disponibilidade: 0.90,
+              pertinencia: ['contrabando'],            fatorCapacidade: 1.30 },
+  ibama:    { rotulo: 'IBAMA',                    prazo: 2, duracao: 3, disponibilidade: 0.80,
+              pertinencia: ['crime_ambiental', 'pesca_iuu'], fatorCapacidade: 1.30 },
+  censipam: { rotulo: 'CENSIPAM (imageamento)',   prazo: 1, duracao: 2, disponibilidade: 0.90,
+              pertinencia: ['*'],                      bonusFusao: 0.10 },
+  intl:     { rotulo: 'Inteligência internacional', prazo: 3, duracao: 5, disponibilidade: 0.60,
+              pertinencia: ['hibrido'],                fatorRitmo: 1.50 },
+};
+// Sal da sub-sequência dos apoios concedidos (independente das demais).
+const SAL_APOIO = 0xC2B2AE35;
+
 // ─── Boletim (Conceito §8.4) ──────────────────────────────────────────────────
 
 // Probabilidade em palavras (limite inferior inclusivo).
@@ -261,6 +325,7 @@ const PARAMS = {
   ROTULOS_PROBABILIDADE,
   NIVEIS, ACOES, GATILHOS_ESCALADA, TURNOS_PARA_DESESCALAR,
   AREAS_DN, DIST_MAX_COSTA, TIPOS_OCORRENCIA, TETO_CONSTABULAR, ACOPLAMENTO, SAL_CONSTAB,
+  ESTACOES, MODALIDADES, FONTES, TETO_FUSAO_SEM_C, APOIOS, SAL_APOIO,
 };
 
 module.exports = { PARAMS, ...PARAMS };
