@@ -434,6 +434,66 @@ const INFOCOG = {
   prazoCampanha: 1,
 };
 
+// ─── Runner: agente Vermelho (híbrido), doutrina Azul e desfecho (SM-8) ───────
+
+// Ações do híbrido por vetor (Tabela 4.1). `maritimo`: gera contato no mar a
+// ser encontrado; `etapaNeutraliza`: etapa do encontro que frustra a ação;
+// `janela`: turnos até a ação produzir efeito; `alvos`: tipos de
+// infraestrutura visados; `dano`: SP retirados do alvo; `evento`: tipo do
+// evento para a escada (SM-2); `sloc`: ameaça a fluidez das SLOC; `peso`:
+// frequência relativa na escolha do vetor.
+// TODO: validar com especialista
+const HIBRIDO = {
+  acoesPorTurno: 0.6,        // média (Poisson) à intensidade 1
+  pAreaAlvo: 0.7,            // fração das ações na área-alvo
+  vetores: {
+    frota_sombra:        { maritimo: true,  etapaNeutraliza: 'abordagem',     janela: 3, alvos: ['porto'],        dano: 2, evento: 'incidente_hibrido', sloc: true,  evasao: 0.35, peso: 3 },
+    milicia_maritima:    { maritimo: true,  etapaNeutraliza: 'interrogacao',  janela: 2, alvos: ['fpso'],         dano: 1, evento: 'dano_infra',        sloc: true,  evasao: 0.10, peso: 3 },
+    sabotagem_submarina: { maritimo: true,  etapaNeutraliza: 'identificacao', janela: 2, alvos: ['cabo', 'duto'], dano: 3, evento: 'dano_infra',        sloc: false, evasao: 0.45, peso: 2 },
+    usv_uav:             { maritimo: true,  etapaNeutraliza: 'identificacao', janela: 1, alvos: ['fpso', 'porto'], dano: 2, evento: 'ataque_armado',    sloc: false, evasao: 0.30, peso: 2 },
+    gnss:                { maritimo: true,  etapaNeutraliza: 'identificacao', janela: 2, alvos: ['fpso'],         dano: 1, evento: 'incidente_hibrido', sloc: true,  evasao: 0.20, peso: 2 },
+    ciber:               { maritimo: false, janela: 0, alvos: ['porto'], dano: 2, evento: 'dano_infra', sloc: false, peso: 1 },
+    minagem:             { maritimo: true,  etapaNeutraliza: 'identificacao', janela: 3, alvos: ['porto'],        dano: 3, evento: 'dano_infra',        sloc: true,  evasao: 0.40, peso: 1, exigeMcm: true },
+    lawfare:             { maritimo: false, peso: 0 },
+  },
+  // Investigação pós-fato: depois de uma ação consumada e conhecida, a
+  // evidência segue se acumulando por `turnos` (perícia, cooperação de
+  // inteligência); cruzar a atribuição robusta gera, para a escada, o evento
+  // do tipo da ação (dano_infra / ataque_armado) com essa atribuição.
+  investigacao: { turnos: 10, ganho: 0.15, robusta: 70 },
+  // Emprego aberto de meios (gatilho de N3, Tabela 9.1): decisão Vermelha,
+  // só com a postura já em Crise (N2) e intensidade híbrida alta.
+  empregoAberto: { nivelMin: 2, intensidadeMin: 0.8, pPorTurno: 0.05 },
+  // Desinformação do motor: sobre o gatilho aberto mais recente; sem
+  // gatilho, uma fabricação a cada `fabricarACada` turnos, a meia intensidade.
+  fabricarACada: 5,
+};
+
+// Doutrina do agente Azul (jogador único / lote).
+// TODO: validar com especialista
+const DOUTRINA = {
+  acoesPorEstacao: 4,        // economia de ações por turno (§8.6)
+  surto: 2,                  // ações extras quando o acúmulo excede o orçamento…
+  penalidadeSurto: 2,        // …descontadas do orçamento do turno seguinte
+  // Quadro comum: chance de um contato aberto entrar no quadro no turno.
+  quadro: { base: 0.25, porFusao: 0.6, bonusUsv: 0.15, teto: 0.95 },
+  // Aceita o risco político (vai à etapa que neutraliza) quando falta este
+  // número de turnos para o efeito do híbrido.
+  urgencia: 1,
+  apoioParaComunicar: 50,    // abaixo disso, comunicação estratégica
+  prebunkingACada: 7,
+};
+
+// Desfecho (§11.2) — limiares sobre as métricas finais.
+// TODO: validar com especialista
+const DESFECHO = { infraVitoriaAzul: 80, ordemVitoriaAzul: 0.4, infraVitoriaVermelha: 60 };
+
+// Custo EAC dos fatores (Desenho Experimental, Tabela 2.2).
+const CUSTO_EAC = { A_MPA: 70, B_NPaOc: 100, C_Fusao: 55, D_USV: 35, E_GVI: 40 };
+
+// Sub-sequências do runner.
+const SAL_RUNNER = { quadro: 0x1B873593, encontro: 0x5BD1E995, vermelho: 0xCC9E2D51 };
+
 // ─── Boletim (Conceito §8.4) ──────────────────────────────────────────────────
 
 // Probabilidade em palavras (limite inferior inclusivo).
@@ -456,6 +516,7 @@ const PARAMS = {
   AJUSTAVEIS_CELULA_BRANCA,
   PRONTIDAO, FATOR_SEM_GVI,
   INFOCOG,
+  HIBRIDO, DOUTRINA, DESFECHO, CUSTO_EAC, SAL_RUNNER,
 };
 
 module.exports = { PARAMS, ...PARAMS };

@@ -253,6 +253,26 @@ function registrarResposta(estado, idOcorrencia, encontro, params = P) {
   return { estado: { ...estado, ativas, encerradas, esforco }, reprimida, eventoHibrido };
 }
 
+/**
+ * Injeta uma ocorrência (episódio de crise, Célula Branca). Não consome as
+ * sub-sequências do gerador: o hexágono é escolhido por `indice` entre os
+ * hexágonos admitidos da área, em ordem fixa.
+ *
+ * @param {{id: string, tipo: string, area: string, indice?: number}} req
+ * @returns {{estado, ocorrencia: object|null}}
+ */
+function injetarOcorrencia(estado, { id, tipo, area, indice = 0 }, params = P) {
+  if (!params.TIPOS_OCORRENCIA[tipo]) throw new Error(`constab: tipo desconhecido ${tipo}`);
+  if (estado.ativas.some(o => o.id === id) || estado.encerradas.some(o => o.id === id)) throw new Error(`constab: id repetido ${id}`);
+  let k = indice;
+  const fixo = () => { const hs = hexesCache(area, params).filter(h => params.TIPOS_OCORRENCIA[tipo].terrenos.includes(h.terreno));
+                       return hs.length ? (k++ % hs.length) / hs.length + 1e-9 : 0; };
+  const o = novaOcorrencia(id, estado.turno, fixo, area, tipo, { injetada: true }, params);
+  if (!o) return { estado, ocorrencia: null };
+  const oc = { ...o, injetada: true };
+  return { estado: { ...estado, ativas: [...estado.ativas, oc] }, ocorrencia: oc };
+}
+
 /** O que o jogador vê: sem as marcas ocultas (cobertura/instrumentalizada). */
 function vistaDoJogador(ocorrencia) {
   const { cobertura: _c, instrumentalizada: _i, ...resto } = ocorrencia;
@@ -278,5 +298,5 @@ function metricas(estado) {
 
 module.exports = {
   distHex, areaDoHex, hexesDaArea, poisson,
-  criarEstadoConstab, avancarTurno, registrarResposta, vistaDoJogador, metricas,
+  criarEstadoConstab, avancarTurno, registrarResposta, injetarOcorrencia, vistaDoJogador, metricas,
 };

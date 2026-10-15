@@ -65,3 +65,4 @@ construtivo existente.
 | SM-5 — configurador, dificuldade, crises, boletim, Célula Branca | [`SM-5.md`](SM-5.md) | concluída |
 | SM-6 — OOB estendida, fatores e prontidão | [`SM-6.md`](SM-6.md) | concluída |
 | SM-7 — dimensão informacional e cognitiva | [`SM-7.md`](SM-7.md) | concluída |
+| SM-8 — runner, lote de 1.040 e dataset | [`SM-8.md`](SM-8.md) | concluída |
