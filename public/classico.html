@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Operação Atlântico Sul — Wargame Naval</title>
+  <meta name="description" content="Wargame naval tático por turnos ambientado no Atlântico Sul. Comande a Força Azul ou Vermelha em combate hexagonal, com ciclo dia/noite e névoa de guerra. Multiplayer online ou contra o bot.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Operação Atlântico Sul — Wargame Naval">
+  <meta property="og:description" content="Wargame naval tático por turnos no Atlântico Sul. Combate hexagonal, ciclo dia/noite e névoa de guerra. Multiplayer online ou contra o bot.">
+  <meta property="og:image" content="/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Operação Atlântico Sul — Wargame Naval">
+  <meta name="twitter:description" content="Wargame naval tático por turnos no Atlântico Sul. Multiplayer online ou contra o bot.">
+  <meta name="twitter:image" content="/og-image.jpg">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/tutorial.css">
+</head>
+<body>
+
+<!-- ═══ HERO ═══════════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="classification">SIMULAÇÃO TÁTICA NAVAL</div>
+    <h1>OPERAÇÃO<br><span>ATLÂNTICO SUL</span></h1>
+    <p class="tagline">Wargame Naval por Turnos · Multiplayer Online</p>
+    <a href="#lobby" class="btn-primary scroll-down">▼ INICIAR OPERAÇÃO</a>
+  </div>
+  <div class="compass-rose">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="50,5 55,45 50,55 45,45" fill="#c9a84c"/>
+      <polygon points="50,95 55,55 50,45 45,55" fill="#7a7a7a"/>
+      <polygon points="5,50 45,45 55,50 45,55" fill="#7a7a7a"/>
+      <polygon points="95,50 55,45 45,50 55,55" fill="#7a7a7a"/>
+      <circle cx="50" cy="50" r="6" fill="#c9a84c" stroke="#fff" stroke-width="1"/>
+      <text x="50" y="2"  text-anchor="middle" font-size="8" fill="#c9a84c" font-weight="bold">N</text>
+      <text x="50" y="99" text-anchor="middle" font-size="8" fill="#aaa">S</text>
+      <text x="99" y="53" text-anchor="end"    font-size="8" fill="#aaa">L</text>
+      <text x="2"  y="53" text-anchor="start"  font-size="8" fill="#aaa">O</text>
+    </svg>
+  </div>
+</section>
+
+<!-- ═══ CONCEPT ════════════════════════════════════════════════════════════ -->
+<section class="concept">
+  <div class="container">
+    <h2>TEATRO DE OPERAÇÕES</h2>
+    <p>Um wargame tático naval ambientado no Atlântico Sul, cobrindo as águas do litoral brasileiro
+       até o oceano aberto. Dois comandantes — <strong>Força Azul</strong> e <strong>Força Vermelha</strong> —
+       disputam o controle do teatro marítimo em turnos que representam 12 horas de combate real.</p>
+
+    <div class="feature-grid">
+      <div class="feature">
+        <div class="feat-icon">⬡</div>
+        <h3>Grade Hexagonal</h3>
+        <p>Mapa em hexágonos estilo wargame clássico. Cada hexágono representa um setor náutico.</p>
+      </div>
+      <div class="feature">
+        <div class="feat-icon">🌙</div>
+        <h3>Ciclo Dia / Noite</h3>
+        <p>Turnos alternados entre períodos diurnos e noturnos. A noite reduz os alcances de detecção.</p>
+      </div>
+      <div class="feature">
+        <div class="feat-icon">👁</div>
+        <h3>Névoa de Guerra</h3>
+        <p>Unidades inimigas só são visíveis dentro do alcance de detecção das suas forças.</p>
+      </div>
+      <div class="feature">
+        <div class="feat-icon">⚡</div>
+        <h3>Combate Simultâneo</h3>
+        <p>Ambos os lados declaram ataques ao mesmo tempo. A resolução é simultânea e realista.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ UNITS ═══════════════════════════════════════════════════════════════ -->
+<section class="oob-section">
+  <div class="container">
+    <h2>ORDEM DE BATALHA</h2>
+    <p class="oob-intro">Cada equipe controla um conjunto de grupos de força que representam plataformas reais.
+    Os ícones dos contadores no tabuleiro refletem o tipo principal de cada grupo.</p>
+
+    <div class="oob-forces">
+
+      <!-- BLUE FORCE -->
+      <div class="oob-side">
+        <div class="oob-side-title blue-title">&#127463;&#127479; FORÇA AZUL · MARINHA DO BRASIL</div>
+        <table class="oob-table">
+          <thead><tr><th>Tipo</th><th>Qtd</th><th>Plataformas</th><th>Cat.</th></tr></thead>
+          <tbody>
+            <tr><td><span class="oc blue-oc">CV</span></td><td class="opl">1</td><td>Navio Aeródromo NAM Atlântico + 8 Helos</td><td class="ocat">Superfície</td></tr>
+            <tr><td><span class="oc blue-oc">FF</span></td><td class="opl">5</td><td>Fragatas Tamandaré (3 + 2)</td><td class="ocat">Superfície</td></tr>
+            <tr><td><span class="oc blue-oc">CO</span></td><td class="opl">2</td><td>Corvetas Barroso</td><td class="ocat">Superfície</td></tr>
+            <tr><td><span class="oc blue-oc">AN</span></td><td class="opl">3</td><td>Navios Anfíbios · NDM Bahia + Oiapoque + NCC Sabóia</td><td class="ocat">Superfície</td></tr>
+            <tr><td><span class="oc blue-oc">LG</span></td><td class="opl">1</td><td>Navio Apoio Logístico (NApLog)</td><td class="ocat">Superfície</td></tr>
+            <tr><td><span class="oc blue-oc">NT</span></td><td class="opl">1</td><td>Navio Tanque Alte. Gastão Motta</td><td class="ocat">Superfície</td></tr>
+            <tr><td><span class="oc blue-oc">PO</span></td><td class="opl">4</td><td>NPaOc Apa / Amazonas — Patrulha Oceânica</td><td class="ocat">Superfície</td></tr>
+            <tr><td><span class="oc blue-oc">PC</span></td><td class="opl">4</td><td>NPa Macaé / Grajaú — Patrulha Costeira</td><td class="ocat">Superfície</td></tr>
+            <tr><td><span class="oc blue-oc">SN</span></td><td class="opl">1</td><td>SNAC Álvaro Alberto — Submarino Nuclear</td><td class="ocat">Submarino</td></tr>
+            <tr><td><span class="oc blue-oc">SS</span></td><td class="opl">3</td><td>S40 Riachuelo / S41 Humaitá / S42 Tonelero</td><td class="ocat">Submarino</td></tr>
+            <tr><td><span class="oc blue-oc">MP</span></td><td class="opl">4</td><td>P-3AM Orion — Patrulha Marítima ASW</td><td class="ocat">Aéreo</td></tr>
+            <tr><td><span class="oc blue-oc">F</span></td><td class="opl">12</td><td>F-39E Gripen — Caça 5ª Geração (2 esq.)</td><td class="ocat">Aéreo</td></tr>
+            <tr><td><span class="oc blue-oc">A</span></td><td class="opl">4</td><td>AF-1 A-4 Skyhawk — Ataque Embarcado (2 esq.)</td><td class="ocat">Aéreo</td></tr>
+            <tr><td><span class="oc blue-oc">BC</span></td><td class="opl">4</td><td>Baterias Costeiras MANSUP-ER (2 grupos)</td><td class="ocat">Terrestre</td></tr>
+            <tr><td><span class="oc blue-oc">AD</span></td><td class="opl">4</td><td>Baterias ADA SHORAD / GBAD Médio (2 grupos)</td><td class="ocat">Terrestre</td></tr>
+            <tr><td><span class="oc blue-oc">FP</span></td><td class="opl">4</td><td>Plataformas FPSO — Pré-Sal (PLT-01 a 05)</td><td class="ocat">Infraest.</td></tr>
+            <tr><td><span class="oc blue-oc">PT</span></td><td class="opl">4</td><td>Portos Santos · Rio · Vitória · Açu</td><td class="ocat">Infraest.</td></tr>
+          </tbody>
+        </table>
+        <div class="oob-note">30 unidades no tabuleiro · 17 tipos de plataforma</div>
+      </div>
+
+      <!-- RED FORCE -->
+      <div class="oob-side">
+        <div class="oob-side-title red-title">&#9876; FORÇA VERMELHA · ADVERSÁRIO</div>
+        <table class="oob-table">
+          <thead><tr><th>Tipo</th><th>Qtd</th><th>Plataformas</th><th>Cat.</th></tr></thead>
+          <tbody>
+            <tr><td><span class="oc red-oc">CV</span></td><td class="opl">1</td><td>KCV Aurelius Magnus + 12 Helos</td><td class="ocat">Superfície</td></tr>
+            <tr><td><span class="oc red-oc">CG</span></td><td class="opl">1</td><td>CG Drakhmar — Cruzador de Mísseis</td><td class="ocat">Superfície</td></tr>
+            <tr><td><span class="oc red-oc">DD</span></td><td class="opl">3</td><td>DDG Volnaria — Destroiers (2 + 1)</td><td class="ocat">Superfície</td></tr>
+            <tr><td><span class="oc red-oc">FF</span></td><td class="opl">5</td><td>Fragatas Classe Volnaria (2 + 3)</td><td class="ocat">Superfície</td></tr>
+            <tr><td><span class="oc red-oc">AN</span></td><td class="opl">4</td><td>LPD Harnax + 2 LST Morvask</td><td class="ocat">Superfície</td></tr>
+            <tr><td><span class="oc red-oc">NT</span></td><td class="opl">1</td><td>AOR Classe Korvas — Reabastecedor</td><td class="ocat">Superfície</td></tr>
+            <tr><td><span class="oc red-oc">LG</span></td><td class="opl">4</td><td>AOR Korvas + AOT Brennar + 2 AKE Yarven</td><td class="ocat">Superfície</td></tr>
+            <tr><td><span class="oc red-oc">SN</span></td><td class="opl">1</td><td>KAR Veylan — Submarino Nuclear (SSN)</td><td class="ocat">Submarino</td></tr>
+            <tr><td><span class="oc red-oc">SS</span></td><td class="opl">1</td><td>KAR Skarn — Submarino Convencional</td><td class="ocat">Submarino</td></tr>
+            <tr><td><span class="oc red-oc">F</span></td><td class="opl">16</td><td>KMF-22 Sturmadler — Caça 4.5ª Gen embarcado (2 esq.)</td><td class="ocat">Aéreo</td></tr>
+            <tr><td><span class="oc red-oc">MP</span></td><td class="opl">4</td><td>K-32 Stormwatch — Patrulha Marítima ASW (2 esq.)</td><td class="ocat">Aéreo</td></tr>
+            <tr><td><span class="oc red-oc">AW</span></td><td class="opl">2</td><td>K-99 Argus — AEW Embarcado (raio ISR 9 hex)</td><td class="ocat">Aéreo</td></tr>
+          </tbody>
+        </table>
+        <div class="oob-note">15 unidades no tabuleiro · 12 tipos de plataforma</div>
+      </div>
+
+    </div><!-- oob-forces -->
+
+    <div class="oob-legend">
+      <div class="leg-group-title">LEGENDA DE ÍCONES</div>
+      <div class="leg-items">
+        <span class="leg-item"><span class="oc blue-oc">CV</span> Navio Aeródromo</span>
+        <span class="leg-item"><span class="oc blue-oc">CG</span> Cruzador</span>
+        <span class="leg-item"><span class="oc blue-oc">DD</span> Destroier</span>
+        <span class="leg-item"><span class="oc blue-oc">FF</span> Fragata</span>
+        <span class="leg-item"><span class="oc blue-oc">CO</span> Corveta</span>
+        <span class="leg-item"><span class="oc blue-oc">AN</span> Anfíbio</span>
+        <span class="leg-item"><span class="oc blue-oc">LG</span> Logístico</span>
+        <span class="leg-item"><span class="oc blue-oc">NT</span> Tanque</span>
+        <span class="leg-item"><span class="oc blue-oc">PO</span> Pat. Oceânica</span>
+        <span class="leg-item"><span class="oc blue-oc">PC</span> Pat. Costeira</span>
+        <span class="leg-item"><span class="oc blue-oc">SN</span> Sub Nuclear</span>
+        <span class="leg-item"><span class="oc blue-oc">SS</span> Sub Convencional</span>
+        <span class="leg-item"><span class="oc blue-oc">MP</span> Pat. Marítima</span>
+        <span class="leg-item"><span class="oc blue-oc">F</span> Caça</span>
+        <span class="leg-item"><span class="oc blue-oc">A</span> Ataque</span>
+        <span class="leg-item"><span class="oc blue-oc">AW</span> AEW</span>
+        <span class="leg-item"><span class="oc blue-oc">BC</span> Bat. Costeira</span>
+        <span class="leg-item"><span class="oc blue-oc">AD</span> Bat. Antiaérea</span>
+        <span class="leg-item"><span class="oc blue-oc">FP</span> Plataforma FPSO</span>
+        <span class="leg-item"><span class="oc blue-oc">PT</span> Porto</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW TO PLAY ═════════════════════════════════════════════════════════ -->
+<section class="howto">
+  <div class="container">
+    <h2>COMO JOGAR</h2>
+    <div class="steps">
+      <div class="step"><div class="step-n">1</div>
+        <h3>Crie ou entre em uma sala</h3>
+        <p>Um jogador cria a sala e compartilha o código de 6 letras com o adversário.</p>
+      </div>
+      <div class="step"><div class="step-n">2</div>
+        <h3>Fase de Movimentação</h3>
+        <p>Cada time move suas unidades (clique na unidade → hexágonos verdes = alcance).
+           Encerre quando terminar. A outra força move em seguida.</p>
+      </div>
+      <div class="step"><div class="step-n">3</div>
+        <h3>Fase de Combate</h3>
+        <p>Selecione uma unidade sua e clique em inimigos detectados dentro do alcance
+           (hexágonos vermelhos) para declarar ataques. Confirme quando pronto.</p>
+      </div>
+      <div class="step"><div class="step-n">4</div>
+        <h3>Resolução Simultânea</h3>
+        <p>Quando ambos confirmam, os ataques são resolvidos ao mesmo tempo.
+           Unidades destruídas são removidas do tabuleiro.</p>
+      </div>
+      <div class="step"><div class="step-n">5</div>
+        <h3>Vitória</h3>
+        <p>Cada força tem objetivos próprios: a Azul vence ao cumprir 3 de 5 objetivos;
+           a Vermelha, ao cumprir seus 2. Ao fim de 12 dias de operação, vence quem
+           tiver maior progresso. O jogo alterna períodos diurnos e noturnos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LOBBY ════════════════════════════════════════════════════════════════ -->
+<section class="lobby-section" id="lobby">
+  <div class="container">
+    <h2>INICIAR OPERAÇÃO</h2>
+
+    <div id="lobby-menu" class="lobby-box">
+      <button id="btn-tutorial" class="tut-cta-btn">📖 COMO JOGAR — Tutorial</button>
+      <div class="tut-or-direct">— ou entre direto no jogo —</div>
+      <button id="btn-create" class="btn-action blue">
+        <span class="btn-icon">⚓</span>
+        Criar Nova Sala
+        <small>Você joga como Força Azul</small>
+      </button>
+
+      <div class="lobby-or">— ou —</div>
+
+      <div class="join-form">
+        <input id="room-input" type="text" maxlength="6" placeholder="CÓDIGO DA SALA" autocomplete="off">
+        <button id="btn-join" class="btn-action red">
+          <span class="btn-icon">⚔</span>
+          Entrar na Sala
+          <small>Você joga como Força Vermelha</small>
+        </button>
+      </div>
+      <p id="lobby-err" class="lobby-err hidden"></p>
+
+      <div class="lobby-or">— ou jogue solo —</div>
+      <div class="doctrine-picker">
+        <p class="doctrine-title">Doutrina do adversário (IA)</p>
+        <div class="doctrine-group">
+          <span class="doctrine-label">Formação</span>
+          <div class="doctrine-toggle">
+            <label class="doctrine-opt" title="Cada unidade escolhe seu próprio alvo e avança por conta própria.">
+              <input type="radio" name="doctrine-formation" value="divided">
+              <span>Dividida</span>
+            </label>
+            <label class="doctrine-opt" title="As unidades de superfície se mantêm coladas na mais forte e atacam o mesmo alvo.">
+              <input type="radio" name="doctrine-formation" value="concentrated">
+              <span>Concentrada</span>
+            </label>
+            <label class="doctrine-opt" title="Sorteada na criação da sala — você não sabe qual enfrentará.">
+              <input type="radio" name="doctrine-formation" value="random" checked>
+              <span>Aleatória</span>
+            </label>
+          </div>
+        </div>
+        <div class="doctrine-group">
+          <span class="doctrine-label">Postura</span>
+          <div class="doctrine-toggle">
+            <label class="doctrine-opt" title="Busca o contato e gasta munição e combustível livremente.">
+              <input type="radio" name="doctrine-posture" value="offensive">
+              <span>Ofensiva</span>
+            </label>
+            <label class="doctrine-opt" title="Evita se expor sem poder revidar, recua mais cedo e reabastece com mais margem.">
+              <input type="radio" name="doctrine-posture" value="defensive">
+              <span>Defensiva</span>
+            </label>
+            <label class="doctrine-opt" title="Sorteada na criação da sala — você não sabe qual enfrentará.">
+              <input type="radio" name="doctrine-posture" value="random" checked>
+              <span>Aleatória</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="lobby-solo">
+        <button id="btn-solo-blue" class="btn-action solo-b">
+          <span class="btn-icon">⚓</span>
+          Solo · Força Azul
+          <small>vs Computador</small>
+        </button>
+        <button id="btn-solo-red" class="btn-action solo-r">
+          <span class="btn-icon">⚔</span>
+          Solo · Força Vermelha
+          <small>vs Computador</small>
+        </button>
+      </div>
+
+      <div class="lobby-or">— ou com instrutor —</div>
+      <button id="btn-facilitate" class="btn-action fac">
+        <span class="btn-icon">⚖</span>
+        Abrir Sala Arbitrada
+        <small>Você arbitra; dois jogadores entram pelo código</small>
+      </button>
+      <p class="lobby-note">
+        O facilitador prepara as forças antes do início, autoriza os movimentos,
+        ratifica o combate, insere contatos neutros e envia mensagens às equipes.
+        Para <b>entrar</b> numa sala arbitrada, use o código no campo acima.
+      </p>
+
+      <div class="lobby-or">— ou analise capacidades —</div>
+      <a id="btn-construtivo" href="/construtivo" class="btn-action construtivo">
+        <span class="btn-icon">📊</span>
+        Simulador Construtivo
+        <small>Planejamento baseado em capacidades · sem jogadores</small>
+      </a>
+      <p class="lobby-note">
+        Monte a <b>composição das duas forças</b> — os cinco pacotes de capacidade da Força Azul,
+        com quantidade, e os grupos-tarefa da Força Vermelha — e a plataforma joga sozinha
+        dezenas ou centenas de partidas com ela. O relatório confronta o <b>custo</b> do pacote
+        com o que ele <b>entrega em campo</b>: atrito imposto, infraestrutura preservada,
+        culminância da ofensiva adversária e perdas por grupo-tarefa.
+        Mesmo motor e mesma ordem de batalha do wargame — a composição avaliada é jogável.
+      </p>
+    </div>
+
+    <div id="lobby-waiting" class="lobby-box waiting hidden">
+      <p>Sala criada com sucesso. Código:</p>
+      <div id="room-display" class="room-code">——</div>
+      <p class="hint">Compartilhe este código com seu oponente</p>
+      <div class="spinner">Aguardando oponente...</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>OPERAÇÃO ATLÂNTICO SUL · Wargame Naval © 2026 · <a href="game.html">Entrar no Teatro de Operações</a></p>
+</footer>
+
+<!-- ── TUTORIAL "COMO JOGAR" ──────────────────────────────────────────────────
+     9 passos com a tela do próprio jogo; a lógica está em js/tutorial.js. -->
+<div id="tutorial-overlay" class="tut-overlay hidden" role="dialog" aria-modal="true" aria-label="Tutorial — como jogar">
+  <div class="tut-box">
+
+    <div class="tut-topbar">
+      <div class="tut-brand">OPERAÇÃO ATLÂNTICO SUL</div>
+      <div class="tut-dots" id="tut-dots"></div>
+      <button class="tut-skip-btn">PULAR TUTORIAL</button>
+    </div>
+
+    <!-- 0 — Briefing -->
+    <section class="tut-step" data-s="0">
+      <header class="tut-head"><span class="tut-kicker">BRIEFING</span><h2 class="tut-title">Operação Atlântico Sul</h2></header>
+      <div class="tut-grid">
+        <div class="tut-stage tut-intro">
+          <div class="tut-intro-bg"></div>
+          <div class="tut-intro-team blue">
+            <img src="/cards/Blue_SAG_P.PNG" alt="Card do SAG Principal azul">
+            <div class="tut-intro-name">FORÇA AZUL</div>
+            <div class="tut-intro-role">Defende as plataformas de petróleo, os portos e a costa do Sudeste</div>
+          </div>
+          <div class="tut-intro-vs">VS</div>
+          <div class="tut-intro-team red">
+            <img src="/cards/Red_GBPA.jpg" alt="Card do grupo do porta-aviões vermelho">
+            <div class="tut-intro-name">FORÇA VERMELHA</div>
+            <div class="tut-intro-role">Chega pelo leste com o grupo do porta-aviões</div>
+          </div>
+        </div>
+        <aside class="tut-side">
+          <div class="tpanel"><div class="tpanel-title">BRIEFING</div>
+            <ul class="tut-rules">
+              <li>Wargame naval operacional por turnos no Atlântico Sul. A <b>Força Azul</b> protege as plataformas (FPSOs) das bacias petrolíferas, os portos e a costa; a <b>Força Vermelha</b> projeta poder a partir do mar aberto, a leste.</li>
+              <li>Cada <b>turno</b> é um dia de operação e a partida dura no máximo <b>12 dias</b>.</li>
+              <li>Jogue com dois jogadores (código de 6 letras), solo contra o BOT ou numa sala com facilitador.</li>
+              <li>Este tutorial usa a mesma tela do jogo: você vai <b>mover</b>, <b>detectar</b>, <b>engajar</b> e conhecer as condições de <b>vitória</b>.</li>
+            </ul></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 1 — O turno -->
+    <section class="tut-step" data-s="1">
+      <header class="tut-head"><span class="tut-kicker">SEQUÊNCIA</span><h2 class="tut-title">O turno</h2></header>
+      <div class="tut-grid">
+        <div class="tut-stage tut-turn">
+          <div class="tut-turn-day">TURNO = 1 DIA DE OPERAÇÃO</div>
+          <div class="tut-turn-period day">
+            <div class="tut-turn-plabel">☀ Diurno</div>
+            <div class="tut-turn-phases">
+              <div class="tphase mov"><b>1</b><span>Movimentação</span><small>os dois lados traçam rotas ao mesmo tempo</small></div>
+              <div class="tphase eng"><b>2</b><span>Engajamentos</span><small>os dois lados registram ataques; depois, resolução um a um</small></div>
+              <div class="tphase end"><b>3</b><span>Fim do período</span><small>aeronaves voltam, navios reabastecem, munição recompleta</small></div>
+            </div>
+          </div>
+          <div class="tut-turn-arrow">▼</div>
+          <div class="tut-turn-period night">
+            <div class="tut-turn-plabel">🌙 Noturno</div>
+            <div class="tut-turn-phases">
+              <div class="tphase mov"><b>1</b><span>Movimentação</span></div>
+              <div class="tphase eng"><b>2</b><span>Engajamentos</span></div>
+              <div class="tphase end"><b>3</b><span>Fim do período</span></div>
+            </div>
+          </div>
+        </div>
+        <aside class="tut-side">
+          <div class="tpanel"><div class="tpanel-title">O turno</div>
+            <ul class="tut-rules">
+              <li>Os dois lados jogam <b>ao mesmo tempo</b> — ninguém espera a vez do outro.</li>
+              <li>Os movimentos do adversário só aparecem quando os <b>dois</b> encerram a movimentação.</li>
+              <li>Os engajamentos são resolvidos alternando os lados: nos dias ímpares a Azul começa, nos pares a Vermelha.</li>
+              <li>Com facilitador, a partida pausa para ele <b>autorizar</b> os movimentos e <b>ratificar</b> os resultados do combate.</li>
+              <li>À noite os alcances de detecção caem — veja o passo 5.</li>
+            </ul></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 2 — Unidades -->
+    <section class="tut-step" data-s="2">
+      <header class="tut-head"><span class="tut-kicker">FORÇAS</span><h2 class="tut-title">As unidades</h2></header>
+      <div class="tut-grid">
+        <div class="tut-stage tut-units">
+          <img class="tut-unit-card" src="/cards/Blue_SAG_S1.jpg" alt="Card do SAG-1 azul">
+          <div class="tut-unit-legend">
+            <canvas id="tut-unit-canvas" width="300" height="110"></canvas>
+            <div class="tleg"><span class="tleg-k">SP</span><span>Poder de permanência — chega a 0, a unidade é destruída</span></div>
+            <div class="tleg"><span class="tleg-k">MOV</span><span>Hexágonos por período</span></div>
+            <div class="tleg"><span class="tleg-k">FP</span><span>Combustível de navios e submarinos convencionais — se acabar, a unidade para</span></div>
+            <div class="tleg"><span class="tleg-k">Det</span><span>Alcance de detecção: Superfície / Aéreo / Submarino / Terra</span></div>
+            <div class="tleg"><span class="tleg-k">Alc.</span><span>Alcance de ataque contra cada categoria</span></div>
+            <div class="tleg"><span class="tleg-k">🚀</span><span>Mísseis e torpedos — quantidade finita</span></div>
+            <div class="tleg"><span class="tleg-k">⚙</span><span>Canhão, defesa antiaérea, BMD, ASW, ataque aéreo — não se esgotam</span></div>
+          </div>
+        </div>
+        <aside class="tut-side">
+          <div class="tpanel"><div class="tpanel-title">As unidades</div>
+            <ul class="tut-rules">
+              <li>Cada contador no mapa é um grupo de força. <b>Azul</b> tem cantos arredondados; <b>Vermelha</b>, cantos cortados; a barra embaixo mostra o SP.</li>
+              <li>Passe o mouse sobre um contador para ver as estatísticas; o <b>clique direito</b> abre o card completo, que também aparece no painel ao selecionar a unidade.</li>
+              <li>O número amarelo sobre o contador indica quantas unidades estão empilhadas no hexágono.</li>
+            </ul></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 3 — Movimentação (interativo) -->
+    <section class="tut-step" data-s="3">
+      <header class="tut-head"><span class="tut-kicker">FASE 1</span><h2 class="tut-title">Movimentação</h2></header>
+      <div class="tut-grid">
+        <div class="tut-stage tut-sim">
+          <div class="sim-hud" data-hud="movement"></div>
+          <div class="sim-canvas-wrap"><canvas id="tut-mov-canvas" class="sim-canvas" width="700" height="430" aria-label="Mapa interativo: movimentação"></canvas></div>
+          <div class="sim-status" id="tut-mov-status"></div>
+        </div>
+        <aside class="tut-side">
+          <div class="tpanel"><div class="tpanel-title">UNIDADE SELECIONADA</div><div id="tut-mov-unit"></div></div>
+          <div class="tpanel"><div class="tpanel-title">AÇÕES</div>
+            <button id="tut-mov-end" class="act-btn yellow"></button>
+            <button id="tut-mov-undo" class="act-btn gray">↩ Desfazer Passo</button>
+            <button id="tut-mov-reset" class="act-btn gray hidden">↺ Recomeçar</button>
+            <div class="phase-legend">
+              <div class="leg-row"><span class="leg-swatch green"></span><span>Hexágonos de movimento</span></div>
+              <div class="leg-row"><span class="leg-swatch amber"></span><span>Movimento com consumo de 2 FP</span></div>
+              <div class="leg-row"><span class="leg-swatch orange"></span><span>Alta velocidade: consumo de 3 FP</span></div>
+            </div>
+          </div>
+        </aside>
+        <ul class="tut-rules tut-rules-wide">
+          <li>Até <b>MOV</b> hexágonos por período, um passo de cada vez; clicar num hex mais distante traça o caminho até ele, e <b>↩</b> desfaz o último passo.</li>
+          <li>Consumo do período: parado ou 1 hex = 1 FP · 2 hexes = 2 FP · 3 ou mais = 3 FP (<b>alta velocidade</b>). O painel avisa quando o próximo hex aumenta o consumo.</li>
+          <li>Navios só no mar; submarinos não entram em águas rasas; tropas só em terra e no litoral.</li>
+          <li>Hexágono com várias unidades: <b>Grupo (juntos)</b> move a pilha inteira; aeronaves e forças embarcadas seguem o navio.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 4 — Detecção (interativo) -->
+    <section class="tut-step" data-s="4">
+      <header class="tut-head"><span class="tut-kicker">INTELIGÊNCIA</span><h2 class="tut-title">Detecção e névoa de guerra</h2></header>
+      <div class="tut-grid">
+        <div class="tut-stage tut-sim">
+          <div class="sim-hud" data-hud="detection"></div>
+          <div class="sim-canvas-wrap"><canvas id="tut-det-canvas" class="sim-canvas" width="700" height="430" aria-label="Mapa interativo: detecção"></canvas></div>
+          <div class="sim-status" id="tut-det-status"></div>
+        </div>
+        <aside class="tut-side">
+          <div class="tpanel"><div class="tpanel-title">Detecção</div>
+            <p class="tut-small">Alterne o período:</p>
+            <div class="tut-toggle">
+              <button id="tut-det-day" class="act-btn yellow">☀ Diurno</button>
+              <button id="tut-det-night" class="act-btn gray">🌙 Noturno</button>
+            </div>
+          </div>
+          <div class="tpanel">
+            <ul class="tut-rules">
+              <li>Você só vê inimigos dentro do alcance de detecção de alguma unidade sua (valores <b>Det S/Aé/Sb/T</b>).</li>
+              <li>À noite o alcance cai <b>2 hexágonos</b> — exceto o dos submarinos, que usam sonar.</li>
+              <li>Hex <b>nítido</b> está coberto pela sua detecção: se não há inimigo ali, está livre. Hex <b>enevoado</b> está fora de alcance — parecer vazio não quer dizer que esteja. No jogo, 🌫 ou a tecla <b>F</b> liga e desliga a névoa.</li>
+              <li>Submarinos só são vistos por alcance antissubmarino; forças especiais nunca aparecem; bases, portos e tropas em terra sempre aparecem.</li>
+            </ul></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 5 — Engajamentos (interativo) -->
+    <section class="tut-step" data-s="5">
+      <header class="tut-head"><span class="tut-kicker">FASE 2</span><h2 class="tut-title">Engajamentos</h2></header>
+      <div class="tut-grid">
+        <div class="tut-stage tut-sim">
+          <div class="sim-hud" data-hud="combat"></div>
+          <div class="sim-canvas-wrap">
+            <canvas id="tut-eng-canvas" class="sim-canvas" width="700" height="430" aria-label="Mapa interativo: engajamentos"></canvas>
+            <div id="tut-wp" class="weapon-picker tut-wp hidden">
+              <div class="wp-title">SELECIONAR ARMAMENTO</div>
+              <div class="wp-subtitle" id="tut-wp-target"></div>
+              <div id="tut-wp-body" class="wp-list"></div>
+              <div class="wp-footer">
+                <button id="tut-wp-cancel" class="act-btn gray">Cancelar</button>
+                <button id="tut-wp-confirm" class="act-btn green">Confirmar ▶</button>
+              </div>
+            </div>
+          </div>
+          <div class="sim-status" id="tut-eng-status"></div>
+        </div>
+        <aside class="tut-side">
+          <div class="tpanel"><div class="tpanel-title">AÇÕES</div>
+            <div class="eng-panel"><div class="eng-title" id="tut-eng-title"></div><div class="eng-list" id="tut-eng-list"></div></div>
+            <button id="tut-eng-end" class="act-btn orange"></button>
+            <button id="tut-eng-reset" class="act-btn gray hidden">↺ Recomeçar</button>
+          </div>
+        </aside>
+        <ul class="tut-rules tut-rules-wide">
+          <li>Selecione um atacante e clique num alvo <b>vermelho</b> (detectado e no alcance de ataque); escolha a arma e quantos mísseis ou torpedos disparar.</li>
+          <li>Cada engajamento entra na lista e vira uma <b>seta numerada</b> no mapa. Pela lista você ajusta a salva (−/+), remove (✕) ou seleciona o atacante.</li>
+          <li>Mísseis e torpedos são finitos; canhão, ASW e ataque aéreo não se esgotam. Cada ataque custa <b>+1 FP</b> ao navio atacante.</li>
+          <li>Encerre com <b>Encerrar Fase de Engajamentos</b> — o adversário declara ao mesmo tempo, sem ver os seus.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 6 — Resolução -->
+    <section class="tut-step" data-s="6">
+      <header class="tut-head"><span class="tut-kicker">RESOLUÇÃO</span><h2 class="tut-title">Como o combate é resolvido</h2></header>
+      <div class="tut-grid">
+        <div class="tut-stage tut-res">
+          <div class="br-box tut-br">
+            <div class="br-header">── ENG-01 · Rodada de Combate 1 ──</div>
+            <div class="br-combatants"><span class="cm-blue">SAG-2</span><span class="br-arrow"> → </span><span class="cm-red">SAG2</span><span class="br-wpn-tag">MSS ×4</span></div>
+            <div class="br-row br-miss"><span>4 mísseis lançados</span></div>
+            <div class="br-row br-miss"><span class="br-int">Defesa antiaérea do grupo (6): 4 disparos · 2 · 5 · 3 · 6 → 2 interceptados</span></div>
+            <div class="br-row br-hit"><span>✓ 2 impactos · d6 = 4 → 1 de dano · d6 = 6 → 1d6 = 3</span>
+              <div class="br-detail">SAG2: SP 9 → 5 (−4)</div>
+              <div class="br-degrad">↘ Degradação: Movimentação −1</div></div>
+            <div class="br-decision">
+              <div class="br-question">Continuar o combate neste engajamento?</div>
+              <div class="br-btns">
+                <button id="tut-br-continue" class="act-btn green">▶ CONTINUAR</button>
+                <button id="tut-br-stop" class="act-btn red">■ PARAR</button>
+              </div>
+              <div id="tut-br-info" class="tut-br-info"></div>
+            </div>
+          </div>
+        </div>
+        <aside class="tut-side">
+          <div class="tpanel"><div class="tpanel-title">RESOLUÇÃO</div>
+            <ul class="tut-rules">
+              <li><b>Interceptação</b> — cada ponto de defesa antiaérea do alvo (somado entre os navios empilhados no hex) rola 1d6 contra um míssil e o abate com 5 ou 6. Torpedos e canhão não são interceptados; ASBM só por BMD.</li>
+              <li><b>Dano</b> — cada míssil que passa rola 1d6 na tabela da arma: resultado baixo não causa dano, médio causa 1 e alto rola mais um d6. Salvas maiores saturam a defesa.</li>
+              <li><b>2ª rodada</b> — depois da 1ª, cada lado decide continuar ou parar; havendo 2ª rodada, o atacante dispara de novo e o grupo defensor contra-ataca. LACM e ASBM têm uma rodada só.</li>
+              <li><b>Degradação</b> — golpe que não destrói reduz detecção, movimento, capacidade de combate ou combustível máximo; quem absorve dano gasta também <b>+1 FP</b>.</li>
+            </ul></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 7 — Logística -->
+    <section class="tut-step" data-s="7">
+      <header class="tut-head"><span class="tut-kicker">LOGÍSTICA</span><h2 class="tut-title">Combustível e munição</h2></header>
+      <div class="tut-grid">
+        <div class="tut-stage tut-log">
+          <div class="tut-log-title">CONSUMO DO PERÍODO (NAVIOS E SUBMARINOS CONVENCIONAIS)</div>
+          <div class="tut-tiers">
+            <div class="ttier t1"><div class="thex">0</div><b>1 FP</b><small>parado</small></div>
+            <div class="ttier t1"><div class="thex">1</div><b>1 FP</b><small>1 hex</small></div>
+            <div class="ttier t2"><div class="thex">2</div><b>2 FP</b><small>2 hex</small></div>
+            <div class="ttier t3"><div class="thex">3</div><b>3 FP ⚡</b><small>alta velocidade</small></div>
+            <div class="ttier t3"><div class="thex">4</div><b>3 FP ⚡</b><small>alta velocidade</small></div>
+          </div>
+          <div class="tut-log-cards">
+            <div class="tut-log-card"><span class="tut-log-ico">⛽</span><span>Navio empilhado com <b>navio-tanque, navio logístico ou porto</b> aliado ao fim do período → <b>FP cheio</b></span></div>
+            <div class="tut-log-card"><span class="tut-log-ico">✈</span><span>Aeronave: FP = <b>2× movimento</b>, gasto só no ar; volta à base depois do combate e fica pronta, com tanque cheio, no período seguinte</span></div>
+          </div>
+        </div>
+        <aside class="tut-side">
+          <div class="tpanel"><div class="tpanel-title">LOGÍSTICA</div>
+            <ul class="tut-rules">
+              <li>Somando movimento, ataques (+1) e dano recebido (+1), um navio gasta no máximo <b>4 FP por período</b>.</li>
+              <li>Com <b>0 FP</b> o navio não move, não ataca e não se defende. Submarinos nucleares, o porta-aviões vermelho e as FPSOs não consomem FP.</li>
+              <li>Aeronave no ar com 0 FP e sem base ao alcance é <b>perdida</b>.</li>
+              <li>Recompletamento de munição: navios Azuis que terminam o período <b>parados em porto</b>, aeronaves de volta à base e unidades terrestres Azuis. A Vermelha <b>não recompleta armas navais</b> no mar — economize salvas.</li>
+            </ul></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 8 — Vitória -->
+    <section class="tut-step" data-s="8">
+      <header class="tut-head"><span class="tut-kicker">OBJETIVOS</span><h2 class="tut-title">Condições de vitória</h2></header>
+      <div class="tut-grid">
+        <!-- Rótulos e limiares idênticos aos do painel do jogo (server.js
+             computeObjectives, limiares em shared/objectives.js). -->
+        <div class="tut-stage tut-win">
+          <div class="tobj blue"><div class="tobj-title">FORÇA AZUL — 3 DE 5</div>
+            <ul>
+              <li>○ Destruir Porta-Aviões</li>
+              <li>○ Neutralizar 2 de 3 Logísticos</li>
+              <li>○ Neutralizar GT Anfíbio</li>
+              <li>○ Destruir Submarino Nuclear</li>
+              <li>○ Degradar ≥50% Nav. Combatentes</li>
+            </ul></div>
+          <div class="tobj red"><div class="tobj-title">FORÇA VERMELHA — 2 DE 2</div>
+            <ul>
+              <li>○ Neutralizar 3 de 4 FPSOs</li>
+              <li>○ Degradar ≥40% Portos</li>
+            </ul></div>
+          <div class="tobj-deadline">⏱ Turno 1/12 · Ao fim de <b>12 dias</b> sem vencedor, ganha quem tiver maior progresso nos seus objetivos.</div>
+        </div>
+        <aside class="tut-side">
+          <div class="tpanel"><div class="tpanel-title">OBJETIVOS</div>
+            <ul class="tut-rules">
+              <li>A Força Azul vence com <b>3 de 5</b> condições; a Vermelha precisa das <b>2</b>.</li>
+              <li>Condições de destruir ou neutralizar um alvo contam progresso parcial pelo dano já causado.</li>
+              <li>Ao fim de <b>12 dias</b> sem vencedor, a partida é decidida pelo progresso de cada lado.</li>
+              <li>O painel <b>Objetivos de Vitória</b> acompanha os dois lados durante a partida, e a ajuda (<b>?</b> ou tecla <b>H</b>) resume todas as regras.</li>
+            </ul></div>
+        </aside>
+      </div>
+    </section>
+
+    <div class="tut-footer">
+      <button id="tut-prev" class="act-btn gray">← Anterior</button>
+      <span class="tut-counter">1 / 9</span>
+      <button id="tut-next" class="act-btn blue">Próximo →</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const btnCreate = document.getElementById('btn-create');
+  const btnJoin   = document.getElementById('btn-join');
+  const roomInput = document.getElementById('room-input');
+  const lobbyErr  = document.getElementById('lobby-err');
+
+  btnCreate.addEventListener('click', () => {
+    sessionStorage.setItem('pendingAction', 'create');
+    location.href = '/game';
+  });
+
+  btnJoin.addEventListener('click', () => {
+    const c = roomInput.value.trim().toUpperCase();
+    if (!c) { showErr('Digite o código da sala.'); return; }
+    sessionStorage.setItem('pendingAction', 'join');
+    sessionStorage.setItem('pendingCode', c);
+    location.href = '/game';
+  });
+
+  roomInput.addEventListener('keydown', e => { if (e.key === 'Enter') btnJoin.click(); });
+
+  // Doutrina escolhida para o bot. 'random' é resolvido no servidor, na criação
+  // da sala, para o jogador não saber de antemão o que vai enfrentar.
+  function selectedDoctrine() {
+    const formation = document.querySelector('input[name="doctrine-formation"]:checked')?.value || 'random';
+    const posture   = document.querySelector('input[name="doctrine-posture"]:checked')?.value   || 'random';
+    return { formation, posture };
+  }
+
+  function startSolo(team) {
+    const { formation, posture } = selectedDoctrine();
+    sessionStorage.setItem('pendingAction', 'solo');
+    sessionStorage.setItem('soloTeam', team);
+    sessionStorage.setItem('soloFormation', formation);
+    sessionStorage.setItem('soloPosture', posture);
+    location.href = '/game';
+  }
+
+  document.getElementById('btn-solo-blue').addEventListener('click', () => startSolo('blue'));
+  document.getElementById('btn-solo-red').addEventListener('click',  () => startSolo('red'));
+
+  document.getElementById('btn-facilitate').addEventListener('click', () => {
+    sessionStorage.setItem('pendingAction', 'facilitate');
+    location.href = '/game';
+  });
+
+  document.querySelector('.scroll-down').addEventListener('click', e => {
+    e.preventDefault();
+    document.getElementById('lobby').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  function showErr(msg) {
+    lobbyErr.textContent = msg;
+    lobbyErr.classList.remove('hidden');
+    setTimeout(() => lobbyErr.classList.add('hidden'), 4000);
+  }
+</script>
+<!-- Tutorial: reaproveita a grade, o terreno e os contadores do jogo -->
+<script src="js/hex.js"></script>
+<script src="js/terrain.js"></script>
+<script src="js/units.js"></script>
+<script src="js/tutorial.js"></script>
+</body>
+</html>
