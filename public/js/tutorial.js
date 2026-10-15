@@ -128,9 +128,13 @@
   }
 
   // ── Mini-mapa com a renderização do jogo ───────────────────────────────────
-  // Janela do teatro (coordenadas de jogo): colunas D–M, linhas 1–5 — a costa
-  // do Sudeste, as bacias petrolíferas e o mar aberto a leste.
-  const VIEW = { x0: 330, y0: 110, w: 1080, h: 663 };
+  // Janela do teatro (coordenadas de jogo): colunas J–S, linhas 6–10 — a costa
+  // do Sudeste, as bacias petrolíferas e o mar aberto a leste. Em passos da
+  // grade a partir do centro de J-6, para acompanhar a calibração de hex.js.
+  const VIEW = (() => {
+    const o = hexToPixel(9, 5), passo = HEX_R * 1.5;
+    return { x0: o.x - 0.894 * passo, y0: o.y - 0.695 * HEX_H, w: 10.69 * passo, h: 5.68 * HEX_H };
+  })();
   // Carta e ícones só são baixados quando o tutorial é aberto pela primeira vez.
   const mapImg = new Image();
   let mapReady = false, assetsRequested = false;
@@ -235,14 +239,14 @@
 
   // ═══ Passo 3 — Movimentação ════════════════════════════════════════════════
   // SAG-1 (BLUE-SAG-S1): fragatas, SP 9, MOV 4, 10 FP. SAG2 (RED-GE-3) é o contato.
-  const MOV_START = { col: 7, row: 2 };
+  const MOV_START = { col: 13, row: 7 };
   const mov = {
     map: new MiniMap($('tut-mov-canvas')),
     blue: null, red: null, sel: false, path: [], reach: new Map(), done: false, anim: false,
   };
   function movReset() {
     mov.blue = { team: 'blue', type: 'fragata', name: 'SAG-1', hp: 9, maxHp: 9, mov: 4, fp: 10, fpMax: 10, ...MOV_START };
-    mov.red  = { team: 'red',  type: 'fragata', name: 'SAG2', hp: 9, maxHp: 9, col: 10, row: 2 };
+    mov.red  = { team: 'red',  type: 'fragata', name: 'SAG2', hp: 9, maxHp: 9, col: 16, row: 7 };
     mov.sel = false; mov.path = [{ ...MOV_START }]; mov.done = false; mov.anim = false;
     movRecalc(); movRender();
   }
@@ -344,7 +348,7 @@
     const tick = () => {
       if (i < path.length) { Object.assign(mov.blue, path[i++]); movDraw(); setTimeout(tick, 260); return; }
       // revelação simultânea: o adversário também se moveu (para um hex livre)
-      const dest = [{ col: 11, row: 1 }, { col: 10, row: 1 }, { col: 11, row: 2 }].find(h => !same(h, mov.blue));
+      const dest = [{ col: 17, row: 6 }, { col: 16, row: 6 }, { col: 17, row: 7 }].find(h => !same(h, mov.blue));
       Object.assign(mov.red, dest);
       mov.blue.fp -= mov.lastCost;
       mov.anim = false; mov.done = true;
@@ -359,12 +363,12 @@
   const det = {
     map: new MiniMap($('tut-det-canvas')), night: false,
     blue: [
-      { team: 'blue', type: 'fragata',   name: 'SAG-1', hp: 9, maxHp: 9, col: 7, row: 2, det: 2, sub: false },
-      { team: 'blue', type: 'submarino', name: 'SB1',   hp: 2, maxHp: 2, col: 9, row: 4, det: 2, sub: true },
+      { team: 'blue', type: 'fragata',   name: 'SAG-1', hp: 9, maxHp: 9, col: 13, row: 7, det: 2, sub: false },
+      { team: 'blue', type: 'submarino', name: 'SB1',   hp: 2, maxHp: 2, col: 15, row: 9, det: 2, sub: true },
     ],
     red: [
-      { team: 'red', type: 'destroier', name: 'SAG1', hp: 10, maxHp: 10, col: 7, row: 0 },
-      { team: 'red', type: 'logistico', name: 'LOG1', hp: 6,  maxHp: 6,  col: 11, row: 3 },
+      { team: 'red', type: 'destroier', name: 'SAG1', hp: 10, maxHp: 10, col: 13, row: 5 },
+      { team: 'red', type: 'logistico', name: 'LOG1', hp: 6,  maxHp: 6,  col: 17, row: 8 },
     ],
   };
   const detRange = u => Math.max(0, u.det - (det.night && !u.sub ? 2 : 0));
@@ -429,14 +433,14 @@
   const eng = { map: new MiniMap($('tut-eng-canvas')) };
   function engReset() {
     eng.blue = [
-      { id: 'S2', team: 'blue', type: 'fragata', name: 'SAG-2', hp: 10, maxHp: 10, col: 6, row: 2, atk: 2,
+      { id: 'S2', team: 'blue', type: 'fragata', name: 'SAG-2', hp: 10, maxHp: 10, col: 12, row: 7, atk: 2,
         weapons: { mss: 24 }, caps: { navalGun: 4, airAttack: 2 } },
-      { id: 'B1', team: 'blue', type: 'submarino', name: 'SB1', hp: 2, maxHp: 2, col: 8, row: 4, atk: 2,
+      { id: 'B1', team: 'blue', type: 'submarino', name: 'SB1', hp: 2, maxHp: 2, col: 14, row: 9, atk: 2,
         weapons: { mss: 2, torpedo: 6 }, caps: {} },
     ];
     eng.red = [
-      { id: 'G3', team: 'red', type: 'fragata',   name: 'SAG2', hp: 9, maxHp: 9, col: 7, row: 1 },
-      { id: 'L1', team: 'red', type: 'logistico', name: 'LOG1', hp: 6, maxHp: 6, col: 8, row: 3 },
+      { id: 'G3', team: 'red', type: 'fragata',   name: 'SAG2', hp: 9, maxHp: 9, col: 13, row: 6 },
+      { id: 'L1', team: 'red', type: 'logistico', name: 'LOG1', hp: 6, maxHp: 6, col: 14, row: 8 },
     ];
     eng.sel = null; eng.list = []; eng.picker = null; eng.done = false;
     $('tut-wp').classList.add('hidden');

@@ -34,7 +34,7 @@ const { CAPABILITY_FACTORS, FACTOR_KEYS, RED_GROUP_KEYS, baseUnitId,
         applyForceConfig } = require('./capability_factors');
 const { TAXONOMY, classifyUnit } = require('./force_taxonomy');
 const { OBJECTIVE_IDS, OBJECTIVE_THRESHOLDS, OBJECTIVE_SIDE, OBJECTIVE_LABELS } = require('./objectives');
-const { GRID_W, GRID_H, getTerrain, canEnterTerrain, TERRAIN_NAMES,
+const { GRID_W, GRID_H, colLetra, getTerrain, canEnterTerrain, TERRAIN_NAMES,
         COMP_DISPLAY_TYPE } = require('./board');
 
 const VERSAO = 1;
@@ -207,7 +207,7 @@ function descreverForcas(ob) {
 // ─── Validação ───────────────────────────────────────────────────────────────
 
 const nomeHex = (col, row) =>
-  `${col >= 0 && col < GRID_W ? String.fromCharCode(65 + col) : '?'}${row + 1}`;
+  `${col >= 0 && col < GRID_W ? colLetra(col) : '?'}${row + 1}`;
 
 /**
  * Valida um rascunho de OB (vindo da planilha ou do JSON reenviado pelo
@@ -285,7 +285,7 @@ function validarOB(rascunho) {
     // Posição e terreno
     const p = u.position || {};
     if (!inteiroEntre(p.col, 0, GRID_W - 1) || !inteiroEntre(p.row, 0, GRID_H - 1)) {
-      erro(u, 'position', `posição fora do tabuleiro (colunas A–${String.fromCharCode(64 + GRID_W)}, linhas 1–${GRID_H}).`);
+      erro(u, 'position', `posição fora do tabuleiro (colunas A–${colLetra(GRID_W - 1)}, linhas 1–${GRID_H}).`);
     } else if (CATEGORIAS.includes(u.category) && !canEnterTerrain(u.category, getTerrain(p.col, p.row))) {
       erro(u, 'position', `${nomeHex(p.col, p.row)} é ${TERRAIN_NAMES[getTerrain(p.col, p.row)]} — `
         + `terreno incompatível com a categoria ${u.category}.`);

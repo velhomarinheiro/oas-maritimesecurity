@@ -124,7 +124,9 @@ function clampPan() {
 function applyZoomAround(screenX, screenY, factor) {
   // Piso 1.0: no zoom 1 o mapa inteiro já está visível (o canvas cabe no
   // contêiner); abaixo disso só sobrariam margens mortas.
-  const newZoom = Math.max(1.0, Math.min(3.0, zoom * factor));
+  // Teto 5: com a carta de 28×20 o hexágono no zoom 1 tem pouco mais da
+  // metade do tamanho de antes; 5× devolve o detalhe que o 3× dava.
+  const newZoom = Math.max(1.0, Math.min(5.0, zoom * factor));
   panX = screenX - (screenX - panX) * (newZoom / zoom);
   panY = screenY - (screenY - panY) * (newZoom / zoom);
   zoom = newZoom;

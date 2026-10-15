@@ -250,7 +250,7 @@ function rpFocar(hexes, { ativo = true } = {}) {
     x0 = Math.min(x0, x - HEX_R * 1.6); x1 = Math.max(x1, x + HEX_R * 1.6);
     y0 = Math.min(y0, y - HEX_R * 1.6); y1 = Math.max(y1, y + HEX_R * 1.6);
   }
-  const z = Math.max(1, Math.min(3, Math.min(CVS_W / (x1 - x0), CVS_H / (y1 - y0))));
+  const z = Math.max(1, Math.min(5, Math.min(CVS_W / (x1 - x0), CVS_H / (y1 - y0))));
   RP.zoom = z;
   RP.panX = Math.max(CVS_W * (1 - z), Math.min(0, CVS_W / 2 - ((x0 + x1) / 2) * z));
   RP.panY = Math.max(CVS_H * (1 - z), Math.min(0, CVS_H / 2 - ((y0 + y1) / 2) * z));

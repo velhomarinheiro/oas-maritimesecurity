@@ -28,7 +28,7 @@
 const ExcelJS = require('exceljs');
 const { FACTOR_KEYS } = require('./capability_factors');
 const { OBJECTIVE_THRESHOLDS, OBJECTIVE_LABELS } = require('./objectives');
-const { GRID_W, GRID_H } = require('./board');
+const { GRID_W, GRID_H, colLetra } = require('./board');
 const S = require('./scenario');
 
 // ─── Vocabulário da planilha (português) ↔ códigos do motor ──────────────────
@@ -37,7 +37,7 @@ const LADO      = { azul: 'blue', vermelho: 'red' };
 const LADO_PT   = { blue: 'azul', red: 'vermelho' };
 const CATEG     = { superficie: 'surface', submarino: 'submarine', aereo: 'air', terrestre: 'land', opesp: 'specops' };
 const CATEG_PT  = Object.fromEntries(Object.entries(CATEG).map(([pt, en]) => [en, pt]));
-const LETRAS    = Array.from({ length: GRID_W }, (_, i) => String.fromCharCode(65 + i));
+const LETRAS    = Array.from({ length: GRID_W }, (_, i) => colLetra(i));
 const RANGE_PT  = { surface: 'superficie', air: 'aereo', submarine: 'submarino', land: 'terrestre' };
 const CAP_PT    = { navalGun: 'canhao', airDefense: 'defesa_aerea', bmd: 'bmd', asw: 'asw', airAttack: 'ataque_aereo' };
 const ALVO_PT   = { carrier: 'alvo_porta_avioes', logistics: 'alvo_logistico', amphib: 'alvo_anfibio',
@@ -102,11 +102,41 @@ const COL_POR_CAB = new Map(COLUNAS.map(c => [normCab(c.titulo), c]));
 
 const LINHAS_COM_LISTA = 300;   // linhas com lista suspensa (folga para incluir unidades)
 
+/**
+ * Zera a data/hora (formato DOS) de cada entrada do zip do .xlsx. O exceljs
+ * grava "agora" em cada entrada, e duas exportações do mesmo conteúdo em
+ * segundos diferentes davam arquivos diferentes. Só os campos de data mudam:
+ * o CRC e o conteúdo das entradas ficam intactos.
+ */
+function zerarDatasZip(buf) {
+  const DATA_DOS = 0x0021;  // 1980-01-01, a menor data DOS
+  // Percorre pelo diretório central (a partir do registro final), que aponta
+  // para cada cabeçalho local — nunca varre os dados comprimidos.
+  let fim = -1;
+  for (let i = buf.length - 22; i >= Math.max(0, buf.length - 22 - 0xffff); i--) {
+    if (buf.readUInt32LE(i) === 0x06054b50) { fim = i; break; }
+  }
+  if (fim < 0) return buf;
+  const n = buf.readUInt16LE(fim + 10);
+  let p = buf.readUInt32LE(fim + 16);
+  for (let k = 0; k < n; k++) {
+    if (buf.readUInt32LE(p) !== 0x02014b50) break;
+    buf.writeUInt16LE(0, p + 12); buf.writeUInt16LE(DATA_DOS, p + 14);
+    const local = buf.readUInt32LE(p + 42);
+    if (buf.readUInt32LE(local) === 0x04034b50) {
+      buf.writeUInt16LE(0, local + 10); buf.writeUInt16LE(DATA_DOS, local + 12);
+    }
+    p += 46 + buf.readUInt16LE(p + 28) + buf.readUInt16LE(p + 30) + buf.readUInt16LE(p + 32);
+  }
+  return buf;
+}
+
 /** @param {object} ob  OB anotada canônica  @returns {Promise<Buffer>} */
 async function exportarPlanilha(ob, { nome = 'Ordem de batalha' } = {}) {
   const wb = new ExcelJS.Workbook();
   wb.creator = 'Operação Atlântico Sul — Simulador Construtivo';
   wb.created = new Date(0);   // fixo: o mesmo conteúdo gera o mesmo arquivo
+  wb.modified = new Date(0);  // idem: o exceljs grava "agora" se não fixado
 
   // Listas (oculta). Criada primeiro para as validações apontarem para ela.
   const wl = wb.addWorksheet('Listas', { state: 'hidden' });
@@ -184,7 +214,7 @@ async function exportarPlanilha(ob, { nome = 'Ordem de batalha' } = {}) {
 
   // Ordem das abas: Instruções primeiro, para quem abre pela primeira vez.
   wb.worksheets.forEach(ws => { ws.orderNo = ({ 'Instruções': 0, Unidades: 1, 'Composição': 2, 'Cenário': 3, Listas: 4 })[ws.name]; });
-  return Buffer.from(await wb.xlsx.writeBuffer());
+  return zerarDatasZip(Buffer.from(await wb.xlsx.writeBuffer()));
 }
 
 function estiloCabecalho(row) {
