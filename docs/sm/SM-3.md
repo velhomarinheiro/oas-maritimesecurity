@@ -19,7 +19,7 @@
   - 5º DN: linhas 13–20.
 
   As ocorrências só surgem em hexágonos de mar a até 3 hexágonos da costa (≈ 200 mn).
-- **Incidência:** cada combinação área × tipo sorteia uma Poisson(λ) por turno de 24 h. Cada tipo tem os terrenos onde pode surgir, um prazo em turnos (sem resposta, a ocorrência escapa), a evasão do contato no motor de encontro, a etapa que conta como repressão e o órgão interagências pertinente, este último para a SM-4.
+- **Incidência:** cada combinação área × tipo sorteia uma Poisson(λ) por turno de 24 h. Cada tipo tem os terrenos onde pode surgir, um prazo em turnos (sem resposta, a ocorrência escapa), a evasão do contato no motor de encontro e a etapa que conta como repressão.
 - **Autoridade constabular:** a repressão é aplicação da lei e não escalada. Seu teto no motor de encontro é o apresamento em qualquer nível. A ROE N0–N3 da SM-2 vale para os contatos do híbrido, de modo que tratar uma cobertura como crime comum é legítimo — e é aí que mora o dilema da triagem.
 - **Dupla função (§5.2):**
   - **Cobertura:** com probabilidade `pCoberturaMax × intensidade`, uma ocorrência de rotina encobre a trilha de defesa. Quando um encontro com ela chega à inspeção, `registrarResposta` devolve um evento `incidente_hibrido`, no formato que a escada de escalada (SM-2) consome.
@@ -51,6 +51,6 @@ O teste verifica:
 
 ## Ganchos para as próximas fases
 
-- **SM-4:** `TIPOS_OCORRENCIA[tipo].orgao` liga cada ocorrência ao apoio interagências pertinente (PF, RF, IBAMA). A área (`area` → `AREAS_DN[].estacao`) define qual Distrito Naval lidera a resposta.
+- **SM-4:** a pertinência de cada apoio interagências aos tipos de ocorrência fica em `APOIOS` (SM-4, Tabela 7.2). A área (`area` → `AREAS_DN[].estacao`) define qual Distrito Naval lidera a resposta.
 - **SM-5:** o configurador passa `areasAtivas` e `tiposAtivos`. O episódio de crise "pesca ilegal em massa" pode usar a mesma geração com λ elevado.
 - **Pendente:** a intensidade e a área-alvo do híbrido virão do agente Vermelho, ou do jogador no modo 1×1.

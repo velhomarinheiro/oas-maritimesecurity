@@ -61,3 +61,4 @@ construtivo existente.
 | SM-1 — encontro e atribuição | [`SM-1.md`](SM-1.md) | concluída |
 | SM-2 — escada de escalada e ROE | [`SM-2.md`](SM-2.md) | concluída |
 | SM-3 — gerador constabular e dupla função | [`SM-3.md`](SM-3.md) | concluída |
+| SM-4 — C2: estações, barramento, modalidades, apoios | [`SM-4.md`](SM-4.md) | concluída |
