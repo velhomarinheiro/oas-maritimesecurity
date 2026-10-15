@@ -1,0 +1,439 @@
+{
+  "_revisor": "nome e função",
+  "_data": "AAAA-MM-DD",
+  "_fonte": "documentos, experiência ou dados que fundamentam os valores",
+  "_nota": "Valores ATUAIS (placeholders) dos blocos de maior prioridade. Edite os que revisar; apague os demais ou deixe-os como estão. Chaves com \"_\" são ignoradas pelo modelo.",
+  "P_BASE": {
+    "deteccao": 0.85,
+    "identificacao": 0.75,
+    "interrogacao": 0.8,
+    "abordagem": 0.7,
+    "inspecao": 0.8,
+    "apresamento": 0.75
+  },
+  "PISO_FUSAO": {
+    "deteccao": 0.4,
+    "identificacao": 0.45,
+    "interrogacao": 0.7,
+    "abordagem": 0.85,
+    "inspecao": 0.8,
+    "apresamento": 0.9
+  },
+  "CAPACIDADE_POR_TIPO": {
+    "patrulha_oc": {
+      "sensor": 0.85,
+      "gvi": 0.9
+    },
+    "patrulha_c": {
+      "sensor": 0.65,
+      "gvi": 0.8
+    },
+    "fragata": {
+      "sensor": 1,
+      "gvi": 0.75
+    },
+    "corveta": {
+      "sensor": 0.9,
+      "gvi": 0.75
+    },
+    "destroier": {
+      "sensor": 1,
+      "gvi": 0.7
+    },
+    "amphib": {
+      "sensor": 0.6,
+      "gvi": 1
+    },
+    "carrier": {
+      "sensor": 0.8,
+      "gvi": 0.6
+    },
+    "patrulha": {
+      "sensor": 1,
+      "gvi": 0
+    },
+    "helicoptero": {
+      "sensor": 0.7,
+      "gvi": 0.5
+    },
+    "aew": {
+      "sensor": 0.9,
+      "gvi": 0
+    },
+    "submarino": {
+      "sensor": 0.7,
+      "gvi": 0
+    },
+    "sub_nuclear": {
+      "sensor": 0.8,
+      "gvi": 0
+    },
+    "specops": {
+      "sensor": 0.4,
+      "gvi": 1
+    },
+    "logistico": {
+      "sensor": 0.3,
+      "gvi": 0.2
+    },
+    "tanque": {
+      "sensor": 0.3,
+      "gvi": 0.1
+    },
+    "inspecao_naval": {
+      "sensor": 0.4,
+      "gvi": 0.9
+    },
+    "mcm": {
+      "sensor": 0.5,
+      "gvi": 0.3
+    },
+    "usv": {
+      "sensor": 0.7,
+      "gvi": 0
+    },
+    "uav": {
+      "sensor": 0.8,
+      "gvi": 0
+    },
+    "rov": {
+      "sensor": 0.6,
+      "gvi": 0
+    }
+  },
+  "GANHO_EVIDENCIA": {
+    "deteccao": 0.05,
+    "identificacao": 0.15,
+    "interrogacao": 0.15,
+    "abordagem": 0.2,
+    "inspecao": 0.3,
+    "apresamento": 0.3
+  },
+  "FATOR_NEGABILIDADE": {
+    "baixa": 1,
+    "media": 0.8,
+    "alta": 0.55,
+    "muito_alta": 0.35
+  },
+  "PISO_FUSAO_EVIDENCIA": 0.5,
+  "LIMIAR_ATRIBUICAO": {
+    "deteccao": 0,
+    "identificacao": 0,
+    "interrogacao": 20,
+    "abordagem": 40,
+    "inspecao": 40,
+    "apresamento": 70
+  },
+  "PESO_POLITICO": {
+    "deteccao": 0,
+    "identificacao": 0,
+    "interrogacao": 0.5,
+    "abordagem": 2,
+    "inspecao": 2,
+    "apresamento": 4
+  },
+  "TIPOS_OCORRENCIA": {
+    "narcotrafico": {
+      "rotulo": "Narcotráfico",
+      "terrenos": [
+        1,
+        2,
+        3
+      ],
+      "lambda": {
+        "2DN": 0.15,
+        "1DN": 0.2,
+        "8DN": 0.3,
+        "5DN": 0.15
+      },
+      "etapaRepressao": "apresamento",
+      "duracao": 2,
+      "evasao": 0.3,
+      "exploravel": 1
+    },
+    "contrabando": {
+      "rotulo": "Contrabando / descaminho",
+      "terrenos": [
+        1,
+        2
+      ],
+      "lambda": {
+        "2DN": 0.1,
+        "1DN": 0.15,
+        "8DN": 0.2,
+        "5DN": 0.15
+      },
+      "etapaRepressao": "apresamento",
+      "duracao": 2,
+      "evasao": 0.2,
+      "exploravel": 1
+    },
+    "pesca_iuu": {
+      "rotulo": "Pesca irregular (IUU)",
+      "terrenos": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "lambda": {
+        "2DN": 0.25,
+        "1DN": 0.15,
+        "8DN": 0.15,
+        "5DN": 0.3
+      },
+      "etapaRepressao": "apresamento",
+      "duracao": 3,
+      "evasao": 0.1,
+      "exploravel": 3
+    },
+    "crime_ambiental": {
+      "rotulo": "Crime ambiental",
+      "terrenos": [
+        1,
+        2,
+        4
+      ],
+      "lambda": {
+        "2DN": 0.05,
+        "1DN": 0.15,
+        "8DN": 0.1,
+        "5DN": 0.05
+      },
+      "etapaRepressao": "inspecao",
+      "duracao": 3,
+      "evasao": 0.2,
+      "exploravel": 2
+    },
+    "pirataria": {
+      "rotulo": "Pirataria / roubo armado",
+      "terrenos": [
+        1,
+        2,
+        4
+      ],
+      "lambda": {
+        "2DN": 0.05,
+        "1DN": 0.1,
+        "8DN": 0.1,
+        "5DN": 0.05
+      },
+      "etapaRepressao": "abordagem",
+      "duracao": 1,
+      "evasao": 0.25,
+      "exploravel": 1
+    },
+    "imigracao": {
+      "rotulo": "Imigração irregular",
+      "terrenos": [
+        1,
+        2
+      ],
+      "lambda": {
+        "2DN": 0.1,
+        "1DN": 0.05,
+        "8DN": 0.05,
+        "5DN": 0.1
+      },
+      "etapaRepressao": "abordagem",
+      "duracao": 2,
+      "evasao": 0.05,
+      "exploravel": 2
+    }
+  },
+  "ACOPLAMENTO": {
+    "pCoberturaMax": 0.15,
+    "lambdaSaturacaoMax": 1.5,
+    "etapaRevelaVinculo": "inspecao"
+  },
+  "FONTES": {
+    "ais": {
+      "rotulo": "AIS",
+      "peso": 0.2,
+      "confiabilidade": 0.7,
+      "latencia": 0
+    },
+    "preps": {
+      "rotulo": "PREPS",
+      "peso": 0.1,
+      "confiabilidade": 0.8,
+      "latencia": 0
+    },
+    "radar": {
+      "rotulo": "Radares costeiros",
+      "peso": 0.15,
+      "confiabilidade": 0.85,
+      "latencia": 0
+    },
+    "unidades": {
+      "rotulo": "Contatos de unidades em patrulha",
+      "peso": 0.2,
+      "confiabilidade": 0.95,
+      "latencia": 0
+    },
+    "satelite": {
+      "rotulo": "Satélite",
+      "peso": 0.2,
+      "confiabilidade": 0.6,
+      "latencia": 1
+    },
+    "inteligencia": {
+      "rotulo": "Sistemas de inteligência",
+      "peso": 0.15,
+      "confiabilidade": 0.5,
+      "latencia": 1
+    }
+  },
+  "TETO_FUSAO_SEM_C": 0.55,
+  "DIFICULDADES": {
+    "basico": {
+      "rotulo": "Básico",
+      "ritmo": 1.5,
+      "intencaoAPartirDe": 0,
+      "ocultacaoAteContato": false,
+      "adaptacao": null
+    },
+    "intermediario": {
+      "rotulo": "Intermediário",
+      "ritmo": 1,
+      "intencaoAPartirDe": 40,
+      "ocultacaoAteContato": false,
+      "adaptacao": null
+    },
+    "avancado": {
+      "rotulo": "Avançado",
+      "ritmo": 0.6,
+      "intencaoAPartirDe": 70,
+      "ocultacaoAteContato": true,
+      "adaptacao": {
+        "fator": 0.85,
+        "piso": 0.4
+      }
+    }
+  },
+  "HIBRIDO": {
+    "acoesPorTurno": 0.6,
+    "pAreaAlvo": 0.7,
+    "vetores": {
+      "frota_sombra": {
+        "maritimo": true,
+        "etapaNeutraliza": "abordagem",
+        "janela": 3,
+        "alvos": [
+          "porto"
+        ],
+        "dano": 2,
+        "evento": "incidente_hibrido",
+        "sloc": true,
+        "evasao": 0.35,
+        "peso": 3
+      },
+      "milicia_maritima": {
+        "maritimo": true,
+        "etapaNeutraliza": "interrogacao",
+        "janela": 2,
+        "alvos": [
+          "fpso"
+        ],
+        "dano": 1,
+        "evento": "dano_infra",
+        "sloc": true,
+        "evasao": 0.1,
+        "peso": 3
+      },
+      "sabotagem_submarina": {
+        "maritimo": true,
+        "etapaNeutraliza": "identificacao",
+        "janela": 2,
+        "alvos": [
+          "cabo",
+          "duto"
+        ],
+        "dano": 3,
+        "evento": "dano_infra",
+        "sloc": false,
+        "evasao": 0.45,
+        "peso": 2
+      },
+      "usv_uav": {
+        "maritimo": true,
+        "etapaNeutraliza": "identificacao",
+        "janela": 1,
+        "alvos": [
+          "fpso",
+          "porto"
+        ],
+        "dano": 2,
+        "evento": "ataque_armado",
+        "sloc": false,
+        "evasao": 0.3,
+        "peso": 2
+      },
+      "gnss": {
+        "maritimo": true,
+        "etapaNeutraliza": "identificacao",
+        "janela": 2,
+        "alvos": [
+          "fpso"
+        ],
+        "dano": 1,
+        "evento": "incidente_hibrido",
+        "sloc": true,
+        "evasao": 0.2,
+        "peso": 2
+      },
+      "ciber": {
+        "maritimo": false,
+        "janela": 0,
+        "alvos": [
+          "porto"
+        ],
+        "dano": 2,
+        "evento": "dano_infra",
+        "sloc": false,
+        "peso": 1
+      },
+      "minagem": {
+        "maritimo": true,
+        "etapaNeutraliza": "identificacao",
+        "janela": 3,
+        "alvos": [
+          "porto"
+        ],
+        "dano": 3,
+        "evento": "dano_infra",
+        "sloc": true,
+        "evasao": 0.4,
+        "peso": 1,
+        "exigeMcm": true
+      },
+      "lawfare": {
+        "maritimo": false,
+        "peso": 0
+      }
+    },
+    "investigacao": {
+      "turnos": 10,
+      "ganho": 0.15,
+      "robusta": 70
+    },
+    "empregoAberto": {
+      "nivelMin": 2,
+      "intensidadeMin": 0.8,
+      "pPorTurno": 0.05
+    },
+    "fabricarACada": 5,
+    "intensidadeFabricacao": 0.5,
+    "ciber": {
+      "pDano": 1,
+      "reducaoPorFusao": 0.5,
+      "atribuicao": 10
+    },
+    "maxAcoesHumano": 2
+  },
+  "DESFECHO": {
+    "infraVitoriaAzul": 80,
+    "ordemVitoriaAzul": 0.4,
+    "infraVitoriaVermelha": 60
+  }
+}
