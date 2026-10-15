@@ -117,8 +117,10 @@ ok(linhas.length === 1040, `o lote de 1.040 partidas completa (${(ms / 1000).toF
   const kcv = linhas.filter(l => l.kcv_perdido === 1);
   ok(kcv.length > 0 && kcv.every(l => l.desfecho === 'derrota_vermelha_kcv' && l.nivel_max === 3), 'perda do KCV ⇒ derrota Vermelha');
   // A transição a N3 vale a partir do turno seguinte: todo turno jogado ficou abaixo do limiar.
+  // Abaixo de N3, só a derrota estratégica (teto de custo político, §11.3) encerra antes do prazo.
   ok(n3.every(l => l.E3_escalada === l.turnos) && n3.some(l => l.turnos < CFG.duracaoDias) &&
-     abaixo.every(l => l.E3_escalada === CFG.duracaoDias), 'N3 encerra a campanha; E3 = turnos abaixo do limiar');
+     abaixo.every(l => l.E3_escalada === l.turnos && (l.turnos === CFG.duracaoDias || l.desfecho === 'derrota_estrategica_azul')),
+     'N3 encerra a campanha; E3 = turnos abaixo do limiar');
 }
 
 // ─── N3: o motor de salva do jogo base, intocado ─────────────────────────────

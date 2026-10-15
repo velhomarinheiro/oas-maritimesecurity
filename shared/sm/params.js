@@ -247,7 +247,7 @@ const ACOPLAMENTO = {
 
 // Sal das sub-sequências aleatórias: a sequência de rotina não depende do
 // acoplamento (mesma semente ⇒ mesmas ocorrências de rotina em toda condição).
-const SAL_CONSTAB = { rotina: 0x9E3779B9, saturacao: 0x85EBCA6B };
+const SAL_CONSTAB = { rotina: 0x9E3779B9, saturacao: 0x85EBCA6B, inocentes: 0x68E31DA4 };
 
 // ─── C2: estações, papéis e fusão (Conceito §7) ───────────────────────────────
 
@@ -420,7 +420,7 @@ const INFOCOG = {
   // Eventos no mar que movem o apoio (pontos).
   eventosMar: {
     reprimida: +0.5, sar_sucesso: +3, sar_falha: -4, dano_infra: -2,
-    incidente_nao_respondido: -1, dano_terceiros: -5,
+    incidente_nao_respondido: -1, dano_terceiros: -5, dano_ambiental: -4,
   },
   // Desinformação Vermelha (§6.1): queda do apoio; o gatilho real (ação Azul
   // frágil ainda não esclarecida) multiplica o efeito.
@@ -435,6 +435,49 @@ const INFOCOG = {
   },
   campanhasPorTurno: 1,
   prazoCampanha: 1,
+};
+
+// ─── Custos a terceiros (Conceito §11.3; SM-11) ───────────────────────────────
+
+// Respostas erradas e danos a terceiros, nas três situações apontadas na
+// revisão de face:
+//   1. interrupção desnecessária da navegação mercante;
+//   2. uso de força desnecessário contra navios mercantes e pesqueiros;
+//   3. ações militares que provocam danos ambientais.
+// As duas primeiras nascem de FALSOS ALARMES: embarcações em atividade legal
+// que o quadro toma por suspeitas (tanto menos quanto melhor a fusão). Para o
+// Azul, são ocorrências como as outras; a inocência só se esclarece na
+// inspeção (ou antes, na interrogação, com chance que cresce com a fusão).
+// Abordar um inocente interrompe a navegação; a abordagem pode ainda degenerar
+// em uso de força, mais provável quanto mais alta a postura (N0–N3).
+// O custo entra no custo político como excesso (INFOCOG.custo.pesoExcesso) e
+// danos a terceiros (INFOCOG.custo.pesoDanos); falsos alarmes não contam como
+// ocorrências criminais (E5_ordem).
+// TODO: validar com especialista (frequências e pesos)
+const TERCEIROS = {
+  falsosAlarmes: {
+    lambda: 0.3,               // por área ativa e turno, com fusão 0
+    reducaoPorFusao: 0.6,      // com fusão f: λ × (1 − 0,6 f)
+    tipos: {
+      mercante:  { rotulo: 'Navio mercante em trânsito regular', aparenta: 'contrabando', peso: 1, interrompeNavegacao: true },
+      pesqueiro: { rotulo: 'Pesqueiro em atividade legal',       aparenta: 'pesca_iuu',   peso: 1, interrompeNavegacao: false },
+    },
+    etapaRevela: 'inspecao',   // a inspeção esclarece a inocência
+    esclareceNaInterrogacao: { base: 0.2, porFusao: 0.5 },  // …ou a interrogação, antes da abordagem
+  },
+  // Situação 1: abordagem de navio mercante inocente (unidades de excesso).
+  interrupcao: { excesso: 1 },
+  // Situação 2: por abordagem de inocente, chance de uso de força desnecessário
+  // por nível N0–N3; unidades de excesso; chance de causar dano (lesões, avarias).
+  forcaDesnecessaria: { pPorNivel: [0.05, 0.10, 0.20, 0.30], excesso: 2, pDano: 0.3 },
+  // Situação 3: por abordagem (ou etapa mais coercitiva) de contato híbrido,
+  // chance de dano ambiental por vetor (derrame de petroleiro da frota-sombra,
+  // rompimento de duto, detonação de mina), × fator do nível N0–N3.
+  ambiental: {
+    pPorVetor: { frota_sombra: 0.05, milicia_maritima: 0.02, sabotagem_submarina: 0.04, minagem: 0.10 },
+    fatorNivel: [0.5, 0.75, 1, 1.5],
+    danos: 1,
+  },
 };
 
 // ─── Runner: agente Vermelho (híbrido), doutrina Azul e desfecho (SM-8) ───────
@@ -504,7 +547,7 @@ const DESFECHO = { infraVitoriaAzul: 80, ordemVitoriaAzul: 0.4, infraVitoriaVerm
 const CUSTO_EAC = { A_MPA: 70, B_NPaOc: 100, C_Fusao: 55, D_USV: 35, E_GVI: 40 };
 
 // Sub-sequências do runner.
-const SAL_RUNNER = { quadro: 0x1B873593, encontro: 0x5BD1E995, vermelho: 0xCC9E2D51 };
+const SAL_RUNNER = { quadro: 0x1B873593, encontro: 0x5BD1E995, vermelho: 0xCC9E2D51, terceiros: 0xB5297A4D };
 
 // ─── Boletim (Conceito §8.4) ──────────────────────────────────────────────────
 
@@ -527,7 +570,7 @@ const PARAMS = {
   DURACAO_DIAS, VETORES_HIBRIDOS, FATORES_SM, DIFICULDADES, CRISES, N_CRISES, SAL_CRISES,
   AJUSTAVEIS_CELULA_BRANCA,
   PRONTIDAO, FATOR_SEM_GVI,
-  INFOCOG,
+  INFOCOG, TERCEIROS,
   HIBRIDO, DOUTRINA, DESFECHO, CUSTO_EAC, SAL_RUNNER,
 };
 

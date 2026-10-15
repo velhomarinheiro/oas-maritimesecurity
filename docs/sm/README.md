@@ -68,3 +68,4 @@ construtivo existente.
 | SM-8 — runner, lote de 1.040 e dataset | [`SM-8.md`](SM-8.md) | concluída |
 | SM-9 — interface interativa (único, 1×1, distribuído) | [`SM-9.md`](SM-9.md) | concluída |
 | SM-10 — validação de face e análise de sensibilidade | [`SM-10.md`](SM-10.md) · [`resultados/`](resultados/) · [`validacao_face/`](validacao_face/) | ferramentas concluídas; revisão por especialistas pendente |
+| SM-11 — custos a terceiros (excesso de força e danos a terceiros) | [`SM-11.md`](SM-11.md) | concluída |

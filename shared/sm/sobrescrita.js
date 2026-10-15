@@ -13,7 +13,8 @@
  * Regras da sobrescrita (JSON):
  *   - só chaves que já existem em PARAMS (erro com o caminho, se não);
  *   - o tipo do valor é o do original (número, booleano, texto, lista, objeto);
- *   - objetos são mesclados recursivamente; listas são substituídas inteiras;
+ *   - objetos são mesclados recursivamente; listas são substituídas inteiras,
+ *     ou alteradas por índice com um objeto ({"0": valor});
  *   - chaves que começam com "_" são metadados (fonte, revisor, data) e são
  *     ignoradas — servem para registrar a proveniência do valor.
  */
@@ -30,6 +31,14 @@ function mesclar(base, over, caminho) {
     if (!Object.prototype.hasOwnProperty.call(base, k)) throw new Error(`Sobrescrita: parâmetro inexistente "${c}".`);
     const tb = tipo(base[k]), tv = tipo(v);
     if (tb === 'nulo') { base[k] = v; continue; }
+    // Lista alterada por índice: {"0": valor, "2": valor}.
+    if (tb === 'lista' && tv === 'object') {
+      for (const i of Object.keys(v)) {
+        if (!/^\d+$/.test(i) || Number(i) >= base[k].length) throw new Error(`Sobrescrita: índice inválido "${c}.${i}".`);
+      }
+      mesclar(base[k], v, c);
+      continue;
+    }
     if (tb !== tv) throw new Error(`Sobrescrita: "${c}" espera ${tb}, veio ${tv}.`);
     if (tb === 'number' && !Number.isFinite(v)) throw new Error(`Sobrescrita: "${c}" não é número finito.`);
     if (tb === 'object') mesclar(base[k], v, c);

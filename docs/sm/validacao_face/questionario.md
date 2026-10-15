@@ -29,20 +29,21 @@ Prioridades calculadas a partir de `node scripts/sm_sensibilidade.js` (30 répli
 | 14 | `FONTES` | C2: estações, papéis e fusão (Conceito §7) | alta |
 | 15 | `TETO_FUSAO_SEM_C` | C2: estações, papéis e fusão (Conceito §7) | alta |
 | 17 | `DIFICULDADES` | Campanha (Conceito §8) | alta |
-| 22 | `HIBRIDO` | Runner: agente Vermelho (híbrido), doutrina Azul e desfecho (SM-8) | alta |
-| 24 | `DESFECHO` | Runner: agente Vermelho (híbrido), doutrina Azul e desfecho (SM-8) | alta |
+| 23 | `HIBRIDO` | Runner: agente Vermelho (híbrido), doutrina Azul e desfecho (SM-8) | alta |
+| 25 | `DESFECHO` | Runner: agente Vermelho (híbrido), doutrina Azul e desfecho (SM-8) | alta |
 | 9 | `GATILHOS_ESCALADA` | Escada de escalada (Conceito §9.3, Tabela 9.1) | média |
+| 16 | `APOIOS` | Apoio externo via COMPAAz (Conceito §7.4, Tabela 7.2) | média |
 | 21 | `INFOCOG` | Dimensão informacional e cognitiva (Conceito §6, §11.3) | média |
-| 23 | `DOUTRINA` | Runner: agente Vermelho (híbrido), doutrina Azul e desfecho (SM-8) | média |
+| 22 | `TERCEIROS` | Custos a terceiros (Conceito §11.3; SM-11) | média |
+| 24 | `DOUTRINA` | Runner: agente Vermelho (híbrido), doutrina Azul e desfecho (SM-8) | média |
 | 10 | `TURNOS_PARA_DESESCALAR` | Escada de escalada (Conceito §9.3, Tabela 9.1) | baixa |
-| 16 | `APOIOS` | Apoio externo via COMPAAz (Conceito §7.4, Tabela 7.2) | baixa |
 | 11 | `AREAS_DN` | Trilha constabular (Conceito §5, Tabela 5.1) | não medida |
 | 18 | `CRISES` | Campanha (Conceito §8) | não medida |
 | 19 | `PRONTIDAO` | OOB de MarSec e prontidão (Conceito §10) | não medida |
 | 20 | `FATOR_SEM_GVI` | OOB de MarSec e prontidão (Conceito §10) | não medida |
-| 25 | `BASES` | OOB de MarSec (Conceito §10) | estrutural |
-| 26 | `MEIOS_AZUIS` | OOB de MarSec (Conceito §10) | estrutural |
-| 27 | `INFRA` | OOB de MarSec (Conceito §10) | estrutural |
+| 26 | `BASES` | OOB de MarSec (Conceito §10) | estrutural |
+| 27 | `MEIOS_AZUIS` | OOB de MarSec (Conceito §10) | estrutural |
+| 28 | `INFRA` | OOB de MarSec (Conceito §10) | estrutural |
 
 ## Questões de coerência do modelo
 
@@ -52,7 +53,7 @@ Pontos que a análise de sensibilidade e do lote revelaram na SM-10, com os par�
 
    Resposta: 
 
-2. **Excesso de força e danos a terceiros não têm gerador.** `INFOCOG.custo.pesoExcesso` e `pesoDanos` são inertes: a etapa-alvo é sempre limitada ao teto da ROE e nenhum evento produz danos a terceiros. E4_custopol mede hoje só o risco por agir à frente da atribuição. Que situações no mar devem gerar dano a terceiros (abordagem a embarcação inocente, emprego de força perto de tráfego) e com que frequência?
+2. **Excesso de força e danos a terceiros (respondida na revisão; SM-11).** As três situações apontadas — interrupção desnecessária da navegação mercante; uso de força desnecessário contra mercantes e pesqueiros; ações militares que provoquem danos ambientais — agora são geradas pelo modelo (bloco `TERCEIROS`). As frequências são placeholders: falsos alarmes (λ por área e turno e quanto a fusão os reduz), chance de esclarecer na interrogação, chance de força desnecessária por nível N0–N3, chance de dano ambiental por vetor. Estão plausíveis?
 
    Resposta: 
 
@@ -88,7 +89,7 @@ Pontos que a análise de sensibilidade e do lote revelaram na SM-10, com os par�
 
 ### 1. `P_BASE` — Motor de encontro (Conceito §9.1)
 
-*shared/sm/params.js* · prioridade **alta** — E1 (|d| máx. 13,17) · sobrescrevível por JSON
+*shared/sm/params.js* · prioridade **alta** — E1 (|d| máx. 11,17) · sobrescrevível por JSON
 
 Probabilidade-base de sucesso da etapa, para unidade de capacidade 1 com fusão plena (1) e contato sem evasão.
 
@@ -105,7 +106,7 @@ Plausível? ☐ sim ☐ não ☐ não sei · Comentário:
 
 ### 2. `PISO_FUSAO` — Motor de encontro (Conceito §9.1)
 
-*shared/sm/params.js* · prioridade **alta** — F1 (|d| máx. 2,86) · sobrescrevível por JSON
+*shared/sm/params.js* · prioridade **alta** — F1 (|d| máx. 2,14) · sobrescrevível por JSON
 
 Peso da fusão de dados por etapa: com fusão 0 a probabilidade cai a PISO_FUSAO × P_BASE; com fusão 1 fica em P_BASE. A fusão pesa mais na detecção e na identificação (consciência situacional) e pouco na execução da abordagem (Conceito §7.2; Desenho §3).
 
@@ -122,7 +123,7 @@ Plausível? ☐ sim ☐ não ☐ não sei · Comentário:
 
 ### 3. `CAPACIDADE_POR_TIPO` — Motor de encontro (Conceito §9.1)
 
-*shared/sm/params.js* · prioridade **alta** — E2 (|d| máx. 7,40) · sobrescrevível por JSON
+*shared/sm/params.js* · prioridade **alta** — E2 (|d| máx. 6,36) · sobrescrevível por JSON
 
 Capacidade da unidade por tipo de plataforma (board.js COMP_DISPLAY_TYPE), nos dois eixos, de 0 (incapaz) a 1. Tipo ausente = incapaz: encontro nulo. Uma unidade pode trazer `capSM: { sensor, gvi }` próprio, que prevalece.
 
@@ -173,7 +174,7 @@ Plausível? ☐ sim ☐ não ☐ não sei · Comentário:
 
 ### 4. `GANHO_EVIDENCIA` — Atribuição (Conceito §9.2)
 
-*shared/sm/params.js* · prioridade **alta** — A1 (|d| máx. 13,38) · sobrescrevível por JSON
+*shared/sm/params.js* · prioridade **alta** — A1 (|d| máx. 4,72) · sobrescrevível por JSON
 
 Fração da distância até 100% que cada etapa bem-sucedida cobre, antes dos moduladores (negabilidade, fusão, ritmo). A detecção pouco diz sobre quem está por trás; a inspeção e o apresamento produzem prova.
 
@@ -190,7 +191,7 @@ Plausível? ☐ sim ☐ não ☐ não sei · Comentário:
 
 ### 5. `FATOR_NEGABILIDADE` — Atribuição (Conceito §9.2)
 
-*shared/sm/params.js* · prioridade **alta** — A2 (|d| máx. 11,27, muda a conclusão sobre C_Fusão) · sobrescrevível por JSON
+*shared/sm/params.js* · prioridade **alta** — A2 (|d| máx. 4,09, muda a conclusão sobre C_Fusão) · sobrescrevível por JSON
 
 Multiplicador do ganho de evidência pela negabilidade do vetor (Tabela 4.1).
 
@@ -205,7 +206,7 @@ Plausível? ☐ sim ☐ não ☐ não sei · Comentário:
 
 ### 6. `PISO_FUSAO_EVIDENCIA` — Atribuição (Conceito §9.2)
 
-*shared/sm/params.js* · prioridade **alta** — F6 (|d| máx. 2,50) · sobrescrevível por JSON
+*shared/sm/params.js* · prioridade **alta** — F6 (|d| máx. 1,05) · sobrescrevível por JSON
 
 Peso da fusão sobre o ganho de evidência: com fusão 0 o ganho cai a este piso; com fusão 1 é integral.
 
@@ -217,7 +218,7 @@ Plausível? ☐ sim ☐ não ☐ não sei · Comentário:
 
 ### 7. `LIMIAR_ATRIBUICAO` — Atribuição (Conceito §9.2)
 
-*shared/sm/params.js* · prioridade **alta** — A3 (|d| máx. 13,88) · sobrescrevível por JSON
+*shared/sm/params.js* · prioridade **alta** — A3 (|d| máx. 4,90) · sobrescrevível por JSON
 
 Atribuição mínima (0–100) a partir da qual cada etapa é resposta fundamentada. Agir acima disso não é proibido (a ROE é que proíbe), mas gera risco político proporcional à distância.
 
@@ -234,7 +235,7 @@ Plausível? ☐ sim ☐ não ☐ não sei · Comentário:
 
 ### 8. `PESO_POLITICO` — Atribuição (Conceito §9.2)
 
-*shared/sm/params.js* · prioridade **alta** — C1 (|d| máx. 2,95) · sobrescrevível por JSON
+*shared/sm/params.js* · prioridade **alta** — C1 (|d| máx. 1,31) · sobrescrevível por JSON
 
 Peso político de agir em cada etapa sem a atribuição correspondente.
 
@@ -251,7 +252,7 @@ Plausível? ☐ sim ☐ não ☐ não sei · Comentário:
 
 ### 9. `GATILHOS_ESCALADA` — Escada de escalada (Conceito §9.3, Tabela 9.1)
 
-*shared/sm/params.js* · prioridade **média** — A4 (|d| máx. 0,42) · sobrescrevível por JSON
+*shared/sm/params.js* · prioridade **média** — A4 (|d| máx. 0,40) · sobrescrevível por JSON
 
 Gatilhos de subida (Tabela 9.1), avaliados sobre os eventos do turno e a janela recente.
 
@@ -267,7 +268,7 @@ Plausível? ☐ sim ☐ não ☐ não sei · Comentário:
 
 ### 10. `TURNOS_PARA_DESESCALAR` — Escada de escalada (Conceito §9.3, Tabela 9.1)
 
-*shared/sm/params.js* · prioridade **baixa** — D4 (|d| máx. 0,09) · sobrescrevível por JSON
+*shared/sm/params.js* · prioridade **baixa** — D4 (|d| máx. 0,06) · sobrescrevível por JSON
 
 Turnos consecutivos sem gatilho do nível corrente para propor descida de um nível.
 
@@ -293,7 +294,7 @@ Plausível? ☐ sim ☐ não ☐ não sei · Comentário:
 
 ### 12. `TIPOS_OCORRENCIA` — Trilha constabular (Conceito §5, Tabela 5.1)
 
-*shared/sm/params.js* · prioridade **alta** — T4 (|d| máx. 3,17) · sobrescrevível por JSON
+*shared/sm/params.js* · prioridade **alta** — T4 (|d| máx. 2,92) · sobrescrevível por JSON
 
 Tipos de ocorrência. Por tipo:   lambda       incidência média por turno de 24 h, por área (Poisson);   terrenos     terrenos onde a ocorrência pode surgir (board.js T_*);   etapaRepressao  etapa do motor de encontro que conta como reprimida;   duracao      turnos até a ocorrência se encerrar sem resposta (escapa);   evasao       evasão do contato nas etapas de percepção (SM-1);   exploravel   peso relativo do tipo quando o híbrido instrumentaliza                ocorrências para saturação (0 = nunca). Terrenos: 1 águas rasas, 2 plataforma, 3 águas profundas, 4 bacia petrolífera.
 
@@ -364,7 +365,7 @@ Plausível? ☐ sim ☐ não ☐ não sei · Comentário:
 
 ### 13. `ACOPLAMENTO` — Trilha constabular (Conceito §5, Tabela 5.1)
 
-*shared/sm/params.js* · prioridade **alta** — T5 (|d| máx. 2,73); T6 (|d| máx. 0,00) · sobrescrevível por JSON
+*shared/sm/params.js* · prioridade **alta** — T5 (|d| máx. 3,02); T6 (|d| máx. 0,00) · sobrescrevível por JSON
 
 Acoplamento com o híbrido (Conceito §4.2, §5.2).
 
@@ -378,7 +379,7 @@ Plausível? ☐ sim ☐ não ☐ não sei · Comentário:
 
 ### 14. `FONTES` — C2: estações, papéis e fusão (Conceito §7)
 
-*shared/sm/params.js* · prioridade **alta** — F2 (|d| máx. 1,88, muda a conclusão sobre C_Fusão) · sobrescrevível por JSON
+*shared/sm/params.js* · prioridade **alta** — F2 (|d| máx. 1,62, muda a conclusão sobre C_Fusão) · sobrescrevível por JSON
 
 Fontes de dados de embarcações (Tabela 8.3). `peso` é a contribuição para a qualidade da fusão; `confiabilidade`, a confiança de um contato reportado só por ela; `latencia`, turnos até o reporte chegar ao barramento.
 
@@ -413,7 +414,7 @@ Plausível? ☐ sim ☐ não ☐ não sei · Comentário:
 
 ### 15. `TETO_FUSAO_SEM_C` — C2: estações, papéis e fusão (Conceito §7)
 
-*shared/sm/params.js* · prioridade **alta** — F3 (|d| máx. 2,82) · sobrescrevível por JSON
+*shared/sm/params.js* · prioridade **alta** — F3 (|d| máx. 1,92) · sobrescrevível por JSON
 
 Sem o fator C_Fusão (SisGAAz ampliado), a fusão não passa deste teto.
 
@@ -425,7 +426,7 @@ Plausível? ☐ sim ☐ não ☐ não sei · Comentário:
 
 ### 16. `APOIOS` — Apoio externo via COMPAAz (Conceito §7.4, Tabela 7.2)
 
-*shared/sm/params.js* · prioridade **baixa** — F7 (|d| máx. 0,12) · sobrescrevível por JSON
+*shared/sm/params.js* · prioridade **média** — F7 (|d| máx. 0,33) · sobrescrevível por JSON
 
 Por apoio: `prazo` em turnos até entrar em vigor; `duracao` em turnos de vigência; `disponibilidade` = probabilidade de o pedido ser atendido; `pertinencia` = tipos de ação/ocorrência sobre os quais atua; efeito:   fatorCapacidade  multiplica a capacidade da unidade no encontro;   bonusFusao       soma à qualidade da fusão no encontro;   fatorRitmo       multiplica o ritmo de evidência (atribuição). 'hibrido' na pertinência = contatos da trilha de defesa.
 
@@ -472,7 +473,7 @@ Plausível? ☐ sim ☐ não ☐ não sei · Comentário:
 
 ### 17. `DIFICULDADES` — Campanha (Conceito §8)
 
-*shared/sm/params.js* · prioridade **alta** — A7 (|d| máx. 13,50, muda a conclusão sobre C_Fusão) · sobrescrevível por JSON
+*shared/sm/params.js* · prioridade **alta** — A7 (|d| máx. 4,92, muda a conclusão sobre C_Fusão) · sobrescrevível por JSON
 
 Dificuldade como névoa de atribuição (§8.2, Tabela 8.1). Não altera a física: só o ritmo de evidência (atribuição), o que o Azul vê da intenção e dos meios do híbrido, e a adaptação do adversário (respostas repetidas rendem menos evidência).   ritmo                multiplicador do ganho de evidência (SM-1)   intencaoAPartirDe    atribuição a partir da qual a intenção do híbrido aparece   ocultacaoAteContato  meios do híbrido fora do quadro até um encontro efetivo   adaptacao            { fator, piso }: ritmo × fator^(repetições), ≥ piso
 
@@ -585,7 +586,7 @@ Plausível? ☐ sim ☐ não ☐ não sei · Comentário:
 
 ### 21. `INFOCOG` — Dimensão informacional e cognitiva (Conceito §6, §11.3)
 
-*shared/sm/params.js* · prioridade **média** — C2 (|d| máx. 0,00); C3 (|d| máx. 0,00); C4 (|d| máx. 0,78); C5 (|d| máx. 0,00); C6 (|d| máx. 0,05); C7 (|d| máx. 0,52) · sobrescrevível por JSON
+*shared/sm/params.js* · prioridade **média** — C2 (|d| máx. 0,49); C3 (|d| máx. 0,04); C4 (|d| máx. 0,51); C5 (|d| máx. 0,19); C6 (|d| máx. 0,07); C7 (|d| máx. 0,34) · sobrescrevível por JSON
 
 Indicador de apoio público / confiança (0–100) e custo político.
 
@@ -607,6 +608,7 @@ Indicador de apoio público / confiança (0–100) e custo político.
 | `INFOCOG.eventosMar.dano_infra` | -2 | | | |
 | `INFOCOG.eventosMar.incidente_nao_respondido` | -1 | | | |
 | `INFOCOG.eventosMar.dano_terceiros` | -5 | | | |
+| `INFOCOG.eventosMar.dano_ambiental` | -4 | | | |
 | `INFOCOG.desinformacao.base` | 6 | | | |
 | `INFOCOG.desinformacao.gatilhoReal` | 1,5 | | | |
 | `INFOCOG.campanhas.comunicacao_estrategica.rotulo` | 'Comunicação estratégica' | | | |
@@ -627,9 +629,45 @@ Indicador de apoio público / confiança (0–100) e custo político.
 
 Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
 
-### 22. `HIBRIDO` — Runner: agente Vermelho (híbrido), doutrina Azul e desfecho (SM-8)
+### 22. `TERCEIROS` — Custos a terceiros (Conceito §11.3; SM-11)
 
-*shared/sm/params.js* · prioridade **alta** — A5 (|d| máx. 2,94, muda a conclusão sobre C_Fusão); A6 (|d| máx. 3,14, muda a conclusão sobre C_Fusão); T1 (|d| máx. 1,82); T2 (|d| máx. 0,84); T3 (|d| máx. 1,70) · sobrescrevível por JSON
+*shared/sm/params.js* · prioridade **média** — C8 (|d| máx. 0,78); C9 (|d| máx. 0,30); C10 (|d| máx. 0,00); C11 (|d| máx. 0,84) · sobrescrevível por JSON
+
+Respostas erradas e danos a terceiros, nas três situações apontadas na revisão de face:   1. interrupção desnecessária da navegação mercante;   2. uso de força desnecessário contra navios mercantes e pesqueiros;   3. ações militares que provocam danos ambientais. As duas primeiras nascem de FALSOS ALARMES: embarcações em atividade legal que o quadro toma por suspeitas (tanto menos quanto melhor a fusão). Para o Azul, são ocorrências como as outras; a inocência só se esclarece na inspeção (ou antes, na interrogação, com chance que cresce com a fusão). Abordar um inocente interrompe a navegação; a abordagem pode ainda degenerar em uso de força, mais provável quanto mais alta a postura (N0–N3). O custo entra no custo político como excesso (INFOCOG.custo.pesoExcesso) e danos a terceiros (INFOCOG.custo.pesoDanos); falsos alarmes não contam como ocorrências criminais (E5_ordem).
+
+Foco da revisão: frequências e pesos.
+
+| Parâmetro | Valor atual | Valor proposto | Fonte / justificativa | Confiança |
+|---|---|---|---|---|
+| `TERCEIROS.falsosAlarmes.lambda` | 0,3 | | | |
+| `TERCEIROS.falsosAlarmes.reducaoPorFusao` | 0,6 | | | |
+| `TERCEIROS.falsosAlarmes.tipos.mercante.rotulo` | 'Navio mercante em trânsito regular' | | | |
+| `TERCEIROS.falsosAlarmes.tipos.mercante.aparenta` | 'contrabando' | | | |
+| `TERCEIROS.falsosAlarmes.tipos.mercante.peso` | 1 | | | |
+| `TERCEIROS.falsosAlarmes.tipos.mercante.interrompeNavegacao` | true | | | |
+| `TERCEIROS.falsosAlarmes.tipos.pesqueiro.rotulo` | 'Pesqueiro em atividade legal' | | | |
+| `TERCEIROS.falsosAlarmes.tipos.pesqueiro.aparenta` | 'pesca_iuu' | | | |
+| `TERCEIROS.falsosAlarmes.tipos.pesqueiro.peso` | 1 | | | |
+| `TERCEIROS.falsosAlarmes.tipos.pesqueiro.interrompeNavegacao` | false | | | |
+| `TERCEIROS.falsosAlarmes.etapaRevela` | 'inspecao' | | | |
+| `TERCEIROS.falsosAlarmes.esclareceNaInterrogacao.base` | 0,2 | | | |
+| `TERCEIROS.falsosAlarmes.esclareceNaInterrogacao.porFusao` | 0,5 | | | |
+| `TERCEIROS.interrupcao.excesso` | 1 | | | |
+| `TERCEIROS.forcaDesnecessaria.pPorNivel` | [0,05, 0,1, 0,2, 0,3] | | | |
+| `TERCEIROS.forcaDesnecessaria.excesso` | 2 | | | |
+| `TERCEIROS.forcaDesnecessaria.pDano` | 0,3 | | | |
+| `TERCEIROS.ambiental.pPorVetor.frota_sombra` | 0,05 | | | |
+| `TERCEIROS.ambiental.pPorVetor.milicia_maritima` | 0,02 | | | |
+| `TERCEIROS.ambiental.pPorVetor.sabotagem_submarina` | 0,04 | | | |
+| `TERCEIROS.ambiental.pPorVetor.minagem` | 0,1 | | | |
+| `TERCEIROS.ambiental.fatorNivel` | [0,5, 0,75, 1, 1,5] | | | |
+| `TERCEIROS.ambiental.danos` | 1 | | | |
+
+Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
+
+### 23. `HIBRIDO` — Runner: agente Vermelho (híbrido), doutrina Azul e desfecho (SM-8)
+
+*shared/sm/params.js* · prioridade **alta** — A5 (|d| máx. 2,47, muda a conclusão sobre C_Fusão); A6 (|d| máx. 2,79, muda a conclusão sobre C_Fusão); T1 (|d| máx. 2,28); T2 (|d| máx. 0,92); T3 (|d| máx. 1,94) · sobrescrevível por JSON
 
 Ações do híbrido por vetor (Tabela 4.1). `maritimo`: gera contato no mar a ser encontrado; `etapaNeutraliza`: etapa do encontro que frustra a ação; `janela`: turnos até a ação produzir efeito; `alvos`: tipos de infraestrutura visados; `dano`: SP retirados do alvo; `evento`: tipo do evento para a escada (SM-2); `sloc`: ameaça a fluidez das SLOC; `peso`: frequência relativa na escolha do vetor.
 
@@ -637,9 +675,9 @@ Ações do híbrido por vetor (Tabela 4.1). `maritimo`: gera contato no mar a se
 
 Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
 
-### 23. `DOUTRINA` — Runner: agente Vermelho (híbrido), doutrina Azul e desfecho (SM-8)
+### 24. `DOUTRINA` — Runner: agente Vermelho (híbrido), doutrina Azul e desfecho (SM-8)
 
-*shared/sm/params.js* · prioridade **média** — F4 (|d| máx. 0,53); F5 (|d| máx. 0,50); D1 (|d| máx. 0,13); D2 (|d| máx. 0,09); D3 (|d| máx. 0,38) · sobrescrevível por JSON
+*shared/sm/params.js* · prioridade **média** — F4 (|d| máx. 0,72); F5 (|d| máx. 0,29); D1 (|d| máx. 0,36); D2 (|d| máx. 0,37); D3 (|d| máx. 0,24) · sobrescrevível por JSON
 
 Doutrina do agente Azul (jogador único / lote).
 
@@ -659,7 +697,7 @@ Doutrina do agente Azul (jogador único / lote).
 
 Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
 
-### 24. `DESFECHO` — Runner: agente Vermelho (híbrido), doutrina Azul e desfecho (SM-8)
+### 25. `DESFECHO` — Runner: agente Vermelho (híbrido), doutrina Azul e desfecho (SM-8)
 
 *shared/sm/params.js* · prioridade **alta** — o limiar de ordem está acima do máximo de E5 no lote (análise do lote, §7) · sobrescrevível por JSON
 
@@ -673,7 +711,7 @@ Desfecho (§11.2) — limiares sobre as métricas finais.
 
 Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
 
-### 25. `BASES` — OOB de MarSec (Conceito §10)
+### 26. `BASES` — OOB de MarSec (Conceito §10)
 
 *shared/sm/oob_sm.js* · prioridade **estrutural** · editar no código
 
@@ -686,7 +724,7 @@ Correções propostas:
 
 Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
 
-### 26. `MEIOS_AZUIS` — OOB de MarSec (Conceito §10)
+### 27. `MEIOS_AZUIS` — OOB de MarSec (Conceito §10)
 
 *shared/sm/oob_sm.js* · prioridade **estrutural** · editar no código
 
@@ -701,7 +739,7 @@ Correções propostas:
 
 Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
 
-### 27. `INFRA` — OOB de MarSec (Conceito §10)
+### 28. `INFRA` — OOB de MarSec (Conceito §10)
 
 *shared/sm/oob_sm.js* · prioridade **estrutural** · editar no código
 

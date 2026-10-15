@@ -114,6 +114,8 @@ const COLUNAS = [
   // complementares
   'atrito_terminal', 'desfecho', 'turnos', 'n_incidentes_hibridos', 'apoio_publico_final',
   'crise_deteccao_media', 'crise_resposta_media',
+  // custos a terceiros (SM-11)
+  'n_falsos_alarmes', 'n_interrupcoes', 'n_forca_desnecessaria', 'n_danos_terceiros', 'n_danos_ambientais',
 ];
 
 /** Configuração-base das partidas de pesquisa (Desenho §2.2: jogador único). */

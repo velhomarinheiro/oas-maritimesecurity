@@ -88,14 +88,17 @@ function roeEfetiva(nivel, apoio, params = P) {
  * @param {number} [acao.atribuicao]     atribuição ao decidir agir (0–100)
  * @param {number} [acao.nivel]          nível de escalada em vigor
  * @param {string} [acao.tipoAcao]       ação do catálogo ACOES (para o excesso de força)
- * @param {number} [acao.danosTerceiros] número de danos a terceiros
+ * @param {number} [acao.excessoTerceiros] unidades de excesso contra terceiros inocentes
+ *                                         (interrupção da navegação, força desnecessária — SM-11)
+ * @param {number} [acao.danosTerceiros] número de danos a terceiros (inclusive ambientais)
  * @param {string} [acao.id]             identificador (vira gatilho se a ação for frágil)
  * @returns {{estado, custo: number}}
  */
 function registrarAcaoAzul(estado, acao, params = P) {
   const I = params.INFOCOG;
   const risco  = acao.etapa ? A.riscoPolitico(acao.atribuicao ?? 0, acao.etapa, params) : 0;
-  const excesso = acao.tipoAcao != null ? ES.excessoDeForca(acao.nivel ?? 0, acao.tipoAcao, params) : 0;
+  const excesso = (acao.tipoAcao != null ? ES.excessoDeForca(acao.nivel ?? 0, acao.tipoAcao, params) : 0)
+                + Math.max(0, acao.excessoTerceiros ?? 0);
   const danos  = Math.max(0, acao.danosTerceiros ?? 0);
   const bruto  = risco + I.custo.pesoExcesso * excesso + I.custo.pesoDanos * danos;
   const custo  = bruto * multiplicadorCusto(estado.apoio, params);

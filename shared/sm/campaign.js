@@ -313,6 +313,7 @@ function gerarBoletim(estado, dados = {}, params = P) {
     `Turno ${estado.turno} · postura ${nivel.sigla} ${nivel.postura}`,
     ...acoes.map(a => `${a.unidade} → ${a.contato}: ${a.etapas.map(x => `${x.etapa} (${x.chance}) ${x.sucesso ? '✓' : '✗'}`).join(' · ') || '—'} ⇒ ${a.resultado}`),
     ...atribuicoes.map(a => `Atribuição ${a.contato}: ${Math.round(a.antes)}% → ${Math.round(a.depois)}%`),
+    ...(dados.avisos ?? []),
     ...(constab ? [`Ordem marítima: ${constab.ocorr_reprimidas}/${constab.n_ocorr_crim} ocorrências reprimidas`
                  + ` · ${estado.constab.ativas.length} abertas`
                  + ((dados.constabTurno?.escaparam?.length) ? ` · ${dados.constabTurno.escaparam.length} escaparam no turno` : '')] : []),
