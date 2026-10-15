@@ -44,6 +44,8 @@ const IC = require('./infocog');
 const iE = e => (e == null ? -1 : P.ETAPAS.indexOf(e));
 const PATRULHA = new Set(['fragata', 'corveta', 'destroier', 'patrulha_oc', 'patrulha_c', 'inspecao_naval', 'submarino', 'usv']);
 const CONSTABULAR = new Set(['fragata', 'corveta', 'destroier', 'patrulha_oc', 'patrulha_c', 'inspecao_naval']);
+// Atribuição "robusta" (Conceito §9.2): limite inferior da classe em CLASSES_ATRIBUICAO.
+const robustaDe = params => params.CLASSES_ATRIBUICAO.find(c => c.classe === 'robusta').min;
 const sortId = (a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
 
 function pickPeso(rng, itens) {
@@ -207,13 +209,13 @@ function criarPartida(cfg, { boletins = false } = {}, params = P) {
           cp = { ...cp, constab: r.estado };
           if (r.ocorrencia) ids.push(r.ocorrencia.id);
         }
-        crises[ef.crise] = { tipo: 'constab', ids };
+        crises[ef.crise] = { tipo: 'constab', crise: ef.tipo, ids };
       } else if (ef.hibrido && config.trilhas.defesa) {
-        const alvos = infra.filter(i => i.sp > 0 && ['cabo', 'duto'].includes(i.tipo) && i.area === ef.area);
+        const alvos = infra.filter(i => i.sp > 0 && HV.sabotagem_submarina.alvos.includes(i.tipo) && i.area === ef.area);
         const alvo = alvos[0] ?? infra.filter(i => i.sp > 0 && config.areasAtivas.includes(i.area)).sort(sortId)[0];
         if (alvo) crises[ef.crise] = { tipo: 'hibrido', id: novoHibrido('sabotagem_submarina', alvo, ef.hibrido.atribuicao).id };
       } else if (ef.sar || ef.desastre) {
-        crises[ef.crise] = { tipo: 'tarefa', area: ef.area, necessarias: ef.sar ? 1 : 2, detectada: false, atendida: false, inicio: t };
+        crises[ef.crise] = { tipo: 'tarefa', area: ef.area, necessarias: (ef.sar ?? ef.desastre).meios, detectada: false, atendida: false, inicio: t };
         tarefas.push(ef.crise);
       }
     }
@@ -248,7 +250,7 @@ function criarPartida(cfg, { boletins = false } = {}, params = P) {
     }
     for (const h of hib.filter(ativo)) {
       if (h.conhecido || oculta) continue;
-      if (rngQ() < pQuadro(h.area) * (1 - 0.5 * h.contato.evasao)) tornarConhecido(h);
+      if (rngQ() < pQuadro(h.area) * (1 - D.quadro.pesoEvasao * h.contato.evasao)) tornarConhecido(h);
     }
     fase = 'azul';
   }
@@ -257,12 +259,14 @@ function criarPartida(cfg, { boletins = false } = {}, params = P) {
     const V = HV[vetor];
     if (V.maritimo) { novoHibrido(vetor, alvo); return; }
     cont.hibTotal++;                       // ciberataque: resolve no turno
-    if (rngV() < 1 - 0.5 * fusaoBase) causarDano(alvo, V.dano, V.evento, 10);
+    const CB = params.HIBRIDO.ciber;
+    if (rngV() < CB.pDano - CB.reducaoPorFusao * fusaoBase) causarDano(alvo, V.dano, V.evento, CB.atribuicao);
     else cont.hibExito++;
   }
 
   function motorVermelho() {
-    const vetores = config.vetoresHibridos.filter(v => HV[v]?.peso > 0).map(v => [v, HV[v].peso]);
+    // Só vetores com alvo no mar ou em terra entram no sorteio (lawfare age pela desinformação).
+    const vetores = config.vetoresHibridos.filter(v => HV[v]?.peso > 0 && HV[v].alvos?.length).map(v => [v, HV[v].peso]);
     const n = vetores.length ? CO.poisson(rngV, params.HIBRIDO.acoesPorTurno * cp.config.intensidadeHibrida) : 0;
     for (let k = 0; k < n; k++) {
       const vetor = pickPeso(rngV, vetores);
@@ -280,7 +284,7 @@ function criarPartida(cfg, { boletins = false } = {}, params = P) {
       const g = cp.infocog.gatilhos;
       if (g.length) cp = { ...cp, infocog: IC.lancarDesinformacao(cp.infocog, cp.c2, { quem: VERMELHO, turno: t, intensidade: cp.config.intensidadeHibrida, gatilho: g[g.length - 1] }, params) };
       else if (t % params.HIBRIDO.fabricarACada === 0)
-        cp = { ...cp, infocog: IC.lancarDesinformacao(cp.infocog, cp.c2, { quem: VERMELHO, turno: t, intensidade: cp.config.intensidadeHibrida / 2 }, params) };
+        cp = { ...cp, infocog: IC.lancarDesinformacao(cp.infocog, cp.c2, { quem: VERMELHO, turno: t, intensidade: cp.config.intensidadeHibrida * params.HIBRIDO.intensidadeFabricacao }, params) };
     }
   }
 
@@ -410,7 +414,7 @@ function criarPartida(cfg, { boletins = false } = {}, params = P) {
     pedir('rf', areaMax(ab.filter(o => o.tipo === 'contrabando')));
     pedir('ibama', areaMax(ab.filter(o => o.tipo === 'pesca_iuu' || o.tipo === 'crime_ambiental')));
     pedir('censipam', areaMax(hc));
-    pedir('intl', areaMax(hc.filter(h => h.contato.atribuicao < 70)));
+    pedir('intl', areaMax(hc.filter(h => h.contato.atribuicao < robustaDe(params))));
     const g = cp.infocog.gatilhos;
     let camp = null;
     if (g.length && prova) camp = { tipo: 'prova_documentada', prova, esclarece: g[0] };
@@ -476,7 +480,7 @@ function criarPartida(cfg, { boletins = false } = {}, params = P) {
     if (!enc.efetivo) return;
     h.contato = { ...h.contato, atribuicao: enc.atribuicao.depois };
     if (iE(enc.etapaAtingida) >= iE(HV[h.vetor].etapaNeutraliza)) h.status = 'neutralizado';
-    if (!h.atribuido && h.contato.atribuicao >= 70) {
+    if (!h.atribuido && h.contato.atribuicao >= robustaDe(params)) {
       h.atribuido = true;
       eventos.push({ tipo: 'incidente_hibrido', atribuicao: h.contato.atribuicao });
     }
@@ -605,7 +609,7 @@ function criarPartida(cfg, { boletins = false } = {}, params = P) {
         const todas = [...(cp.constab?.encerradas ?? []), ...(cp.constab?.ativas ?? [])].filter(o => ctx.ids.includes(o.id));
         if (todas.some(o => conhecidos.has(o.id) || o.esforco > 0)) marcoCrise(id, (e, c) => CA.registrarDeteccaoCrise(e, c.id, t, params));
         const reprimidas = todas.filter(o => o.status === 'reprimida').length;
-        if (reprimidas >= Math.ceil(ctx.ids.length / 2)) marcoCrise(id, (e, c) => CA.registrarRespostaCrise(e, c.id, t, true, params));
+        if (reprimidas >= Math.ceil(ctx.ids.length * params.CRISES[ctx.crise].resposta.fracaoReprimida)) marcoCrise(id, (e, c) => CA.registrarRespostaCrise(e, c.id, t, true, params));
         else if (todas.length && todas.every(o => o.status !== 'ativa')) marcoCrise(id, (e, c) => CA.registrarRespostaCrise(e, c.id, t, false, params));
       } else if (ctx.tipo === 'hibrido') {
         const h = hib.find(x => x.id === ctx.id);

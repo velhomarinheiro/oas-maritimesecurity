@@ -150,6 +150,23 @@ function jogar(modalidade) {
   eq(s.partida.situacaoCelula().registroCelula.map(r => r.tipo), ['anular_lance', 'injetar_evento'], 'intervenções da Célula Branca registradas');
 }
 
+// ─── Célula Branca: crise constabular injetada, jogada até o marco de resposta ─
+{
+  const s = S.criarSala({ codigo: 'K', cfg: { ...BASE, modalidade: 'distribuido', celulaBranca: true } });
+  s.ocupar('COMPAAz', { id: 'p', nome: 'CP' }); s.ocupar('celula', { id: 'w', nome: 'CB' });
+  s.iniciar();
+  s.enviar('celula', 'celula', { tipo: 'injetar_crise', payload: { tipo: 'pesca_massa', area: '5DN', inicio: 2 }, justificativa: 'carga constabular no flanco sul' });
+  const crise = s.partida.situacaoCelula().registroCelula.length;
+  let viu = false;
+  for (let k = 0; k < 8 && !s.partida.encerrada; k++) {
+    s.enviar('celula', 'vermelho', { motor: true });
+    if (s.partida.situacaoCelula().verdade.ocorrencias.some(o => /^CR-\d+-O\d+$/.test(o.id))) viu = true;
+    s.enviar('COMPAAz', 'ordens', {});
+    if (s.fase === 'escalada') s.enviar('COMPAAz', 'autorizar', { autorizado: false });
+  }
+  ok(crise === 1 && viu && s.partida.turno >= 8, 'crise constabular injetada pela Célula Branca dispara e a campanha segue até o marco de resposta');
+}
+
 // ─── Confronto 1×1 ───────────────────────────────────────────────────────────
 {
   const s = S.criarSala({ codigo: 'X', cfg: { ...BASE, modalidade: '1x1' } });

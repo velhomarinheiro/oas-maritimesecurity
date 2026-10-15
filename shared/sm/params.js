@@ -355,24 +355,27 @@ const DIFICULDADES = {
 
 // Repertório de crises (Tabela 8.2). Por tipo: trilha; marcos de Detecção e
 // de Resposta com prazo ideal (nota 1) e prazo máximo (nota 0), em turnos
-// contados do início do episódio; efeito que o episódio injeta.
+// contados do início do episódio; efeito que o episódio injeta. Nas crises
+// constabulares, a resposta é adequada quando `fracaoReprimida` das
+// ocorrências injetadas é reprimida; nas tarefas, `meios` é o número de meios
+// que a tarefa exige.
 // TODO: validar com especialista
 const CRISES = {
   crimes_ilicitos: { rotulo: 'Crimes e ilícitos no mar',            trilha: 'constabular',
-                     deteccao: { ideal: 1, max: 3 }, resposta: { ideal: 2, max: 5 },
+                     deteccao: { ideal: 1, max: 3 }, resposta: { ideal: 2, max: 5, fracaoReprimida: 0.5 },
                      efeito: { ocorrencias: { tipo: 'narcotrafico', n: 3 } } },
   sabotagem_ic:    { rotulo: 'Sabotagem de infraestrutura crítica', trilha: 'defesa',
                      deteccao: { ideal: 1, max: 4 }, resposta: { ideal: 2, max: 6 },
                      efeito: { hibrido: { tipo: 'dano_infra', atribuicao: 20 } } },
   pesca_massa:     { rotulo: 'Pesca ilegal em massa',               trilha: 'constabular',
-                     deteccao: { ideal: 1, max: 3 }, resposta: { ideal: 3, max: 6 },
+                     deteccao: { ideal: 1, max: 3 }, resposta: { ideal: 3, max: 6, fracaoReprimida: 0.5 },
                      efeito: { ocorrencias: { tipo: 'pesca_iuu', n: 8 } } },
   sar:             { rotulo: 'Salvaguarda da vida humana no mar (SAR)', trilha: 'constabular',
                      deteccao: { ideal: 0, max: 2 }, resposta: { ideal: 1, max: 3 },
-                     efeito: { sar: { pessoas: 30 } } },
+                     efeito: { sar: { pessoas: 30, meios: 1 } } },
   desastre:        { rotulo: 'Resposta a desastres',                trilha: 'constabular',
                      deteccao: { ideal: 1, max: 3 }, resposta: { ideal: 2, max: 5 },
-                     efeito: { desastre: { escala: 1 } } },
+                     efeito: { desastre: { escala: 1, meios: 2 } } },
 };
 const N_CRISES = { min: 2, max: 3 };
 const SAL_CRISES = 0x27D4EB2F;
@@ -465,8 +468,13 @@ const HIBRIDO = {
   // só com a postura já em Crise (N2) e intensidade híbrida alta.
   empregoAberto: { nivelMin: 2, intensidadeMin: 0.8, pPorTurno: 0.05 },
   // Desinformação do motor: sobre o gatilho aberto mais recente; sem
-  // gatilho, uma fabricação a cada `fabricarACada` turnos, a meia intensidade.
+  // gatilho, uma fabricação a cada `fabricarACada` turnos, com a intensidade
+  // híbrida multiplicada por `intensidadeFabricacao`.
   fabricarACada: 5,
+  intensidadeFabricacao: 0.5,
+  // Ciberataque (não marítimo): resolve no turno; causa dano com chance
+  // pDano − reducaoPorFusao × fusão, e o incidente nasce com esta atribuição.
+  ciber: { pDano: 1, reducaoPorFusao: 0.5, atribuicao: 10 },
   // Teto de ações por turno de um jogador Vermelho humano (1×1): o motor faz
   // em média 0,6 × intensidade; sem teto, o jogador saturaria o teatro.
   maxAcoesHumano: 2,
@@ -479,7 +487,8 @@ const DOUTRINA = {
   surto: 2,                  // ações extras quando o acúmulo excede o orçamento…
   penalidadeSurto: 2,        // …descontadas do orçamento do turno seguinte
   // Quadro comum: chance de um contato aberto entrar no quadro no turno.
-  quadro: { base: 0.25, porFusao: 0.6, bonusUsv: 0.15, teto: 0.95 },
+  // Um contato híbrido entra com essa chance × (1 − pesoEvasao × evasão).
+  quadro: { base: 0.25, porFusao: 0.6, bonusUsv: 0.15, teto: 0.95, pesoEvasao: 0.5 },
   // Aceita o risco político (vai à etapa que neutraliza) quando falta este
   // número de turnos para o efeito do híbrido.
   urgencia: 1,

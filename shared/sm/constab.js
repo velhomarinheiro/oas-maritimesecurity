@@ -65,11 +65,13 @@ function hexesDaArea(areaId, params = P) {
   return out;
 }
 
-const _cacheHexes = new Map();
+// Cache por objeto de parâmetros: cópias com sobrescritas (SM-10) têm o seu.
+const _cacheHexes = new WeakMap();
 function hexesCache(areaId, params) {
-  if (params !== P) return hexesDaArea(areaId, params);
-  if (!_cacheHexes.has(areaId)) _cacheHexes.set(areaId, hexesDaArea(areaId, params));
-  return _cacheHexes.get(areaId);
+  if (!_cacheHexes.has(params)) _cacheHexes.set(params, new Map());
+  const c = _cacheHexes.get(params);
+  if (!c.has(areaId)) c.set(areaId, hexesDaArea(areaId, params));
+  return c.get(areaId);
 }
 
 // ─── Sorteios ────────────────────────────────────────────────────────────────
