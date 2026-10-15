@@ -338,7 +338,8 @@ function questoes(p = P) {
   Q.push(q('J3', 'Embarcações inocentes e danos a terceiros', 'Danos ambientais',
     'Na abordagem ou em ação mais coercitiva contra cada modo de ação hostil, em postura de Crise, qual a chance de dano ambiental (derrame, rompimento de duto, detonação)?',
     [...Object.keys(TE.ambiental.pPorVetor).map(v => L(VETOR[v] ?? v, `TERCEIROS.ambiental.pPorVetor.${v}`, 'percentual')),
-     ...POSTURA.map((r, i) => L(`Risco ambiental em ${r}, em % do risco em Crise`, `TERCEIROS.ambiental.fatorNivel.${i}`, 'percentual'))]));
+     ...POSTURA.map((r, i) => L(`Risco ambiental em ${r}, em % do risco em Crise`, `TERCEIROS.ambiental.fatorNivel.${i}`, 'percentual',
+       { unidade: '% do risco em Crise', faixa: [0, null] }))]));
 
   // K. Crises
   Q.push(q('K1', 'Crises', 'Prazos de detecção e resposta',
@@ -459,8 +460,13 @@ function hipotese(l0, p = P, todas = null) {
  * Converte as respostas (id da linha → número ou opção) em sobrescrita.
  * @returns {{ sobrescrita: object, manuais: object[], erros: string[] }}
  */
-function converterRespostas(respostas, p = P) {
+function converterRespostas(respostas0, p = P) {
   const todas = linhas(p);
+  // Item que depende de outro (diferença, redução, fórmula com referência): se
+  // só a referência foi respondida, o dependente mantém a SUA hipótese, em vez
+  // de se deslocar junto com a referência.
+  const respostas = { ...respostas0 };
+  for (const l of todas) if (l.ref && respostas[l.ref] != null && respostas[l.id] == null) respostas[l.id] = hipotese(l, p, todas);
   const over = {}, erros = [], aplicadas = [];
   const pôr = (c, v) => { mesclar(over, SO.sobrescritaDe(c, v)); };
   const valorOuHipotese = l => (respostas[l.id] != null ? respostas[l.id] : hipotese(l, p, todas));
@@ -509,6 +515,22 @@ function mesclar(a, b) {
   return a;
 }
 
+/** Faixa válida da resposta, na unidade profissional: [mínimo, máximo] (null = sem limite). */
+function faixaDe(l) {
+  if (l.faixa !== undefined) return l.faixa;
+  const u = String(l.unidade ?? CONVERSOES[l.conv].unidade);
+  if (l.conv === 'categoria' || l.conv === 'manual') return null;
+  if (l.conv === 'escala10') return [0, 10];
+  if (['percentual', 'prob_mensal', 'normalizado', 'diferenca', 'reducao'].includes(l.conv) && !/pontos percentuais/.test(u)) return [0, 100];
+  if (/% de convicção|% preservada|^%$/.test(u)) return [0, 100];
+  if (/pontos percentuais/.test(u) && l.conv === 'pontos') return [-100, 100];
+  if (/0 a 3/.test(u)) return [0, 3];
+  if (['dias', 'horas', 'inteiro', 'por_mes', 'meia_vida'].includes(l.conv)) return [0, null];
+  if (l.conv === 'ganho') return [-100, null];
+  if (l.conv === 'formula') return [0, null];
+  return null;
+}
+
 const ORDEM_PRIO = ['alta', 'média', 'baixa', 'inerte', 'não medida', 'estrutural'];
 /** Maior prioridade entre os blocos de parâmetros das linhas (mapa bloco → nível). */
 function prioridadeDe(ls, prioridades = {}) {
@@ -548,4 +570,4 @@ function meiosEInfra() {
   };
 }
 
-module.exports = { questoes, linhas, hipotese, converterRespostas, rastreamento, meiosEInfra, prioridadeDe, CONVERSOES, DECISOES_PROJETO, alvos };
+module.exports = { questoes, linhas, hipotese, converterRespostas, rastreamento, meiosEInfra, prioridadeDe, faixaDe, CONVERSOES, DECISOES_PROJETO, alvos };

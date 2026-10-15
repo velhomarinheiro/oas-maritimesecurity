@@ -4502,7 +4502,7 @@
    ],
    "conversao": "percentual",
    "regra": "parâmetro = resposta ÷ 100",
-   "unidade": "%",
+   "unidade": "% do risco em Crise",
    "prioridade": "média",
    "hipotese_atual": 50,
    "valor_atual": 0.5
@@ -4518,7 +4518,7 @@
    ],
    "conversao": "percentual",
    "regra": "parâmetro = resposta ÷ 100",
-   "unidade": "%",
+   "unidade": "% do risco em Crise",
    "prioridade": "média",
    "hipotese_atual": 75,
    "valor_atual": 0.75
@@ -4534,7 +4534,7 @@
    ],
    "conversao": "percentual",
    "regra": "parâmetro = resposta ÷ 100",
-   "unidade": "%",
+   "unidade": "% do risco em Crise",
    "prioridade": "média",
    "hipotese_atual": 100,
    "valor_atual": 1
@@ -4550,7 +4550,7 @@
    ],
    "conversao": "percentual",
    "regra": "parâmetro = resposta ÷ 100",
-   "unidade": "%",
+   "unidade": "% do risco em Crise",
    "prioridade": "média",
    "hipotese_atual": 150,
    "valor_atual": 1.5

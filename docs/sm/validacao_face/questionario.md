@@ -593,10 +593,10 @@ Na abordagem ou em ação mais coercitiva contra cada modo de ação hostil, em 
 | J3.2 | Milícia marítima (pesqueiros a serviço de outro Estado) | 2 | % | | |
 | J3.3 | Sabotagem de cabos e dutos submarinos | 4 | % | | |
 | J3.4 | Minagem encoberta | 10 | % | | |
-| J3.5 | Risco ambiental em Rotina, em % do risco em Crise | 50 | % | | |
-| J3.6 | Risco ambiental em Tensão, em % do risco em Crise | 75 | % | | |
-| J3.7 | Risco ambiental em Crise, em % do risco em Crise | 100 | % | | |
-| J3.8 | Risco ambiental em Conflito, em % do risco em Crise | 150 | % | | |
+| J3.5 | Risco ambiental em Rotina, em % do risco em Crise | 50 | % do risco em Crise | | |
+| J3.6 | Risco ambiental em Tensão, em % do risco em Crise | 75 | % do risco em Crise | | |
+| J3.7 | Risco ambiental em Crise, em % do risco em Crise | 100 | % do risco em Crise | | |
+| J3.8 | Risco ambiental em Conflito, em % do risco em Crise | 150 | % do risco em Crise | | |
 
 ## Crises
 
