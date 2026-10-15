@@ -57,3 +57,4 @@ construtivo existente.
 | Fase | Nota | Estado |
 |---|---|---|
 | SM-1 — encontro e atribuição | [`SM-1.md`](SM-1.md) | concluída |
+| SM-2 — escada de escalada e ROE | [`SM-2.md`](SM-2.md) | concluída |
