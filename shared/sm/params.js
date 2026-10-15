@@ -176,6 +176,74 @@ const GATILHOS_ESCALADA = {
 // TODO: validar com especialista
 const TURNOS_PARA_DESESCALAR = 4;
 
+// ─── Trilha constabular (Conceito §5, Tabela 5.1) ─────────────────────────────
+
+// Áreas dos Distritos Navais na grade 28×20 (linhas 0-indexadas, inclusivas),
+// de norte a sul. Só hexágonos de mar a até DIST_MAX_COSTA da terra (≈ ZEE,
+// 200 mn com hexágono de ~75 mn) recebem ocorrências.
+// TODO: validar com especialista (limites jurisdicionais na carta)
+const AREAS_DN = [
+  { id: '2DN', estacao: 'Com2ºDN', nome: 'Flanco norte (BA–SE)',   linhas: [0, 5]   },
+  { id: '1DN', estacao: 'Com1ºDN', nome: 'Campos/Búzios (RJ–ES)',  linhas: [6, 9]   },
+  { id: '8DN', estacao: 'Com8ºDN', nome: 'Bacia de Santos (SP)',   linhas: [10, 11] },
+  { id: '5DN', estacao: 'Com5ºDN', nome: 'Flanco sul (SC–RS)',     linhas: [12, 19] },
+];
+const DIST_MAX_COSTA = 3;
+
+// Tipos de ocorrência. Por tipo:
+//   lambda       incidência média por turno de 24 h, por área (Poisson);
+//   terrenos     terrenos onde a ocorrência pode surgir (board.js T_*);
+//   etapaRepressao  etapa do motor de encontro que conta como reprimida;
+//   duracao      turnos até a ocorrência se encerrar sem resposta (escapa);
+//   evasao       evasão do contato nas etapas de percepção (SM-1);
+//   orgao        apoio interagências pertinente (SM-4, Tabela 7.2);
+//   exploravel   peso relativo do tipo quando o híbrido instrumentaliza
+//                ocorrências para saturação (0 = nunca).
+// Terrenos: 1 águas rasas, 2 plataforma, 3 águas profundas, 4 bacia petrolífera.
+// TODO: validar com especialista
+const TIPOS_OCORRENCIA = {
+  narcotrafico:    { rotulo: 'Narcotráfico',             terrenos: [1, 2, 3],
+                     lambda: { '2DN': 0.15, '1DN': 0.20, '8DN': 0.30, '5DN': 0.15 },
+                     etapaRepressao: 'apresamento', duracao: 2, evasao: 0.30, orgao: 'pf',    exploravel: 1 },
+  contrabando:     { rotulo: 'Contrabando / descaminho', terrenos: [1, 2],
+                     lambda: { '2DN': 0.10, '1DN': 0.15, '8DN': 0.20, '5DN': 0.15 },
+                     etapaRepressao: 'apresamento', duracao: 2, evasao: 0.20, orgao: 'rf',    exploravel: 1 },
+  pesca_iuu:       { rotulo: 'Pesca irregular (IUU)',    terrenos: [1, 2, 3, 4],
+                     lambda: { '2DN': 0.25, '1DN': 0.15, '8DN': 0.15, '5DN': 0.30 },
+                     etapaRepressao: 'apresamento', duracao: 3, evasao: 0.10, orgao: 'ibama', exploravel: 3 },
+  crime_ambiental: { rotulo: 'Crime ambiental',          terrenos: [1, 2, 4],
+                     lambda: { '2DN': 0.05, '1DN': 0.15, '8DN': 0.10, '5DN': 0.05 },
+                     etapaRepressao: 'inspecao',    duracao: 3, evasao: 0.20, orgao: 'ibama', exploravel: 2 },
+  pirataria:       { rotulo: 'Pirataria / roubo armado', terrenos: [1, 2, 4],
+                     lambda: { '2DN': 0.05, '1DN': 0.10, '8DN': 0.10, '5DN': 0.05 },
+                     etapaRepressao: 'abordagem',   duracao: 1, evasao: 0.25, orgao: 'pf',    exploravel: 1 },
+  imigracao:       { rotulo: 'Imigração irregular',      terrenos: [1, 2],
+                     lambda: { '2DN': 0.10, '1DN': 0.05, '8DN': 0.05, '5DN': 0.10 },
+                     etapaRepressao: 'abordagem',   duracao: 2, evasao: 0.05, orgao: 'pf',    exploravel: 2 },
+};
+
+// Autoridade de polícia marítima: a resposta constabular é aplicação da lei,
+// não escalada — seu teto no motor de encontro independe do nível N0–N3.
+const TETO_CONSTABULAR = 'apresamento';
+
+// Acoplamento com o híbrido (Conceito §4.2, §5.2).
+// TODO: validar com especialista
+const ACOPLAMENTO = {
+  // Probabilidade de uma ocorrência de rotina ser, sem que se saiba,
+  // cobertura para a trilha de defesa (escala com a intensidade híbrida).
+  pCoberturaMax: 0.15,
+  // Ocorrências extras de saturação por turno, à intensidade híbrida 1,
+  // distribuídas pelas áreas que NÃO são o alvo do híbrido (o flanco oposto).
+  lambdaSaturacaoMax: 1.5,
+  // Etapa a partir da qual o encontro com uma ocorrência de cobertura revela
+  // o vínculo com o híbrido (gera evento para a escada de escalada).
+  etapaRevelaVinculo: 'inspecao',
+};
+
+// Sal das sub-sequências aleatórias: a sequência de rotina não depende do
+// acoplamento (mesma semente ⇒ mesmas ocorrências de rotina em toda condição).
+const SAL_CONSTAB = { rotina: 0x9E3779B9, saturacao: 0x85EBCA6B };
+
 // ─── Boletim (Conceito §8.4) ──────────────────────────────────────────────────
 
 // Probabilidade em palavras (limite inferior inclusivo).
@@ -192,6 +260,7 @@ const PARAMS = {
   PISO_FUSAO_EVIDENCIA, LIMIAR_ATRIBUICAO, PESO_POLITICO, CLASSES_ATRIBUICAO,
   ROTULOS_PROBABILIDADE,
   NIVEIS, ACOES, GATILHOS_ESCALADA, TURNOS_PARA_DESESCALAR,
+  AREAS_DN, DIST_MAX_COSTA, TIPOS_OCORRENCIA, TETO_CONSTABULAR, ACOPLAMENTO, SAL_CONSTAB,
 };
 
 module.exports = { PARAMS, ...PARAMS };

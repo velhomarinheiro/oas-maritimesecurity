@@ -31,7 +31,9 @@ Em caso de conflito entre o prompt e os documentos, **os documentos prevalecem**
   `scripts/balance_sim.js`): Azul 76% → 49%, Vermelho 22% → 41%, sem
   vencedor 2% → 10%, turno médio 6,4 → 7,9. A causa é o mar novo a leste e
   ao norte do grupo Vermelho, que começa no canto nordeste da área antiga;
-  com só a área antiga aberta o resultado volta a 75%/24%.
+  com só a área antiga aberta o resultado volta a 75%/24%. **Decisão
+  (2026-10-14):** mudança aceita por enquanto, sem recalibrar o bot nem
+  reposicionar o Vermelho.
 - **Isolamento:** a variante vive em `shared/sm/`; o jogo base e seus testes
   não são alterados pelos módulos da variante.
 
@@ -58,3 +60,4 @@ construtivo existente.
 |---|---|---|
 | SM-1 — encontro e atribuição | [`SM-1.md`](SM-1.md) | concluída |
 | SM-2 — escada de escalada e ROE | [`SM-2.md`](SM-2.md) | concluída |
+| SM-3 — gerador constabular e dupla função | [`SM-3.md`](SM-3.md) | concluída |
