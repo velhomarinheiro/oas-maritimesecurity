@@ -66,3 +66,4 @@ construtivo existente.
 | SM-6 — OOB estendida, fatores e prontidão | [`SM-6.md`](SM-6.md) | concluída |
 | SM-7 — dimensão informacional e cognitiva | [`SM-7.md`](SM-7.md) | concluída |
 | SM-8 — runner, lote de 1.040 e dataset | [`SM-8.md`](SM-8.md) | concluída |
+| SM-9 — interface interativa (único, 1×1, distribuído) | [`SM-9.md`](SM-9.md) | concluída |

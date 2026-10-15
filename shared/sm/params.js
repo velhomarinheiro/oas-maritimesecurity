@@ -467,6 +467,9 @@ const HIBRIDO = {
   // Desinformação do motor: sobre o gatilho aberto mais recente; sem
   // gatilho, uma fabricação a cada `fabricarACada` turnos, a meia intensidade.
   fabricarACada: 5,
+  // Teto de ações por turno de um jogador Vermelho humano (1×1): o motor faz
+  // em média 0,6 × intensidade; sem teto, o jogador saturaria o teatro.
+  maxAcoesHumano: 2,
 };
 
 // Doutrina do agente Azul (jogador único / lote).
