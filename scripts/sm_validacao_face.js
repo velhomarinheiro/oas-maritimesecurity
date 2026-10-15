@@ -5,6 +5,9 @@
  * inicial: dados validados por especialistas antes de qualquer uso analítico).
  *
  * Saídas em docs/sm/validacao_face/:
+ *   questionario.xlsx                o mesmo questionário em planilha editável,
+ *                                    para a revisão fora do repositório; volta ao
+ *                                    modelo por scripts/sm_questionario_importar.js;
  *   questionario.md                  um item por bloco de parâmetros marcado
  *                                    `// TODO: validar com especialista`, com o
  *                                    valor atual, a prioridade (da análise de
@@ -24,6 +27,7 @@ const path = require('path');
 const { PARAMS: P } = require('../shared/sm/params');
 const OB = require('../shared/sm/oob_sm');
 const R = require('../shared/sm/runner');
+const QX = require('../shared/sm/questionario_xlsx');
 
 const args = process.argv.slice(2);
 const RAIZ = path.join(__dirname, '..');
@@ -186,4 +190,10 @@ fs.mkdirSync(SAIDA, { recursive: true });
 fs.writeFileSync(path.join(SAIDA, 'questionario.md'), Q.join('\n') + '\n', 'utf8');
 fs.writeFileSync(path.join(SAIDA, 'params_especialista.exemplo.json'), JSON.stringify(modelo, null, 2) + '\n', 'utf8');
 for (const n of NARRATIVAS) fs.writeFileSync(path.join(SAIDA, n.arq), narrativa(n), 'utf8');
-console.log(`${itens.length} itens no questionário, ${NARRATIVAS.length} narrativas → ${SAIDA}`);
+QX.exportarQuestionario({
+  itens, coerencia: COERENCIA,
+  origem: sens ? `Prioridades calculadas pela análise de sensibilidade (${sens.replicas} réplicas, scripts/sm_sensibilidade.js). Narrativas de campanha para o julgamento de plausibilidade: docs/sm/validacao_face/narrativa_*.md.` : 'Prioridades não calculadas.',
+}).then(buf => {
+  fs.writeFileSync(path.join(SAIDA, 'questionario.xlsx'), buf);
+  console.log(`${itens.length} itens no questionário (.md e .xlsx), ${NARRATIVAS.length} narrativas → ${SAIDA}`);
+});
