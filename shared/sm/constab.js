@@ -110,7 +110,8 @@ function criarEstadoConstab({ seed, areasAtivas, tiposAtivos } = {}, params = P)
     turno: 0,
     areasAtivas: [...areas],
     tiposAtivos: [...tipos],
-    rng: { rotina: (seed ^ params.SAL_CONSTAB.rotina) >>> 0, saturacao: (seed ^ params.SAL_CONSTAB.saturacao) >>> 0 },
+    rng: { rotina: (seed ^ params.SAL_CONSTAB.rotina) >>> 0, saturacao: (seed ^ params.SAL_CONSTAB.saturacao) >>> 0,
+           inocentes: (seed ^ params.SAL_CONSTAB.inocentes) >>> 0 },
     ativas: [],
     encerradas: [],
     esforco: { total: 0, instrumentalizado: 0 },
@@ -132,6 +133,8 @@ function novaOcorrencia(id, turno, rng, area, tipo, marcas, params) {
     esforco: 0,
     cobertura: !!marcas.cobertura,
     instrumentalizada: !!marcas.instrumentalizada,
+    // Falso alarme (SM-11): embarcação em atividade legal tomada por suspeita.
+    inocente: marcas.inocente ?? null,
     vinculoRevelado: false,
   };
 }
@@ -144,6 +147,8 @@ function novaOcorrencia(id, turno, rng, area, tipo, marcas, params) {
  * @param {object} [acoplamento]
  * @param {number} [acoplamento.intensidade]  intensidade híbrida 0–1 (0 = sem híbrido)
  * @param {string} [acoplamento.areaAlvo]     área onde o híbrido age; a saturação vai às demais
+ * @param {number} [acoplamento.fusao]        qualidade da fusão 0–1; informada, gera os falsos
+ *                                            alarmes (TERCEIROS), tanto menos quanto melhor a fusão
  * @returns {{estado, novas: object[], escaparam: object[]}}
  */
 function avancarTurno(estado, acoplamento = {}, params = P) {
@@ -159,7 +164,8 @@ function avancarTurno(estado, acoplamento = {}, params = P) {
   const escaparam = [];
   for (const o of estado.ativas) {
     const resto = o.turnosRestantes - 1;
-    if (resto <= 0) { const f = { ...o, turnosRestantes: 0, status: 'escapou' }; escaparam.push(f); e.encerradas.push(f); }
+    if (resto <= 0 && o.inocente) e.encerradas.push({ ...o, turnosRestantes: 0, status: 'seguiu_viagem' });
+    else if (resto <= 0) { const f = { ...o, turnosRestantes: 0, status: 'escapou' }; escaparam.push(f); e.encerradas.push(f); }
     else e.ativas.push({ ...o, turnosRestantes: resto });
   }
 
@@ -184,6 +190,26 @@ function avancarTurno(estado, acoplamento = {}, params = P) {
     }
   }
   e.rng.rotina = rot.state;
+
+  // Falsos alarmes (SM-11): sub-sequência própria, IDs na mesma série da rotina
+  // (OC-<turno>-<n>), de modo que nada os distingue para o jogador.
+  if (Number.isFinite(acoplamento.fusao)) {
+    const FA = params.TERCEIROS.falsosAlarmes;
+    const tipos = Object.entries(FA.tipos).filter(([, x]) => e.tiposAtivos.includes(x.aparenta) && x.peso > 0).map(([k, x]) => [k, x.peso]);
+    const lambda = FA.lambda * Math.max(0, 1 - FA.reducaoPorFusao * Math.min(1, Math.max(0, acoplamento.fusao)));
+    if (tipos.length && lambda > 0) {
+      const ino = mulberry32FromState(e.rng.inocentes);
+      for (const area of e.areasAtivas) {
+        const n = poisson(ino, lambda);
+        for (let k = 0; k < n; k++) {
+          const tipoI = pickPeso(ino, tipos);
+          const o = novaOcorrencia(`OC-${e.turno}-${novas.length + 1}`, e.turno, ino, area, FA.tipos[tipoI].aparenta, { inocente: tipoI }, params);
+          if (o) novas.push(o);
+        }
+      }
+      e.rng.inocentes = ino.state;
+    }
+  }
 
   // Saturação instrumentalizada: só com intensidade, nas áreas ativas fora do alvo.
   if (intensidade > 0) {
@@ -213,10 +239,13 @@ function avancarTurno(estado, acoplamento = {}, params = P) {
  * encontro chegou à etapa de repressão do tipo, encerra a ocorrência como
  * reprimida. Se a ocorrência é cobertura e o encontro chegou à etapa que
  * revela o vínculo, devolve um evento híbrido para a escada (SM-2).
+ * Um falso alarme nunca é reprimido: encerra-se como "descartado" quando a
+ * inspeção esclarece a inocência, ou antes, se `opts.esclarecida`.
  *
- * @returns {{estado, reprimida: boolean, eventoHibrido: object|null}}
+ * @param {{esclarecida?: boolean}} [opts]
+ * @returns {{estado, reprimida: boolean, descartada: boolean, eventoHibrido: object|null}}
  */
-function registrarResposta(estado, idOcorrencia, encontro, params = P) {
+function registrarResposta(estado, idOcorrencia, encontro, params = P, opts = {}) {
   const i = estado.ativas.findIndex(o => o.id === idOcorrencia);
   if (i < 0) throw new Error(`constab: ocorrência ${idOcorrencia} não está aberta`);
   const o = estado.ativas[i];
@@ -234,7 +263,8 @@ function registrarResposta(estado, idOcorrencia, encontro, params = P) {
   const atual = {
     ...o,
     esforco: o.esforco + (efetivo ? 1 : 0),
-    contato: { ...o.contato, atribuicao: encontro?.atribuicao?.depois ?? o.contato.atribuicao },
+    // Contra um inocente não há prova de crime a acumular.
+    contato: { ...o.contato, atribuicao: o.inocente ? 0 : encontro?.atribuicao?.depois ?? o.contato.atribuicao },
   };
 
   let eventoHibrido = null;
@@ -243,16 +273,18 @@ function registrarResposta(estado, idOcorrencia, encontro, params = P) {
     eventoHibrido = { tipo: 'incidente_hibrido', origem: o.id, atribuicao: atual.contato.atribuicao };
   }
 
-  const reprimida = atingida >= etapas.indexOf(T.etapaRepressao);
+  const revela = Math.min(etapas.indexOf(params.TERCEIROS.falsosAlarmes.etapaRevela), etapas.indexOf(T.etapaRepressao));
+  const descartada = !!o.inocente && (!!opts.esclarecida || atingida >= revela);
+  const reprimida = !o.inocente && atingida >= etapas.indexOf(T.etapaRepressao);
   const ativas = estado.ativas.slice();
   const encerradas = estado.encerradas.slice();
-  if (reprimida) {
+  if (reprimida || descartada) {
     ativas.splice(i, 1);
-    encerradas.push({ ...atual, status: 'reprimida' });
+    encerradas.push({ ...atual, status: reprimida ? 'reprimida' : 'descartada' });
   } else {
     ativas[i] = atual;
   }
-  return { estado: { ...estado, ativas, encerradas, esforco }, reprimida, eventoHibrido };
+  return { estado: { ...estado, ativas, encerradas, esforco }, reprimida, descartada, eventoHibrido };
 }
 
 /**
@@ -275,15 +307,17 @@ function injetarOcorrencia(estado, { id, tipo, area, indice = 0 }, params = P) {
   return { estado: { ...estado, ativas: [...estado.ativas, oc] }, ocorrencia: oc };
 }
 
-/** O que o jogador vê: sem as marcas ocultas (cobertura/instrumentalizada). */
+/** O que o jogador vê: sem as marcas ocultas (cobertura/instrumentalizada/inocente). */
 function vistaDoJogador(ocorrencia) {
-  const { cobertura: _c, instrumentalizada: _i, ...resto } = ocorrencia;
+  const { cobertura: _c, instrumentalizada: _i, inocente: _n, ...resto } = ocorrencia;
   return resto;
 }
 
 /** Métricas da trilha (Desenho §4): E5_ordem, E6_dispersao e contagens. */
 function metricas(estado) {
-  const todas = [...estado.encerradas, ...estado.ativas];
+  // Falsos alarmes não são ocorrências criminais: ficam fora de E5_ordem.
+  const geral = [...estado.encerradas, ...estado.ativas];
+  const todas = geral.filter(o => !o.inocente);
   const n = todas.length;
   const reprimidas = estado.encerradas.filter(o => o.status === 'reprimida').length;
   return {
@@ -295,6 +329,8 @@ function metricas(estado) {
     esforco_instrumentalizado: estado.esforco.instrumentalizado,
     n_instrumentalizadas: todas.filter(o => o.instrumentalizada).length,
     n_coberturas: todas.filter(o => o.cobertura).length,
+    n_falsos_alarmes: geral.length - todas.length,
+    n_falsos_descartados: estado.encerradas.filter(o => o.status === 'descartada').length,
   };
 }
 

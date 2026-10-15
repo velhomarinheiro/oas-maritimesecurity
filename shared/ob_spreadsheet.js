@@ -589,4 +589,4 @@ function lerPlanilhaIsolada(buf, { timeoutMs = 10000 } = {}) {
 }
 
 module.exports = { exportarPlanilha, lerPlanilha, lerPlanilhaIsolada, checarZip, valorDaCelula, converter,
-                   COLUNAS, LISTAS, MAX_BYTES };
+                   COLUNAS, LISTAS, MAX_BYTES, zerarDatasZip };

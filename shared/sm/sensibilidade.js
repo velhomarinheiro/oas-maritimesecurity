@@ -93,6 +93,13 @@ const CATALOGO = [
   { id: 'C5', grupo: 'custos', rotulo: 'Teto de custo político', alvo: 'INFOCOG.tetoCustoPolitico', niveis: { tipo: 'valor', baixo: 18, alto: 32 }, esperado: {} },
   { id: 'C6', grupo: 'custos', rotulo: 'Apoio perdido por custo', alvo: 'INFOCOG.apoioPorCusto', niveis: ESCALA, esperado: { apoio_publico_final: -1 } },
   { id: 'C7', grupo: 'custos', rotulo: 'Efeito-base da desinformação', alvo: 'INFOCOG.desinformacao.base', niveis: ESCALA, esperado: { apoio_publico_final: -1 } },
+  // Custos a terceiros (SM-11)
+  { id: 'C8', grupo: 'custos', rotulo: 'Incidência de falsos alarmes', alvo: 'TERCEIROS.falsosAlarmes.lambda', niveis: ESCALA,
+    esperado: { E4_custopol: +1 } },
+  { id: 'C9', grupo: 'custos', rotulo: 'Chance de força desnecessária', alvo: 'TERCEIROS.forcaDesnecessaria.pPorNivel.*', niveis: { tipo: 'escala', baixo: 0.5, alto: 2, max: 1 }, esperado: {} },
+  { id: 'C10', grupo: 'custos', rotulo: 'Chance de dano ambiental', alvo: 'TERCEIROS.ambiental.pPorVetor.*', niveis: { tipo: 'escala', baixo: 0.5, alto: 2, max: 1 }, esperado: {} },
+  { id: 'C11', grupo: 'custos', rotulo: 'Esclarecimento na interrogação', alvo: 'TERCEIROS.falsosAlarmes.esclareceNaInterrogacao.*', niveis: { ...ESCALA, max: 1 },
+    esperado: {} },
 
   // Ameaça e carga (Tabela 4.1; Conceito §4.2, §5)
   { id: 'T1', grupo: 'ameaça', rotulo: 'Ações híbridas por turno', alvo: 'HIBRIDO.acoesPorTurno', niveis: ESCALA,

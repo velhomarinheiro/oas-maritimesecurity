@@ -103,10 +103,11 @@ function criarPartida(cfg, { boletins = false } = {}, params = P) {
   const rngQ = mulberry32((config.seed ^ params.SAL_RUNNER.quadro) >>> 0);
   const rngE = mulberry32((config.seed ^ params.SAL_RUNNER.encontro) >>> 0);
   const rngV = mulberry32((config.seed ^ params.SAL_RUNNER.vermelho) >>> 0);
+  const rngT = mulberry32((config.seed ^ params.SAL_RUNNER.terceiros) >>> 0);   // custos a terceiros (SM-11)
   const AZUL = cp.c2.controle.COMPAAz, VERMELHO = cp.c2.vermelho;
 
   const hib = [];
-  const cont = { hibTotal: 0, hibExito: 0 };
+  const cont = { hibTotal: 0, hibExito: 0, interrupcoes: 0, forcaDesnecessaria: 0, danosTerceiros: 0, danosAmbientais: 0 };
   const conhecidos = new Set();
   const penalidade = {};
   const crises = {};
@@ -233,7 +234,7 @@ function criarPartida(cfg, { boletins = false } = {}, params = P) {
 
     // Ocorrências constabulares
     if (cp.constab) {
-      const r = CO.avancarTurno(cp.constab, { intensidade: cp.config.intensidadeHibrida, areaAlvo: cp.config.areaAlvoHibrida }, params);
+      const r = CO.avancarTurno(cp.constab, { intensidade: cp.config.intensidadeHibrida, areaAlvo: cp.config.areaAlvoHibrida, fusao: fusaoBase }, params);
       cp = { ...cp, constab: r.estado };
     }
 
@@ -459,20 +460,72 @@ function criarPartida(cfg, { boletins = false } = {}, params = P) {
     const enc = EN.resolverEncontro({ ...u.args, contato, etapaAlvo, tetoRoe: teto, rng: rngE }, params);
     usados.add(meio.id);
     posicao[meio.id] = { col: item.col, row: item.row };
+    const ter = custosDeTerceiros(meio, item, hibrido, enc, nivel);
     if (enc.efetivo && enc.etapas.length) {
       const tentada = enc.etapas[enc.etapas.length - 1].etapa;
       const r = IC.registrarAcaoAzul(cp.infocog, {
         turno: t, etapa: tentada, id: `ACT-${t}-${++acaoSeq}`,
         // Constabular: a decisão de apresar vem depois da inspeção, com a prova obtida no próprio encontro.
+        // Contra um inocente, a decisão é julgada pelo que a guarnição viu no encontro; o custo do
+        // erro vem das situações de TERCEIROS (interrupção, força, danos), não da atribuição.
         atribuicao: hibrido ? atribAntes : enc.atribuicao.depois,
         ...(hibrido ? { nivel, tipoAcao: acaoDaEtapa(tentada, nivel) } : {}),
+        excessoTerceiros: ter.excesso, danosTerceiros: ter.danos,
       }, params);
       cp = { ...cp, infocog: r.estado };
-      if (iE(enc.etapaAtingida) >= iE('inspecao')) prova = { atribuicao: Math.max(prova?.atribuicao ?? 0, enc.atribuicao.depois) };
+      if (!item.inocente && iE(enc.etapaAtingida) >= iE('inspecao')) prova = { atribuicao: Math.max(prova?.atribuicao ?? 0, enc.atribuicao.depois) };
     }
+    for (const ev of ter.eventos) cp = { ...cp, infocog: IC.registrarEventoMar(cp.infocog, ev, t, params) };
     registroTurno.push({ tipo: 'encontro', unidade: meio.nome, meio: meio.id, contato: item.id, hibrido, etapaAlvo, resultado: enc,
                          antes: atribAntes, depois: enc.atribuicao.depois });
-    return enc;
+    if (ter.avisos.length) registroTurno.push({ tipo: 'terceiros', unidade: meio.nome, contato: item.id, ...ter });
+    return { ...enc, esclarecida: ter.esclarecida };
+  }
+
+  /**
+   * Custos a terceiros de um encontro (TERCEIROS, SM-11): interrupção
+   * desnecessária da navegação mercante e uso de força desnecessário contra
+   * inocentes (falsos alarmes), e dano ambiental de ação coercitiva contra o
+   * híbrido. Sorteios só da sub-sequência própria, e só quando a situação ocorre.
+   */
+  function custosDeTerceiros(meio, item, hibrido, enc, nivel) {
+    const X = params.TERCEIROS;
+    const out = { excesso: 0, danos: 0, eventos: [], avisos: [], esclarecida: false };
+    if (!enc.efetivo) return out;
+    const at = iE(enc.etapaAtingida);
+    if (!hibrido && item.inocente) {
+      const FA = X.falsosAlarmes, tipo = FA.tipos[item.inocente];
+      if (at >= iE('interrogacao') && rngT() < Math.min(1, FA.esclareceNaInterrogacao.base + FA.esclareceNaInterrogacao.porFusao * fusaoBase)) {
+        out.esclarecida = true;
+        out.avisos.push(`${meio.nome} → ${item.id}: interrogação esclarece — ${tipo.rotulo.toLowerCase()}; liberado sem abordagem`);
+        return out;
+      }
+      if (at < iE('abordagem')) return out;
+      if (tipo.interrompeNavegacao) {
+        out.excesso += X.interrupcao.excesso;
+        cont.interrupcoes++;
+        out.avisos.push(`${meio.nome} → ${item.id}: abordagem de ${tipo.rotulo.toLowerCase()} — interrupção desnecessária da navegação mercante`);
+      }
+      const F = X.forcaDesnecessaria;
+      if (rngT() < (F.pPorNivel[nivel] ?? F.pPorNivel[F.pPorNivel.length - 1])) {
+        out.excesso += F.excesso;
+        cont.forcaDesnecessaria++;
+        const dano = rngT() < F.pDano;
+        if (dano) { out.danos += 1; cont.danosTerceiros++; out.eventos.push('dano_terceiros'); }
+        out.avisos.push(`${meio.nome} → ${item.id}: uso de força desnecessário contra ${tipo.rotulo.toLowerCase()}${dano ? ', com danos a terceiros' : ''}`);
+      }
+      if (at >= iE(FA.etapaRevela)) out.avisos.push(`${meio.nome} → ${item.id}: inspeção nada encontra — falso alarme`);
+    } else if (hibrido && at >= iE('abordagem')) {
+      const A = X.ambiental;
+      const p = (A.pPorVetor[item.vetor] ?? 0) * (A.fatorNivel[nivel] ?? 1);
+      if (p > 0 && rngT() < p) {
+        out.danos += A.danos;
+        cont.danosAmbientais++;
+        out.eventos.push('dano_ambiental');
+        out.avisos.push(`${meio.nome} → ${item.id}: a ação provoca dano ambiental`);
+      }
+    }
+    return out;
   }
 
   function resolverHibrido(meio, h, etapaAlvo) {
@@ -487,7 +540,7 @@ function criarPartida(cfg, { boletins = false } = {}, params = P) {
   }
   function resolverOcorrencia(meio, atual, etapaAlvo) {
     const enc = encontrar(meio, atual, false, etapaAlvo);
-    const r = CO.registrarResposta(cp.constab, atual.id, enc, params);
+    const r = CO.registrarResposta(cp.constab, atual.id, enc, params, { esclarecida: enc.esclarecida });
     cp = { ...cp, constab: r.estado };
     if (r.eventoHibrido) eventos.push(r.eventoHibrido);
     if (r.reprimida) cp = { ...cp, infocog: IC.registrarEventoMar(cp.infocog, 'reprimida', t, params) };
@@ -677,6 +730,11 @@ function criarPartida(cfg, { boletins = false } = {}, params = P) {
       atrito_terminal: terminal ? terminal.atrito : null,
       n_incidentes_hibridos: cont.hibTotal,
       apoio_publico_final: cp.infocog.apoio,
+      n_falsos_alarmes: cm ? cm.n_falsos_alarmes : 0,
+      n_interrupcoes: cont.interrupcoes,
+      n_forca_desnecessaria: cont.forcaDesnecessaria,
+      n_danos_terceiros: cont.danosTerceiros,
+      n_danos_ambientais: cont.danosAmbientais,
       crise_deteccao_media: media(cp.crises.map(c => c.deteccao.nota)),
       crise_resposta_media: media(cp.crises.map(c => c.resposta.nota)),
     };
@@ -687,7 +745,8 @@ function criarPartida(cfg, { boletins = false } = {}, params = P) {
       .map(r => ({ unidade: r.unidade, contato: r.contato, resultado: r.resultado }));
     const atribuicoes = registroTurno.filter(r => r.tipo === 'encontro' && r.hibrido)
       .map(r => ({ contato: r.contato, antes: r.antes, depois: r.depois }));
-    return CA.gerarBoletim({ ...cp, turno: t }, { encontros, atribuicoes, mostrarNumeros }, params);
+    const avisos = registroTurno.filter(r => r.tipo === 'terceiros').flatMap(r => r.avisos);
+    return CA.gerarBoletim({ ...cp, turno: t }, { encontros, atribuicoes, avisos, mostrarNumeros }, params);
   }
 
   const vistaMeio = m => ({

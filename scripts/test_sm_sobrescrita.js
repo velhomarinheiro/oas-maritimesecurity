@@ -39,6 +39,11 @@ function ok(cond, msg) {
   ok(!('_fonte' in m), 'chaves com "_" são metadados e não entram nos parâmetros');
   const l = SO.aplicarSobrescritas({ HIBRIDO: { vetores: { minagem: { alvos: ['porto', 'duto'] } } } });
   ok(l.HIBRIDO.vetores.minagem.alvos.join() === 'porto,duto', 'listas são substituídas inteiras');
+  const ix = SO.aplicarSobrescritas({ TERCEIROS: { forcaDesnecessaria: { pPorNivel: { 2: 0.5 } } } });
+  ok(ix.TERCEIROS.forcaDesnecessaria.pPorNivel.join() === [0.05, 0.10, 0.5, 0.30].join() && Array.isArray(ix.TERCEIROS.forcaDesnecessaria.pPorNivel),
+     'lista alterada por índice continua lista');
+  assert.throws(() => SO.aplicarSobrescritas({ TERCEIROS: { forcaDesnecessaria: { pPorNivel: { 7: 0.5 } } } }), /índice inválido/);
+  ok(true, 'índice fora da lista é recusado');
   assert.throws(() => SO.aplicarSobrescritas({ PISO_FUSAO: { radar: 0.5 } }), /inexistente "PISO_FUSAO.radar"/);
   ok(true, 'parâmetro inexistente é recusado, com o caminho');
   assert.throws(() => SO.aplicarSobrescritas({ DOUTRINA: { urgencia: '1' } }), /espera number, veio string/);

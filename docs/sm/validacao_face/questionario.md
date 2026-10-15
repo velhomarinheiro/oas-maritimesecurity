@@ -1,718 +1,714 @@
-# OAS-SM — Questionário de validação de face
+# Operação Atlântico Sul — Segurança Marítima
 
-Revisão por especialistas dos parâmetros de projeto da variante de Segurança Marítima (SM-10). Todos os valores abaixo são **placeholders**: foram escolhidos para que o modelo funcione, não a partir de dados. Nada do que o lote produz deve ser usado analiticamente antes desta revisão (Desenho Experimental v1.3, aviso).
+## Questionário de validação por especialistas
 
-## Como responder
+Este questionário colhe a sua experiência profissional para calibrar um jogo de guerra de segurança marítima: patrulha naval, repressão a ilícitos, ameaças híbridas à infraestrutura marítima, apoio interagências e escalada até o conflito aberto, no litoral do 2º ao 5º Distrito Naval.
 
-1. Para cada item, indique se o valor é plausível. Se não for, proponha um valor (ou uma faixa) e a fonte ou o raciocínio.
-2. Registre a confiança: **baixa** (palpite informado), **média** (experiência direta) ou **alta** (dado documentado).
-3. Os itens de prioridade **alta** mudam as métricas em mais de um desvio-padrão, ou mudam a conclusão principal do lote. Comece por eles.
-4. Valores revisados entram no modelo sem mudar o código: copie `params_especialista.exemplo.json`, edite e rode `node scripts/sm_lote.js --params arquivo.json` (e `sm_sensibilidade.js --params` para a sensibilidade em torno deles). Chaves que começam com "_" registram revisor, data e fonte.
-5. Itens marcados **estrutural** (ordem de batalha, bases, infraestrutura) são editados no próprio código (`shared/sm/oob_sm.js`).
+Para cada item, a "hipótese atual" é o valor adotado até agora, escolhido sem base em dados. Diga se concorda e, se não, dê a sua estimativa e o fundamento. Responda só o que estiver no seu campo de experiência; com pouco tempo, comece pelos itens de prioridade alta. A versão para preencher é a planilha `questionario.xlsx`.
 
-Prioridades calculadas a partir de `node scripts/sm_sensibilidade.js` (30 réplicas).
+## Consciência situacional marítima
 
-## Resumo por prioridade
+### A1. Contribuição das fontes de dados (prioridade alta)
 
-| # | Parâmetro | Seção | Prioridade |
-|---|---|---|---|
-| 1 | `P_BASE` | Motor de encontro (Conceito §9.1) | alta |
-| 2 | `PISO_FUSAO` | Motor de encontro (Conceito §9.1) | alta |
-| 3 | `CAPACIDADE_POR_TIPO` | Motor de encontro (Conceito §9.1) | alta |
-| 4 | `GANHO_EVIDENCIA` | Atribuição (Conceito §9.2) | alta |
-| 5 | `FATOR_NEGABILIDADE` | Atribuição (Conceito §9.2) | alta |
-| 6 | `PISO_FUSAO_EVIDENCIA` | Atribuição (Conceito §9.2) | alta |
-| 7 | `LIMIAR_ATRIBUICAO` | Atribuição (Conceito §9.2) | alta |
-| 8 | `PESO_POLITICO` | Atribuição (Conceito §9.2) | alta |
-| 12 | `TIPOS_OCORRENCIA` | Trilha constabular (Conceito §5, Tabela 5.1) | alta |
-| 13 | `ACOPLAMENTO` | Trilha constabular (Conceito §5, Tabela 5.1) | alta |
-| 14 | `FONTES` | C2: estações, papéis e fusão (Conceito §7) | alta |
-| 15 | `TETO_FUSAO_SEM_C` | C2: estações, papéis e fusão (Conceito §7) | alta |
-| 17 | `DIFICULDADES` | Campanha (Conceito §8) | alta |
-| 22 | `HIBRIDO` | Runner: agente Vermelho (híbrido), doutrina Azul e desfecho (SM-8) | alta |
-| 24 | `DESFECHO` | Runner: agente Vermelho (híbrido), doutrina Azul e desfecho (SM-8) | alta |
-| 9 | `GATILHOS_ESCALADA` | Escada de escalada (Conceito §9.3, Tabela 9.1) | média |
-| 21 | `INFOCOG` | Dimensão informacional e cognitiva (Conceito §6, §11.3) | média |
-| 23 | `DOUTRINA` | Runner: agente Vermelho (híbrido), doutrina Azul e desfecho (SM-8) | média |
-| 10 | `TURNOS_PARA_DESESCALAR` | Escada de escalada (Conceito §9.3, Tabela 9.1) | baixa |
-| 16 | `APOIOS` | Apoio externo via COMPAAz (Conceito §7.4, Tabela 7.2) | baixa |
-| 11 | `AREAS_DN` | Trilha constabular (Conceito §5, Tabela 5.1) | não medida |
-| 18 | `CRISES` | Campanha (Conceito §8) | não medida |
-| 19 | `PRONTIDAO` | OOB de MarSec e prontidão (Conceito §10) | não medida |
-| 20 | `FATOR_SEM_GVI` | OOB de MarSec e prontidão (Conceito §10) | não medida |
-| 25 | `BASES` | OOB de MarSec (Conceito §10) | estrutural |
-| 26 | `MEIOS_AZUIS` | OOB de MarSec (Conceito §10) | estrutural |
-| 27 | `INFRA` | OOB de MarSec (Conceito §10) | estrutural |
+Para formar o quadro de superfície de uma área de Distrito Naval, qual a participação relativa de cada fonte? Distribua 100% entre elas.
 
-## Questões de coerência do modelo
-
-Pontos que a análise de sensibilidade e do lote revelaram na SM-10, com os parâmetros placeholder (números de `docs/sm/resultados/`), e que pedem decisão de quem conhece o domínio antes dos valores:
-
-1. **Um só limiar de "atribuição robusta"?** O valor 70 aparece em quatro parâmetros: `CLASSES_ATRIBUICAO` (classe "robusta"), `GATILHOS_ESCALADA.N2/N3.atribuicaoMin` e `HIBRIDO.investigacao.robusta`. Mover só um deles muda a atribuição sem mudar a escalada (item A6 da sensibilidade). Devem ser o mesmo limiar?
-
-   Resposta: 
-
-2. **Excesso de força e danos a terceiros não têm gerador.** `INFOCOG.custo.pesoExcesso` e `pesoDanos` são inertes: a etapa-alvo é sempre limitada ao teto da ROE e nenhum evento produz danos a terceiros. E4_custopol mede hoje só o risco por agir à frente da atribuição. Que situações no mar devem gerar dano a terceiros (abordagem a embarcação inocente, emprego de força perto de tráfego) e com que frequência?
-
-   Resposta: 
-
-3. **Cadeia de repressão.** Narcotráfico, contrabando e pesca IUU só contam como reprimidos no apresamento, depois de detecção, identificação, interrogação, abordagem e inspeção em sequência (crime ambiental termina na inspeção; pirataria e imigração, na abordagem — `TIPOS_OCORRENCIA.*.etapaRepressao`). Por isso E5_ordem fica perto de 0,12 mesmo com todas as capacidades, e ±30% em `P_BASE` move E5 em 13 desvios-padrão. A repressão desses tipos exige mesmo o apresamento? As etapas devem ser independentes, ou o êxito numa torna a seguinte mais provável?
-
-   Resposta: 
-
-4. **Limiar de vitória fora do alcance.** `DESFECHO.ordemVitoriaAzul` = 0,4 está acima do máximo de E5 no lote (≈ 0,21); por isso 83% das partidas terminam "indecisa". O limiar deve ser calibrado junto com a cadeia de repressão.
-
-   Resposta: 
-
-5. **Saturação da fusão.** Os pesos das fontes somam 1: com todas as fontes, a fusão já é plena, e os bônus de MPA e CENSIPAM e o fator A_MPA quase não agem quando C_Fusão está presente. A fusão plena deve exigir todas as fontes, ou as fontes devem ter retornos decrescentes?
-
-   Resposta: 
-
-6. **C_Fusão separa a escalada a N3.** No fatorial não há nenhuma escalada a N3 nem perda do KCV sem C_Fusão: sem fusão ampliada a atribuição robusta não é alcançada. É plausível que, sem o SisGAAz ampliado, o país nunca chegue a atribuir um ataque com robustez suficiente para o conflito aberto?
-
-   Resposta: 
-
-7. **Custo político dominado pela atribuição.** Os parâmetros de atribuição (ganho de evidência, negabilidade, ritmo, limiares) movem E4_custopol em 11 a 14 desvios-padrão: a doutrina aceita agir à frente da atribuição quando o efeito do híbrido é iminente (`DOUTRINA.urgencia`). O custo de agir sem atribuição está no tamanho certo?
-
-   Resposta: 
-
-8. **Erosão do apoio público.** Em 45 dias o apoio cai de 60 para cerca de 24 com todas as capacidades e para cerca de 5 sem C_Fusão; o efeito-base da desinformação (`INFOCOG.desinformacao.base`) move o apoio final em 4 desvios-padrão. A desinformação adversária deve ter esse peso, e o retorno do apoio (`INFOCOG.retornoPorTurno`) deve ser tão lento?
-
-   Resposta: 
-
-9. **O compromisso E5 × E1 não aparece com a doutrina fixa.** O Desenho §4 prevê que perseguir ocorrências tire foco do híbrido. Com o agente doutrinário, E5 e E1 sobem juntas com a fusão (correlação positiva). O compromisso depende de escolha; deve ser examinado em partidas com humanos ou com doutrinas alternativas.
-
-   Resposta: 
-
-## Itens
-
-### 1. `P_BASE` — Motor de encontro (Conceito §9.1)
-
-*shared/sm/params.js* · prioridade **alta** — E1 (|d| máx. 13,17) · sobrescrevível por JSON
-
-Probabilidade-base de sucesso da etapa, para unidade de capacidade 1 com fusão plena (1) e contato sem evasão.
-
-| Parâmetro | Valor atual | Valor proposto | Fonte / justificativa | Confiança |
-|---|---|---|---|---|
-| `P_BASE.deteccao` | 0,85 | | | |
-| `P_BASE.identificacao` | 0,75 | | | |
-| `P_BASE.interrogacao` | 0,8 | | | |
-| `P_BASE.abordagem` | 0,7 | | | |
-| `P_BASE.inspecao` | 0,8 | | | |
-| `P_BASE.apresamento` | 0,75 | | | |
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
-
-### 2. `PISO_FUSAO` — Motor de encontro (Conceito §9.1)
-
-*shared/sm/params.js* · prioridade **alta** — F1 (|d| máx. 2,86) · sobrescrevível por JSON
-
-Peso da fusão de dados por etapa: com fusão 0 a probabilidade cai a PISO_FUSAO × P_BASE; com fusão 1 fica em P_BASE. A fusão pesa mais na detecção e na identificação (consciência situacional) e pouco na execução da abordagem (Conceito §7.2; Desenho §3).
-
-| Parâmetro | Valor atual | Valor proposto | Fonte / justificativa | Confiança |
-|---|---|---|---|---|
-| `PISO_FUSAO.deteccao` | 0,4 | | | |
-| `PISO_FUSAO.identificacao` | 0,45 | | | |
-| `PISO_FUSAO.interrogacao` | 0,7 | | | |
-| `PISO_FUSAO.abordagem` | 0,85 | | | |
-| `PISO_FUSAO.inspecao` | 0,8 | | | |
-| `PISO_FUSAO.apresamento` | 0,9 | | | |
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
-
-### 3. `CAPACIDADE_POR_TIPO` — Motor de encontro (Conceito §9.1)
-
-*shared/sm/params.js* · prioridade **alta** — E2 (|d| máx. 7,40) · sobrescrevível por JSON
-
-Capacidade da unidade por tipo de plataforma (board.js COMP_DISPLAY_TYPE), nos dois eixos, de 0 (incapaz) a 1. Tipo ausente = incapaz: encontro nulo. Uma unidade pode trazer `capSM: { sensor, gvi }` próprio, que prevalece.
-
-| Parâmetro | Valor atual | Valor proposto | Fonte / justificativa | Confiança |
-|---|---|---|---|---|
-| `CAPACIDADE_POR_TIPO.patrulha_oc.sensor` | 0,85 | | | |
-| `CAPACIDADE_POR_TIPO.patrulha_oc.gvi` | 0,9 | | | |
-| `CAPACIDADE_POR_TIPO.patrulha_c.sensor` | 0,65 | | | |
-| `CAPACIDADE_POR_TIPO.patrulha_c.gvi` | 0,8 | | | |
-| `CAPACIDADE_POR_TIPO.fragata.sensor` | 1 | | | |
-| `CAPACIDADE_POR_TIPO.fragata.gvi` | 0,75 | | | |
-| `CAPACIDADE_POR_TIPO.corveta.sensor` | 0,9 | | | |
-| `CAPACIDADE_POR_TIPO.corveta.gvi` | 0,75 | | | |
-| `CAPACIDADE_POR_TIPO.destroier.sensor` | 1 | | | |
-| `CAPACIDADE_POR_TIPO.destroier.gvi` | 0,7 | | | |
-| `CAPACIDADE_POR_TIPO.amphib.sensor` | 0,6 | | | |
-| `CAPACIDADE_POR_TIPO.amphib.gvi` | 1 | | | |
-| `CAPACIDADE_POR_TIPO.carrier.sensor` | 0,8 | | | |
-| `CAPACIDADE_POR_TIPO.carrier.gvi` | 0,6 | | | |
-| `CAPACIDADE_POR_TIPO.patrulha.sensor` | 1 | | | |
-| `CAPACIDADE_POR_TIPO.patrulha.gvi` | 0 | | | |
-| `CAPACIDADE_POR_TIPO.helicoptero.sensor` | 0,7 | | | |
-| `CAPACIDADE_POR_TIPO.helicoptero.gvi` | 0,5 | | | |
-| `CAPACIDADE_POR_TIPO.aew.sensor` | 0,9 | | | |
-| `CAPACIDADE_POR_TIPO.aew.gvi` | 0 | | | |
-| `CAPACIDADE_POR_TIPO.submarino.sensor` | 0,7 | | | |
-| `CAPACIDADE_POR_TIPO.submarino.gvi` | 0 | | | |
-| `CAPACIDADE_POR_TIPO.sub_nuclear.sensor` | 0,8 | | | |
-| `CAPACIDADE_POR_TIPO.sub_nuclear.gvi` | 0 | | | |
-| `CAPACIDADE_POR_TIPO.specops.sensor` | 0,4 | | | |
-| `CAPACIDADE_POR_TIPO.specops.gvi` | 1 | | | |
-| `CAPACIDADE_POR_TIPO.logistico.sensor` | 0,3 | | | |
-| `CAPACIDADE_POR_TIPO.logistico.gvi` | 0,2 | | | |
-| `CAPACIDADE_POR_TIPO.tanque.sensor` | 0,3 | | | |
-| `CAPACIDADE_POR_TIPO.tanque.gvi` | 0,1 | | | |
-| `CAPACIDADE_POR_TIPO.inspecao_naval.sensor` | 0,4 | | | |
-| `CAPACIDADE_POR_TIPO.inspecao_naval.gvi` | 0,9 | | | |
-| `CAPACIDADE_POR_TIPO.mcm.sensor` | 0,5 | | | |
-| `CAPACIDADE_POR_TIPO.mcm.gvi` | 0,3 | | | |
-| `CAPACIDADE_POR_TIPO.usv.sensor` | 0,7 | | | |
-| `CAPACIDADE_POR_TIPO.usv.gvi` | 0 | | | |
-| `CAPACIDADE_POR_TIPO.uav.sensor` | 0,8 | | | |
-| `CAPACIDADE_POR_TIPO.uav.gvi` | 0 | | | |
-| `CAPACIDADE_POR_TIPO.rov.sensor` | 0,6 | | | |
-| `CAPACIDADE_POR_TIPO.rov.gvi` | 0 | | | |
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
-
-### 4. `GANHO_EVIDENCIA` — Atribuição (Conceito §9.2)
-
-*shared/sm/params.js* · prioridade **alta** — A1 (|d| máx. 13,38) · sobrescrevível por JSON
-
-Fração da distância até 100% que cada etapa bem-sucedida cobre, antes dos moduladores (negabilidade, fusão, ritmo). A detecção pouco diz sobre quem está por trás; a inspeção e o apresamento produzem prova.
-
-| Parâmetro | Valor atual | Valor proposto | Fonte / justificativa | Confiança |
-|---|---|---|---|---|
-| `GANHO_EVIDENCIA.deteccao` | 0,05 | | | |
-| `GANHO_EVIDENCIA.identificacao` | 0,15 | | | |
-| `GANHO_EVIDENCIA.interrogacao` | 0,15 | | | |
-| `GANHO_EVIDENCIA.abordagem` | 0,2 | | | |
-| `GANHO_EVIDENCIA.inspecao` | 0,3 | | | |
-| `GANHO_EVIDENCIA.apresamento` | 0,3 | | | |
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
-
-### 5. `FATOR_NEGABILIDADE` — Atribuição (Conceito §9.2)
-
-*shared/sm/params.js* · prioridade **alta** — A2 (|d| máx. 11,27, muda a conclusão sobre C_Fusão) · sobrescrevível por JSON
-
-Multiplicador do ganho de evidência pela negabilidade do vetor (Tabela 4.1).
-
-| Parâmetro | Valor atual | Valor proposto | Fonte / justificativa | Confiança |
-|---|---|---|---|---|
-| `FATOR_NEGABILIDADE.baixa` | 1 | | | |
-| `FATOR_NEGABILIDADE.media` | 0,8 | | | |
-| `FATOR_NEGABILIDADE.alta` | 0,55 | | | |
-| `FATOR_NEGABILIDADE.muito_alta` | 0,35 | | | |
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
-
-### 6. `PISO_FUSAO_EVIDENCIA` — Atribuição (Conceito §9.2)
-
-*shared/sm/params.js* · prioridade **alta** — F6 (|d| máx. 2,50) · sobrescrevível por JSON
-
-Peso da fusão sobre o ganho de evidência: com fusão 0 o ganho cai a este piso; com fusão 1 é integral.
-
-| Parâmetro | Valor atual | Valor proposto | Fonte / justificativa | Confiança |
-|---|---|---|---|---|
-| `PISO_FUSAO_EVIDENCIA` | 0,5 | | | |
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
-
-### 7. `LIMIAR_ATRIBUICAO` — Atribuição (Conceito §9.2)
-
-*shared/sm/params.js* · prioridade **alta** — A3 (|d| máx. 13,88) · sobrescrevível por JSON
-
-Atribuição mínima (0–100) a partir da qual cada etapa é resposta fundamentada. Agir acima disso não é proibido (a ROE é que proíbe), mas gera risco político proporcional à distância.
-
-| Parâmetro | Valor atual | Valor proposto | Fonte / justificativa | Confiança |
-|---|---|---|---|---|
-| `LIMIAR_ATRIBUICAO.deteccao` | 0 | | | |
-| `LIMIAR_ATRIBUICAO.identificacao` | 0 | | | |
-| `LIMIAR_ATRIBUICAO.interrogacao` | 20 | | | |
-| `LIMIAR_ATRIBUICAO.abordagem` | 40 | | | |
-| `LIMIAR_ATRIBUICAO.inspecao` | 40 | | | |
-| `LIMIAR_ATRIBUICAO.apresamento` | 70 | | | |
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
-
-### 8. `PESO_POLITICO` — Atribuição (Conceito §9.2)
-
-*shared/sm/params.js* · prioridade **alta** — C1 (|d| máx. 2,95) · sobrescrevível por JSON
-
-Peso político de agir em cada etapa sem a atribuição correspondente.
-
-| Parâmetro | Valor atual | Valor proposto | Fonte / justificativa | Confiança |
-|---|---|---|---|---|
-| `PESO_POLITICO.deteccao` | 0 | | | |
-| `PESO_POLITICO.identificacao` | 0 | | | |
-| `PESO_POLITICO.interrogacao` | 0,5 | | | |
-| `PESO_POLITICO.abordagem` | 2 | | | |
-| `PESO_POLITICO.inspecao` | 2 | | | |
-| `PESO_POLITICO.apresamento` | 4 | | | |
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
-
-### 9. `GATILHOS_ESCALADA` — Escada de escalada (Conceito §9.3, Tabela 9.1)
-
-*shared/sm/params.js* · prioridade **média** — A4 (|d| máx. 0,42) · sobrescrevível por JSON
-
-Gatilhos de subida (Tabela 9.1), avaliados sobre os eventos do turno e a janela recente.
-
-| Parâmetro | Valor atual | Valor proposto | Fonte / justificativa | Confiança |
-|---|---|---|---|---|
-| `GATILHOS_ESCALADA.N1.incidentesJanela` | 3 | | | |
-| `GATILHOS_ESCALADA.N1.janelaTurnos` | 3 | | | |
-| `GATILHOS_ESCALADA.N1.atribuicaoMin` | 40 | | | |
-| `GATILHOS_ESCALADA.N2.atribuicaoMin` | 70 | | | |
-| `GATILHOS_ESCALADA.N3.atribuicaoMin` | 70 | | | |
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
-
-### 10. `TURNOS_PARA_DESESCALAR` — Escada de escalada (Conceito §9.3, Tabela 9.1)
-
-*shared/sm/params.js* · prioridade **baixa** — D4 (|d| máx. 0,09) · sobrescrevível por JSON
-
-Turnos consecutivos sem gatilho do nível corrente para propor descida de um nível.
-
-| Parâmetro | Valor atual | Valor proposto | Fonte / justificativa | Confiança |
-|---|---|---|---|---|
-| `TURNOS_PARA_DESESCALAR` | 4 | | | |
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
-
-### 11. `AREAS_DN` — Trilha constabular (Conceito §5, Tabela 5.1)
-
-*shared/sm/params.js* · prioridade **não medida** — fora do catálogo de sensibilidade · sobrescrevível por JSON
-
-Áreas dos Distritos Navais na grade 28×20 (linhas 0-indexadas, inclusivas), de norte a sul. Só hexágonos de mar a até DIST_MAX_COSTA da terra (≈ ZEE, 200 mn com hexágono de ~75 mn) recebem ocorrências.
-
-Foco da revisão: limites jurisdicionais na carta.
-
-| Parâmetro | Valor atual | Valor proposto | Fonte / justificativa | Confiança |
-|---|---|---|---|---|
-| `AREAS_DN` | [{"id":"2DN","estacao":"Com2ºDN","nome":"Flanco norte (BA–SE)","linhas":[0,5]}, {"id":"1DN","estacao":"Com1ºDN","nome":"Campos/Búzios (RJ–ES)","linhas":[6,9]}, {"id":"8DN","estacao":"Com8ºDN","nome":"Bacia de Santos (SP)","linhas":[10,11]}, {"id":"5DN","estacao":"Com5ºDN","nome":"Flanco sul (SC–RS)","linhas":[12,19]}] | | | |
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
-
-### 12. `TIPOS_OCORRENCIA` — Trilha constabular (Conceito §5, Tabela 5.1)
-
-*shared/sm/params.js* · prioridade **alta** — T4 (|d| máx. 3,17) · sobrescrevível por JSON
-
-Tipos de ocorrência. Por tipo:   lambda       incidência média por turno de 24 h, por área (Poisson);   terrenos     terrenos onde a ocorrência pode surgir (board.js T_*);   etapaRepressao  etapa do motor de encontro que conta como reprimida;   duracao      turnos até a ocorrência se encerrar sem resposta (escapa);   evasao       evasão do contato nas etapas de percepção (SM-1);   exploravel   peso relativo do tipo quando o híbrido instrumentaliza                ocorrências para saturação (0 = nunca). Terrenos: 1 águas rasas, 2 plataforma, 3 águas profundas, 4 bacia petrolífera.
-
-| Parâmetro | Valor atual | Valor proposto | Fonte / justificativa | Confiança |
-|---|---|---|---|---|
-| `TIPOS_OCORRENCIA.narcotrafico.rotulo` | 'Narcotráfico' | | | |
-| `TIPOS_OCORRENCIA.narcotrafico.terrenos` | [1, 2, 3] | | | |
-| `TIPOS_OCORRENCIA.narcotrafico.lambda.2DN` | 0,15 | | | |
-| `TIPOS_OCORRENCIA.narcotrafico.lambda.1DN` | 0,2 | | | |
-| `TIPOS_OCORRENCIA.narcotrafico.lambda.8DN` | 0,3 | | | |
-| `TIPOS_OCORRENCIA.narcotrafico.lambda.5DN` | 0,15 | | | |
-| `TIPOS_OCORRENCIA.narcotrafico.etapaRepressao` | 'apresamento' | | | |
-| `TIPOS_OCORRENCIA.narcotrafico.duracao` | 2 | | | |
-| `TIPOS_OCORRENCIA.narcotrafico.evasao` | 0,3 | | | |
-| `TIPOS_OCORRENCIA.narcotrafico.exploravel` | 1 | | | |
-| `TIPOS_OCORRENCIA.contrabando.rotulo` | 'Contrabando / descaminho' | | | |
-| `TIPOS_OCORRENCIA.contrabando.terrenos` | [1, 2] | | | |
-| `TIPOS_OCORRENCIA.contrabando.lambda.2DN` | 0,1 | | | |
-| `TIPOS_OCORRENCIA.contrabando.lambda.1DN` | 0,15 | | | |
-| `TIPOS_OCORRENCIA.contrabando.lambda.8DN` | 0,2 | | | |
-| `TIPOS_OCORRENCIA.contrabando.lambda.5DN` | 0,15 | | | |
-| `TIPOS_OCORRENCIA.contrabando.etapaRepressao` | 'apresamento' | | | |
-| `TIPOS_OCORRENCIA.contrabando.duracao` | 2 | | | |
-| `TIPOS_OCORRENCIA.contrabando.evasao` | 0,2 | | | |
-| `TIPOS_OCORRENCIA.contrabando.exploravel` | 1 | | | |
-| `TIPOS_OCORRENCIA.pesca_iuu.rotulo` | 'Pesca irregular (IUU)' | | | |
-| `TIPOS_OCORRENCIA.pesca_iuu.terrenos` | [1, 2, 3, 4] | | | |
-| `TIPOS_OCORRENCIA.pesca_iuu.lambda.2DN` | 0,25 | | | |
-| `TIPOS_OCORRENCIA.pesca_iuu.lambda.1DN` | 0,15 | | | |
-| `TIPOS_OCORRENCIA.pesca_iuu.lambda.8DN` | 0,15 | | | |
-| `TIPOS_OCORRENCIA.pesca_iuu.lambda.5DN` | 0,3 | | | |
-| `TIPOS_OCORRENCIA.pesca_iuu.etapaRepressao` | 'apresamento' | | | |
-| `TIPOS_OCORRENCIA.pesca_iuu.duracao` | 3 | | | |
-| `TIPOS_OCORRENCIA.pesca_iuu.evasao` | 0,1 | | | |
-| `TIPOS_OCORRENCIA.pesca_iuu.exploravel` | 3 | | | |
-| `TIPOS_OCORRENCIA.crime_ambiental.rotulo` | 'Crime ambiental' | | | |
-| `TIPOS_OCORRENCIA.crime_ambiental.terrenos` | [1, 2, 4] | | | |
-| `TIPOS_OCORRENCIA.crime_ambiental.lambda.2DN` | 0,05 | | | |
-| `TIPOS_OCORRENCIA.crime_ambiental.lambda.1DN` | 0,15 | | | |
-| `TIPOS_OCORRENCIA.crime_ambiental.lambda.8DN` | 0,1 | | | |
-| `TIPOS_OCORRENCIA.crime_ambiental.lambda.5DN` | 0,05 | | | |
-| `TIPOS_OCORRENCIA.crime_ambiental.etapaRepressao` | 'inspecao' | | | |
-| `TIPOS_OCORRENCIA.crime_ambiental.duracao` | 3 | | | |
-| `TIPOS_OCORRENCIA.crime_ambiental.evasao` | 0,2 | | | |
-| `TIPOS_OCORRENCIA.crime_ambiental.exploravel` | 2 | | | |
-| `TIPOS_OCORRENCIA.pirataria.rotulo` | 'Pirataria / roubo armado' | | | |
-| `TIPOS_OCORRENCIA.pirataria.terrenos` | [1, 2, 4] | | | |
-| `TIPOS_OCORRENCIA.pirataria.lambda.2DN` | 0,05 | | | |
-| `TIPOS_OCORRENCIA.pirataria.lambda.1DN` | 0,1 | | | |
-| `TIPOS_OCORRENCIA.pirataria.lambda.8DN` | 0,1 | | | |
-| `TIPOS_OCORRENCIA.pirataria.lambda.5DN` | 0,05 | | | |
-| `TIPOS_OCORRENCIA.pirataria.etapaRepressao` | 'abordagem' | | | |
-| `TIPOS_OCORRENCIA.pirataria.duracao` | 1 | | | |
-| `TIPOS_OCORRENCIA.pirataria.evasao` | 0,25 | | | |
-| `TIPOS_OCORRENCIA.pirataria.exploravel` | 1 | | | |
-| `TIPOS_OCORRENCIA.imigracao.rotulo` | 'Imigração irregular' | | | |
-| `TIPOS_OCORRENCIA.imigracao.terrenos` | [1, 2] | | | |
-| `TIPOS_OCORRENCIA.imigracao.lambda.2DN` | 0,1 | | | |
-| `TIPOS_OCORRENCIA.imigracao.lambda.1DN` | 0,05 | | | |
-| `TIPOS_OCORRENCIA.imigracao.lambda.8DN` | 0,05 | | | |
-| `TIPOS_OCORRENCIA.imigracao.lambda.5DN` | 0,1 | | | |
-| `TIPOS_OCORRENCIA.imigracao.etapaRepressao` | 'abordagem' | | | |
-| `TIPOS_OCORRENCIA.imigracao.duracao` | 2 | | | |
-| `TIPOS_OCORRENCIA.imigracao.evasao` | 0,05 | | | |
-| `TIPOS_OCORRENCIA.imigracao.exploravel` | 2 | | | |
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
-
-### 13. `ACOPLAMENTO` — Trilha constabular (Conceito §5, Tabela 5.1)
-
-*shared/sm/params.js* · prioridade **alta** — T5 (|d| máx. 2,73); T6 (|d| máx. 0,00) · sobrescrevível por JSON
-
-Acoplamento com o híbrido (Conceito §4.2, §5.2).
-
-| Parâmetro | Valor atual | Valor proposto | Fonte / justificativa | Confiança |
-|---|---|---|---|---|
-| `ACOPLAMENTO.pCoberturaMax` | 0,15 | | | |
-| `ACOPLAMENTO.lambdaSaturacaoMax` | 1,5 | | | |
-| `ACOPLAMENTO.etapaRevelaVinculo` | 'inspecao' | | | |
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
-
-### 14. `FONTES` — C2: estações, papéis e fusão (Conceito §7)
-
-*shared/sm/params.js* · prioridade **alta** — F2 (|d| máx. 1,88, muda a conclusão sobre C_Fusão) · sobrescrevível por JSON
-
-Fontes de dados de embarcações (Tabela 8.3). `peso` é a contribuição para a qualidade da fusão; `confiabilidade`, a confiança de um contato reportado só por ela; `latencia`, turnos até o reporte chegar ao barramento.
-
-| Parâmetro | Valor atual | Valor proposto | Fonte / justificativa | Confiança |
-|---|---|---|---|---|
-| `FONTES.ais.rotulo` | 'AIS' | | | |
-| `FONTES.ais.peso` | 0,2 | | | |
-| `FONTES.ais.confiabilidade` | 0,7 | | | |
-| `FONTES.ais.latencia` | 0 | | | |
-| `FONTES.preps.rotulo` | 'PREPS' | | | |
-| `FONTES.preps.peso` | 0,1 | | | |
-| `FONTES.preps.confiabilidade` | 0,8 | | | |
-| `FONTES.preps.latencia` | 0 | | | |
-| `FONTES.radar.rotulo` | 'Radares costeiros' | | | |
-| `FONTES.radar.peso` | 0,15 | | | |
-| `FONTES.radar.confiabilidade` | 0,85 | | | |
-| `FONTES.radar.latencia` | 0 | | | |
-| `FONTES.unidades.rotulo` | 'Contatos de unidades em patrulha' | | | |
-| `FONTES.unidades.peso` | 0,2 | | | |
-| `FONTES.unidades.confiabilidade` | 0,95 | | | |
-| `FONTES.unidades.latencia` | 0 | | | |
-| `FONTES.satelite.rotulo` | 'Satélite' | | | |
-| `FONTES.satelite.peso` | 0,2 | | | |
-| `FONTES.satelite.confiabilidade` | 0,6 | | | |
-| `FONTES.satelite.latencia` | 1 | | | |
-| `FONTES.inteligencia.rotulo` | 'Sistemas de inteligência' | | | |
-| `FONTES.inteligencia.peso` | 0,15 | | | |
-| `FONTES.inteligencia.confiabilidade` | 0,5 | | | |
-| `FONTES.inteligencia.latencia` | 1 | | | |
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
-
-### 15. `TETO_FUSAO_SEM_C` — C2: estações, papéis e fusão (Conceito §7)
-
-*shared/sm/params.js* · prioridade **alta** — F3 (|d| máx. 2,82) · sobrescrevível por JSON
-
-Sem o fator C_Fusão (SisGAAz ampliado), a fusão não passa deste teto.
-
-| Parâmetro | Valor atual | Valor proposto | Fonte / justificativa | Confiança |
-|---|---|---|---|---|
-| `TETO_FUSAO_SEM_C` | 0,55 | | | |
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
-
-### 16. `APOIOS` — Apoio externo via COMPAAz (Conceito §7.4, Tabela 7.2)
-
-*shared/sm/params.js* · prioridade **baixa** — F7 (|d| máx. 0,12) · sobrescrevível por JSON
-
-Por apoio: `prazo` em turnos até entrar em vigor; `duracao` em turnos de vigência; `disponibilidade` = probabilidade de o pedido ser atendido; `pertinencia` = tipos de ação/ocorrência sobre os quais atua; efeito:   fatorCapacidade  multiplica a capacidade da unidade no encontro;   bonusFusao       soma à qualidade da fusão no encontro;   fatorRitmo       multiplica o ritmo de evidência (atribuição). 'hibrido' na pertinência = contatos da trilha de defesa.
-
-| Parâmetro | Valor atual | Valor proposto | Fonte / justificativa | Confiança |
-|---|---|---|---|---|
-| `APOIOS.mpa.rotulo` | 'Patrulha marítima (FAB)' | | | |
-| `APOIOS.mpa.prazo` | 1 | | | |
-| `APOIOS.mpa.duracao` | 1 | | | |
-| `APOIOS.mpa.disponibilidade` | 0,8 | | | |
-| `APOIOS.mpa.pertinencia` | [*] | | | |
-| `APOIOS.mpa.bonusFusao` | 0,2 | | | |
-| `APOIOS.pf.rotulo` | 'Polícia Federal' | | | |
-| `APOIOS.pf.prazo` | 1 | | | |
-| `APOIOS.pf.duracao` | 3 | | | |
-| `APOIOS.pf.disponibilidade` | 0,9 | | | |
-| `APOIOS.pf.pertinencia` | [narcotrafico] | | | |
-| `APOIOS.pf.fatorCapacidade` | 1,3 | | | |
-| `APOIOS.rf.rotulo` | 'Receita Federal' | | | |
-| `APOIOS.rf.prazo` | 1 | | | |
-| `APOIOS.rf.duracao` | 3 | | | |
-| `APOIOS.rf.disponibilidade` | 0,9 | | | |
-| `APOIOS.rf.pertinencia` | [contrabando] | | | |
-| `APOIOS.rf.fatorCapacidade` | 1,3 | | | |
-| `APOIOS.ibama.rotulo` | 'IBAMA' | | | |
-| `APOIOS.ibama.prazo` | 2 | | | |
-| `APOIOS.ibama.duracao` | 3 | | | |
-| `APOIOS.ibama.disponibilidade` | 0,8 | | | |
-| `APOIOS.ibama.pertinencia` | [crime_ambiental, pesca_iuu] | | | |
-| `APOIOS.ibama.fatorCapacidade` | 1,3 | | | |
-| `APOIOS.censipam.rotulo` | 'CENSIPAM (imageamento)' | | | |
-| `APOIOS.censipam.prazo` | 1 | | | |
-| `APOIOS.censipam.duracao` | 2 | | | |
-| `APOIOS.censipam.disponibilidade` | 0,9 | | | |
-| `APOIOS.censipam.pertinencia` | [*] | | | |
-| `APOIOS.censipam.bonusFusao` | 0,1 | | | |
-| `APOIOS.intl.rotulo` | 'Inteligência internacional' | | | |
-| `APOIOS.intl.prazo` | 3 | | | |
-| `APOIOS.intl.duracao` | 5 | | | |
-| `APOIOS.intl.disponibilidade` | 0,6 | | | |
-| `APOIOS.intl.pertinencia` | [hibrido] | | | |
-| `APOIOS.intl.fatorRitmo` | 1,5 | | | |
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
-
-### 17. `DIFICULDADES` — Campanha (Conceito §8)
-
-*shared/sm/params.js* · prioridade **alta** — A7 (|d| máx. 13,50, muda a conclusão sobre C_Fusão) · sobrescrevível por JSON
-
-Dificuldade como névoa de atribuição (§8.2, Tabela 8.1). Não altera a física: só o ritmo de evidência (atribuição), o que o Azul vê da intenção e dos meios do híbrido, e a adaptação do adversário (respostas repetidas rendem menos evidência).   ritmo                multiplicador do ganho de evidência (SM-1)   intencaoAPartirDe    atribuição a partir da qual a intenção do híbrido aparece   ocultacaoAteContato  meios do híbrido fora do quadro até um encontro efetivo   adaptacao            { fator, piso }: ritmo × fator^(repetições), ≥ piso
-
-| Parâmetro | Valor atual | Valor proposto | Fonte / justificativa | Confiança |
-|---|---|---|---|---|
-| `DIFICULDADES.basico.rotulo` | 'Básico' | | | |
-| `DIFICULDADES.basico.ritmo` | 1,5 | | | |
-| `DIFICULDADES.basico.intencaoAPartirDe` | 0 | | | |
-| `DIFICULDADES.basico.ocultacaoAteContato` | false | | | |
-| `DIFICULDADES.basico.adaptacao` | null | | | |
-| `DIFICULDADES.intermediario.rotulo` | 'Intermediário' | | | |
-| `DIFICULDADES.intermediario.ritmo` | 1 | | | |
-| `DIFICULDADES.intermediario.intencaoAPartirDe` | 40 | | | |
-| `DIFICULDADES.intermediario.ocultacaoAteContato` | false | | | |
-| `DIFICULDADES.intermediario.adaptacao` | null | | | |
-| `DIFICULDADES.avancado.rotulo` | 'Avançado' | | | |
-| `DIFICULDADES.avancado.ritmo` | 0,6 | | | |
-| `DIFICULDADES.avancado.intencaoAPartirDe` | 70 | | | |
-| `DIFICULDADES.avancado.ocultacaoAteContato` | true | | | |
-| `DIFICULDADES.avancado.adaptacao.fator` | 0,85 | | | |
-| `DIFICULDADES.avancado.adaptacao.piso` | 0,4 | | | |
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
-
-### 18. `CRISES` — Campanha (Conceito §8)
-
-*shared/sm/params.js* · prioridade **não medida** — fora do catálogo de sensibilidade · sobrescrevível por JSON
-
-Repertório de crises (Tabela 8.2). Por tipo: trilha; marcos de Detecção e de Resposta com prazo ideal (nota 1) e prazo máximo (nota 0), em turnos contados do início do episódio; efeito que o episódio injeta. Nas crises constabulares, a resposta é adequada quando `fracaoReprimida` das ocorrências injetadas é reprimida; nas tarefas, `meios` é o número de meios que a tarefa exige.
-
-| Parâmetro | Valor atual | Valor proposto | Fonte / justificativa | Confiança |
-|---|---|---|---|---|
-| `CRISES.crimes_ilicitos.rotulo` | 'Crimes e ilícitos no mar' | | | |
-| `CRISES.crimes_ilicitos.trilha` | 'constabular' | | | |
-| `CRISES.crimes_ilicitos.deteccao.ideal` | 1 | | | |
-| `CRISES.crimes_ilicitos.deteccao.max` | 3 | | | |
-| `CRISES.crimes_ilicitos.resposta.ideal` | 2 | | | |
-| `CRISES.crimes_ilicitos.resposta.max` | 5 | | | |
-| `CRISES.crimes_ilicitos.resposta.fracaoReprimida` | 0,5 | | | |
-| `CRISES.crimes_ilicitos.efeito.ocorrencias.tipo` | 'narcotrafico' | | | |
-| `CRISES.crimes_ilicitos.efeito.ocorrencias.n` | 3 | | | |
-| `CRISES.sabotagem_ic.rotulo` | 'Sabotagem de infraestrutura crítica' | | | |
-| `CRISES.sabotagem_ic.trilha` | 'defesa' | | | |
-| `CRISES.sabotagem_ic.deteccao.ideal` | 1 | | | |
-| `CRISES.sabotagem_ic.deteccao.max` | 4 | | | |
-| `CRISES.sabotagem_ic.resposta.ideal` | 2 | | | |
-| `CRISES.sabotagem_ic.resposta.max` | 6 | | | |
-| `CRISES.sabotagem_ic.efeito.hibrido.tipo` | 'dano_infra' | | | |
-| `CRISES.sabotagem_ic.efeito.hibrido.atribuicao` | 20 | | | |
-| `CRISES.pesca_massa.rotulo` | 'Pesca ilegal em massa' | | | |
-| `CRISES.pesca_massa.trilha` | 'constabular' | | | |
-| `CRISES.pesca_massa.deteccao.ideal` | 1 | | | |
-| `CRISES.pesca_massa.deteccao.max` | 3 | | | |
-| `CRISES.pesca_massa.resposta.ideal` | 3 | | | |
-| `CRISES.pesca_massa.resposta.max` | 6 | | | |
-| `CRISES.pesca_massa.resposta.fracaoReprimida` | 0,5 | | | |
-| `CRISES.pesca_massa.efeito.ocorrencias.tipo` | 'pesca_iuu' | | | |
-| `CRISES.pesca_massa.efeito.ocorrencias.n` | 8 | | | |
-| `CRISES.sar.rotulo` | 'Salvaguarda da vida humana no mar (SAR)' | | | |
-| `CRISES.sar.trilha` | 'constabular' | | | |
-| `CRISES.sar.deteccao.ideal` | 0 | | | |
-| `CRISES.sar.deteccao.max` | 2 | | | |
-| `CRISES.sar.resposta.ideal` | 1 | | | |
-| `CRISES.sar.resposta.max` | 3 | | | |
-| `CRISES.sar.efeito.sar.pessoas` | 30 | | | |
-| `CRISES.sar.efeito.sar.meios` | 1 | | | |
-| `CRISES.desastre.rotulo` | 'Resposta a desastres' | | | |
-| `CRISES.desastre.trilha` | 'constabular' | | | |
-| `CRISES.desastre.deteccao.ideal` | 1 | | | |
-| `CRISES.desastre.deteccao.max` | 3 | | | |
-| `CRISES.desastre.resposta.ideal` | 2 | | | |
-| `CRISES.desastre.resposta.max` | 5 | | | |
-| `CRISES.desastre.efeito.desastre.escala` | 1 | | | |
-| `CRISES.desastre.efeito.desastre.meios` | 2 | | | |
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
-
-### 19. `PRONTIDAO` — OOB de MarSec e prontidão (Conceito §10)
-
-*shared/sm/params.js* · prioridade **não medida** — fora do catálogo de sensibilidade · sobrescrevível por JSON
-
-Escalões de prontidão (Tabela 10.4), em turnos de 24 h entre o acionamento e o início do movimento. `porEstacao`: quantos meios do escalão cada estação designa (o COMPAAz não tem meios de superfície próprios).
-
-| Parâmetro | Valor atual | Valor proposto | Fonte / justificativa | Confiança |
-|---|---|---|---|---|
-| `PRONTIDAO.sar.rotulo` | 'Navio SAR' | | | |
-| `PRONTIDAO.sar.atraso` | 0 | | | |
-| `PRONTIDAO.sar.porEstacao.ComemCh` | 1 | | | |
-| `PRONTIDAO.sar.porEstacao.DN` | 1 | | | |
-| `PRONTIDAO.fpe.rotulo` | 'Força de Pronto Emprego' | | | |
-| `PRONTIDAO.fpe.atraso` | 1 | | | |
-| `PRONTIDAO.fpe.porEstacao.ComemCh` | 3 | | | |
-| `PRONTIDAO.fpe.porEstacao.DN` | 2 | | | |
-| `PRONTIDAO.demais.rotulo` | 'Demais unidades (aprestamento)' | | | |
-| `PRONTIDAO.demais.atraso` | 2 | | | |
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
-
-### 20. `FATOR_SEM_GVI` — OOB de MarSec e prontidão (Conceito §10)
-
-*shared/sm/params.js* · prioridade **não medida** — fora do catálogo de sensibilidade · sobrescrevível por JSON
-
-Sem grupamento de Fuzileiros embarcado (fator E_GVI), a capacidade de abordagem dos navios da estação cai a esta fração.
-
-| Parâmetro | Valor atual | Valor proposto | Fonte / justificativa | Confiança |
-|---|---|---|---|---|
-| `FATOR_SEM_GVI` | 0,5 | | | |
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
-
-### 21. `INFOCOG` — Dimensão informacional e cognitiva (Conceito §6, §11.3)
-
-*shared/sm/params.js* · prioridade **média** — C2 (|d| máx. 0,00); C3 (|d| máx. 0,00); C4 (|d| máx. 0,78); C5 (|d| máx. 0,00); C6 (|d| máx. 0,05); C7 (|d| máx. 0,52) · sobrescrevível por JSON
-
-Indicador de apoio público / confiança (0–100) e custo político.
-
-| Parâmetro | Valor atual | Valor proposto | Fonte / justificativa | Confiança |
-|---|---|---|---|---|
-| `INFOCOG.apoioInicial` | 60 | | | |
-| `INFOCOG.apoioReferencia` | 60 | | | |
-| `INFOCOG.retornoPorTurno` | 0,05 | | | |
-| `INFOCOG.faixasRoe.estreita` | 30 | | | |
-| `INFOCOG.faixasRoe.amplia` | 75 | | | |
-| `INFOCOG.custo.pesoExcesso` | 2 | | | |
-| `INFOCOG.custo.pesoDanos` | 3 | | | |
-| `INFOCOG.custo.modulacao` | 0,5 | | | |
-| `INFOCOG.tetoCustoPolitico` | 25 | | | |
-| `INFOCOG.apoioPorCusto` | 3 | | | |
-| `INFOCOG.eventosMar.reprimida` | 0,5 | | | |
-| `INFOCOG.eventosMar.sar_sucesso` | 3 | | | |
-| `INFOCOG.eventosMar.sar_falha` | -4 | | | |
-| `INFOCOG.eventosMar.dano_infra` | -2 | | | |
-| `INFOCOG.eventosMar.incidente_nao_respondido` | -1 | | | |
-| `INFOCOG.eventosMar.dano_terceiros` | -5 | | | |
-| `INFOCOG.desinformacao.base` | 6 | | | |
-| `INFOCOG.desinformacao.gatilhoReal` | 1,5 | | | |
-| `INFOCOG.campanhas.comunicacao_estrategica.rotulo` | 'Comunicação estratégica' | | | |
-| `INFOCOG.campanhas.comunicacao_estrategica.ganho` | 3 | | | |
-| `INFOCOG.campanhas.transparencia.rotulo` | 'Transparência proativa' | | | |
-| `INFOCOG.campanhas.transparencia.ganho` | 2 | | | |
-| `INFOCOG.campanhas.transparencia.esclareceGatilho` | true | | | |
-| `INFOCOG.campanhas.prova_documentada.rotulo` | 'Divulgação de prova documentada' | | | |
-| `INFOCOG.campanhas.prova_documentada.ganho` | 6 | | | |
-| `INFOCOG.campanhas.prova_documentada.exigeProva` | true | | | |
-| `INFOCOG.campanhas.prova_documentada.esclareceGatilho` | true | | | |
-| `INFOCOG.campanhas.prebunking.rotulo` | 'Prebunking' | | | |
-| `INFOCOG.campanhas.prebunking.ganho` | 0 | | | |
-| `INFOCOG.campanhas.prebunking.protecao` | 0,5 | | | |
-| `INFOCOG.campanhas.prebunking.duracao` | 3 | | | |
-| `INFOCOG.campanhasPorTurno` | 1 | | | |
-| `INFOCOG.prazoCampanha` | 1 | | | |
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
-
-### 22. `HIBRIDO` — Runner: agente Vermelho (híbrido), doutrina Azul e desfecho (SM-8)
-
-*shared/sm/params.js* · prioridade **alta** — A5 (|d| máx. 2,94, muda a conclusão sobre C_Fusão); A6 (|d| máx. 3,14, muda a conclusão sobre C_Fusão); T1 (|d| máx. 1,82); T2 (|d| máx. 0,84); T3 (|d| máx. 1,70) · sobrescrevível por JSON
-
-Ações do híbrido por vetor (Tabela 4.1). `maritimo`: gera contato no mar a ser encontrado; `etapaNeutraliza`: etapa do encontro que frustra a ação; `janela`: turnos até a ação produzir efeito; `alvos`: tipos de infraestrutura visados; `dano`: SP retirados do alvo; `evento`: tipo do evento para a escada (SM-2); `sloc`: ameaça a fluidez das SLOC; `peso`: frequência relativa na escolha do vetor.
-
-78 valores — ver `shared/sm/params.js`. Proposta: | | Fonte: | | Confiança: |
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
-
-### 23. `DOUTRINA` — Runner: agente Vermelho (híbrido), doutrina Azul e desfecho (SM-8)
-
-*shared/sm/params.js* · prioridade **média** — F4 (|d| máx. 0,53); F5 (|d| máx. 0,50); D1 (|d| máx. 0,13); D2 (|d| máx. 0,09); D3 (|d| máx. 0,38) · sobrescrevível por JSON
-
-Doutrina do agente Azul (jogador único / lote).
-
-| Parâmetro | Valor atual | Valor proposto | Fonte / justificativa | Confiança |
-|---|---|---|---|---|
-| `DOUTRINA.acoesPorEstacao` | 4 | | | |
-| `DOUTRINA.surto` | 2 | | | |
-| `DOUTRINA.penalidadeSurto` | 2 | | | |
-| `DOUTRINA.quadro.base` | 0,25 | | | |
-| `DOUTRINA.quadro.porFusao` | 0,6 | | | |
-| `DOUTRINA.quadro.bonusUsv` | 0,15 | | | |
-| `DOUTRINA.quadro.teto` | 0,95 | | | |
-| `DOUTRINA.quadro.pesoEvasao` | 0,5 | | | |
-| `DOUTRINA.urgencia` | 1 | | | |
-| `DOUTRINA.apoioParaComunicar` | 50 | | | |
-| `DOUTRINA.prebunkingACada` | 7 | | | |
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
-
-### 24. `DESFECHO` — Runner: agente Vermelho (híbrido), doutrina Azul e desfecho (SM-8)
-
-*shared/sm/params.js* · prioridade **alta** — o limiar de ordem está acima do máximo de E5 no lote (análise do lote, §7) · sobrescrevível por JSON
-
-Desfecho (§11.2) — limiares sobre as métricas finais.
-
-| Parâmetro | Valor atual | Valor proposto | Fonte / justificativa | Confiança |
-|---|---|---|---|---|
-| `DESFECHO.infraVitoriaAzul` | 80 | | | |
-| `DESFECHO.ordemVitoriaAzul` | 0,4 | | | |
-| `DESFECHO.infraVitoriaVermelha` | 60 | | | |
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
-
-### 25. `BASES` — OOB de MarSec (Conceito §10)
-
-*shared/sm/oob_sm.js* · prioridade **estrutural** · editar no código
-
-Hexágonos-base (navegáveis) de cada estação, na grade 28×20.
-
-7 entradas — ver `shared/sm/oob_sm.js`.
-
-Correções propostas: 
-
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
-
-### 26. `MEIOS_AZUIS` — OOB de MarSec (Conceito §10)
-
-*shared/sm/oob_sm.js* · prioridade **estrutural** · editar no código
-
-Meios Azuis. `prioridade` ordena a designação de prontidão (menor primeiro); `sar` marca o meio apto a ser Navio SAR.
-
-Foco da revisão: composição, quantitativos, lotação.
-
-41 entradas — ver `shared/sm/oob_sm.js`.
-
-Correções propostas: 
-
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
-
-### 27. `INFRA` — OOB de MarSec (Conceito §10)
-
-*shared/sm/oob_sm.js* · prioridade **estrutural** · editar no código
-
-Infraestrutura crítica (centro de gravidade, §2.2). Posições da carta OAS-MAP-001; cabos e dutos são traçados abstratos entre hexágonos.
-
-Foco da revisão: traçados, SP.
-
-15 entradas — ver `shared/sm/oob_sm.js`.
-
-Correções propostas: 
-
-
-Plausível? ☐ sim ☐ não ☐ não sei · Comentário: 
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| A1.1 | AIS | 20 | % do total | | |
+| A1.2 | PREPS | 10 | % do total | | |
+| A1.3 | Radares costeiros | 15 | % do total | | |
+| A1.4 | Contatos de unidades em patrulha | 20 | % do total | | |
+| A1.5 | Satélite | 20 | % do total | | |
+| A1.6 | Sistemas de inteligência | 15 | % do total | | |
+
+### A2. Confiabilidade de cada fonte (prioridade alta)
+
+Quando um contato é reportado por uma única fonte, sem confirmação de outra, em que fração dos casos o reporte se confirma?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| A2.1 | AIS | 70 | % | | |
+| A2.2 | PREPS | 80 | % | | |
+| A2.3 | Radares costeiros | 85 | % | | |
+| A2.4 | Contatos de unidades em patrulha | 95 | % | | |
+| A2.5 | Satélite | 60 | % | | |
+| A2.6 | Sistemas de inteligência | 50 | % | | |
+
+### A3. Atraso de cada fonte (prioridade alta)
+
+Quanto tempo, tipicamente, entre o fato no mar e a informação estar disponível ao centro de operações?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| A3.1 | AIS | 0 | horas (até 12 h = imediato) | | |
+| A3.2 | PREPS | 0 | horas (até 12 h = imediato) | | |
+| A3.3 | Radares costeiros | 0 | horas (até 12 h = imediato) | | |
+| A3.4 | Contatos de unidades em patrulha | 0 | horas (até 12 h = imediato) | | |
+| A3.5 | Satélite | 24 | horas (até 12 h = imediato) | | |
+| A3.6 | Sistemas de inteligência | 24 | horas (até 12 h = imediato) | | |
+
+### A4. Valor do sistema integrado de gerenciamento (prioridade alta)
+
+Sem um sistema integrado de gerenciamento da Amazônia Azul (fusão das fontes num único quadro), que fração da consciência situacional plena se consegue obter só com as fontes isoladas?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| A4.1 | Consciência situacional sem o sistema integrado | 55 | % | | |
+
+### A5. Entrada de um contato suspeito no quadro (prioridade média)
+
+Uma embarcação suspeita opera em uma área de Distrito Naval. Qual a chance de ela aparecer no quadro do centro de operações dentro de 24 horas?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| A5.1 | Com integração mínima das fontes | 25 | % | | |
+| A5.2 | Com integração plena das fontes | 85 | % | | |
+| A5.3 | Acréscimo, em pontos percentuais, quando há veículos não tripulados (USV/UAV) na área | 15 | pontos percentuais | | |
+| A5.4 | Redução, em %, quando a embarcação procura ativamente não ser detectada (transponder desligado, ocultação) | 50 | % | | |
+
+## Desempenho dos meios
+
+### B1. Êxito em cada fase da ação (prioridade alta)
+
+Considere um navio-patrulha oceânico bem guarnecido, contra um contato que não tenta se evadir e com o quadro integrado funcionando plenamente. Em cada fase, em quantas de cada 100 tentativas há êxito?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| B1.1 | Detecção do contato | 85 | % | | |
+| B1.2 | Identificação / classificação | 75 | % | | |
+| B1.3 | Interrogação (rádio ou visual) | 80 | % | | |
+| B1.4 | Abordagem e visita | 70 | % | | |
+| B1.5 | Inspeção | 80 | % | | |
+| B1.6 | Apresamento e condução ao porto | 75 | % | | |
+
+### B2. Efeito da falta de quadro integrado (prioridade alta)
+
+Nas mesmas condições, mas sem o quadro integrado (o navio depende só dos próprios sensores e da sua guarnição), a chance de êxito em cada fase cai para que fração da anterior?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| B2.1 | Detecção do contato | 40 | % do valor da questão B1 | | |
+| B2.2 | Identificação / classificação | 45 | % do valor da questão B1 | | |
+| B2.3 | Interrogação (rádio ou visual) | 70 | % do valor da questão B1 | | |
+| B2.4 | Abordagem e visita | 85 | % do valor da questão B1 | | |
+| B2.5 | Inspeção | 80 | % do valor da questão B1 | | |
+| B2.6 | Apresamento e condução ao porto | 90 | % do valor da questão B1 | | |
+
+### B3. Capacidade de vigilância de cada meio (prioridade alta)
+
+Em uma escala de 0 (incapaz) a 10 (o melhor meio disponível), qual a capacidade de cada meio para vigiar, detectar e classificar contatos de superfície?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| B3.1 | Navio-patrulha oceânico (Cl. Amazonas) | 8,5 | 0 a 10 | | |
+| B3.2 | Navio-patrulha costeiro (Cl. Grajaú, Macaé, Bracuí) | 6,5 | 0 a 10 | | |
+| B3.3 | Fragata | 10 | 0 a 10 | | |
+| B3.4 | Corveta | 9 | 0 a 10 | | |
+| B3.5 | Contratorpedeiro | 10 | 0 a 10 | | |
+| B3.6 | Navio anfíbio / doca multipropósito | 6 | 0 a 10 | | |
+| B3.7 | Navio-aeródromo / porta-helicópteros | 8 | 0 a 10 | | |
+| B3.8 | Aeronave de patrulha marítima (P-3AM) | 10 | 0 a 10 | | |
+| B3.9 | Helicóptero embarcado | 7 | 0 a 10 | | |
+| B3.10 | Aeronave de alarme aéreo antecipado | 9 | 0 a 10 | | |
+| B3.11 | Submarino convencional | 7 | 0 a 10 | | |
+| B3.12 | Submarino de propulsão nuclear | 8 | 0 a 10 | | |
+| B3.13 | Grupamento de operações especiais | 4 | 0 a 10 | | |
+| B3.14 | Navio de apoio logístico | 3 | 0 a 10 | | |
+| B3.15 | Navio-tanque | 3 | 0 a 10 | | |
+| B3.16 | Lancha / aviso de inspeção naval (DN) | 4 | 0 a 10 | | |
+| B3.17 | Navio de contramedidas de minagem | 5 | 0 a 10 | | |
+| B3.18 | Veículo de superfície não tripulado (USV) | 7 | 0 a 10 | | |
+| B3.19 | Aeronave remotamente pilotada (UAV) | 8 | 0 a 10 | | |
+| B3.20 | Veículo submarino remotamente operado (ROV) | 6 | 0 a 10 | | |
+
+### B4. Capacidade de visita e inspeção de cada meio (prioridade alta)
+
+Na mesma escala, qual a capacidade de cada meio para conduzir abordagem, visita, inspeção e apresamento?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| B4.1 | Navio-patrulha oceânico (Cl. Amazonas) | 9 | 0 a 10 | | |
+| B4.2 | Navio-patrulha costeiro (Cl. Grajaú, Macaé, Bracuí) | 8 | 0 a 10 | | |
+| B4.3 | Fragata | 7,5 | 0 a 10 | | |
+| B4.4 | Corveta | 7,5 | 0 a 10 | | |
+| B4.5 | Contratorpedeiro | 7 | 0 a 10 | | |
+| B4.6 | Navio anfíbio / doca multipropósito | 10 | 0 a 10 | | |
+| B4.7 | Navio-aeródromo / porta-helicópteros | 6 | 0 a 10 | | |
+| B4.8 | Aeronave de patrulha marítima (P-3AM) | 0 | 0 a 10 | | |
+| B4.9 | Helicóptero embarcado | 5 | 0 a 10 | | |
+| B4.10 | Aeronave de alarme aéreo antecipado | 0 | 0 a 10 | | |
+| B4.11 | Submarino convencional | 0 | 0 a 10 | | |
+| B4.12 | Submarino de propulsão nuclear | 0 | 0 a 10 | | |
+| B4.13 | Grupamento de operações especiais | 10 | 0 a 10 | | |
+| B4.14 | Navio de apoio logístico | 2 | 0 a 10 | | |
+| B4.15 | Navio-tanque | 1 | 0 a 10 | | |
+| B4.16 | Lancha / aviso de inspeção naval (DN) | 9 | 0 a 10 | | |
+| B4.17 | Navio de contramedidas de minagem | 3 | 0 a 10 | | |
+| B4.18 | Veículo de superfície não tripulado (USV) | 0 | 0 a 10 | | |
+| B4.19 | Aeronave remotamente pilotada (UAV) | 0 | 0 a 10 | | |
+| B4.20 | Veículo submarino remotamente operado (ROV) | 0 | 0 a 10 | | |
+
+### B5. Grupo de Visita e Inspeção de Fuzileiros Navais (prioridade não medida)
+
+Sem um grupo de Fuzileiros Navais embarcado para visita e inspeção, a capacidade de abordagem dos navios do Distrito cai para que fração?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| B5.1 | Capacidade de abordagem sem o grupo embarcado | 50 | % da capacidade com o grupo | | |
+
+## Autoria e convicção
+
+### C1. O quanto cada fase esclarece a autoria (prioridade alta)
+
+Diante de um incidente de autoria incerta, que parte da dúvida remanescente sobre quem está por trás cada fase bem-sucedida costuma eliminar?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| C1.1 | Detecção do contato | 5 | % da dúvida remanescente | | |
+| C1.2 | Identificação / classificação | 15 | % da dúvida remanescente | | |
+| C1.3 | Interrogação (rádio ou visual) | 15 | % da dúvida remanescente | | |
+| C1.4 | Abordagem e visita | 20 | % da dúvida remanescente | | |
+| C1.5 | Inspeção | 30 | % da dúvida remanescente | | |
+| C1.6 | Apresamento e condução ao porto | 30 | % da dúvida remanescente | | |
+
+### C2. Dificuldade de atribuição por tipo de ameaça (prioridade alta)
+
+Em comparação com um ilícito comum (autor sem interesse em negar), quanto as mesmas ações rendem em esclarecimento da autoria quando o autor procura negar o vínculo?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| C2.1 | Ilícito comum (referência) | 100 | % do esclarecimento de um ilícito comum | | |
+| C2.2 | Interferência em GNSS, ataque cibernético | 80 | % do esclarecimento de um ilícito comum | | |
+| C2.3 | Frota-sombra, milícia marítima, drones, minagem | 55 | % do esclarecimento de um ilícito comum | | |
+| C2.4 | Sabotagem de cabos e dutos submarinos | 35 | % do esclarecimento de um ilícito comum | | |
+
+### C3. Investigação sem o quadro integrado (prioridade alta)
+
+Sem o quadro integrado, as ações de esclarecimento de autoria rendem que fração do que rendem com ele?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| C3.1 | Rendimento da investigação sem o quadro integrado | 50 | % do rendimento com o quadro | | |
+
+### C4. Convicção mínima para agir (prioridade alta)
+
+Em uma escala de 0% (nenhum indício) a 100% (prova cabal) de convicção sobre o envolvimento do contato, a partir de que grau cada ação é tecnicamente fundamentada?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| C4.1 | Interrogação (rádio ou visual) | 20 | % de convicção | | |
+| C4.2 | Abordagem e visita | 40 | % de convicção | | |
+| C4.3 | Inspeção | 40 | % de convicção | | |
+| C4.4 | Apresamento e condução ao porto | 70 | % de convicção | | |
+
+### C5. O que é uma atribuição "robusta" (prioridade alta)
+
+Que grau de convicção sobre a autoria (0–100%) é necessário para cada decisão? Se, na sua avaliação, os três critérios deveriam ser o mesmo, indique o mesmo valor.
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| C5.1 | Elevar a postura a Crise após dano a infraestrutura crítica | 70 | % de convicção | | |
+| C5.2 | Propor o emprego aberto da força (Conflito) após ataque armado | 70 | % de convicção | | |
+| C5.3 | Dar por concluída uma investigação de autoria | 70 | % de convicção | | |
+
+### C6. Investigação depois do fato (prioridade alta)
+
+Depois de um ataque consumado e conhecido (perícia, cooperação de inteligência), partindo de indícios fracos:
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| C6.1 | Em quantos dias uma investigação típica chega à convicção robusta? | 6,76 | dias | | |
+| C6.2 | Por quantos dias a investigação costuma ser mantida antes de ser arquivada sem conclusão? | 10 | dias | | |
+
+## Postura e escalada
+
+### D1. Passagem de Rotina a Tensão (prioridade média)
+
+Que padrão de incidentes justifica elevar a postura de Rotina para Tensão?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| D1.1 | Número de incidentes de natureza híbrida… | 3 | incidentes | | |
+| D1.2 | …dentro de quantos dias | 3 | dias | | |
+| D1.3 | Ou um único incidente com convicção sobre a autoria de pelo menos | 40 | % de convicção | | |
+
+### D2. Retorno à postura anterior (prioridade baixa)
+
+Quantos dias sem novos fatos que justifiquem a postura atual são necessários para propor o retorno à postura anterior?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| D2.1 | Dias sem novos gatilhos | 4 | dias | | |
+
+## Ilícitos no mar
+
+### E1. Incidência mensal por área (prioridade alta)
+
+Em um mês típico, quantas ocorrências de cada tipo, que justificariam o emprego de um meio naval, surgem em cada área de Distrito Naval?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| E1.1 | Narcotráfico — 2º DN (BA–SE) | 4,5 | ocorrências por mês | | |
+| E1.2 | Narcotráfico — 1º DN (RJ–ES) | 6 | ocorrências por mês | | |
+| E1.3 | Narcotráfico — 8º DN (SP) | 9 | ocorrências por mês | | |
+| E1.4 | Narcotráfico — 5º DN (SC–RS) | 4,5 | ocorrências por mês | | |
+| E1.5 | Contrabando / descaminho — 2º DN (BA–SE) | 3 | ocorrências por mês | | |
+| E1.6 | Contrabando / descaminho — 1º DN (RJ–ES) | 4,5 | ocorrências por mês | | |
+| E1.7 | Contrabando / descaminho — 8º DN (SP) | 6 | ocorrências por mês | | |
+| E1.8 | Contrabando / descaminho — 5º DN (SC–RS) | 4,5 | ocorrências por mês | | |
+| E1.9 | Pesca irregular (IUU) — 2º DN (BA–SE) | 7,5 | ocorrências por mês | | |
+| E1.10 | Pesca irregular (IUU) — 1º DN (RJ–ES) | 4,5 | ocorrências por mês | | |
+| E1.11 | Pesca irregular (IUU) — 8º DN (SP) | 4,5 | ocorrências por mês | | |
+| E1.12 | Pesca irregular (IUU) — 5º DN (SC–RS) | 9 | ocorrências por mês | | |
+| E1.13 | Crime ambiental — 2º DN (BA–SE) | 1,5 | ocorrências por mês | | |
+| E1.14 | Crime ambiental — 1º DN (RJ–ES) | 4,5 | ocorrências por mês | | |
+| E1.15 | Crime ambiental — 8º DN (SP) | 3 | ocorrências por mês | | |
+| E1.16 | Crime ambiental — 5º DN (SC–RS) | 1,5 | ocorrências por mês | | |
+| E1.17 | Pirataria / roubo armado — 2º DN (BA–SE) | 1,5 | ocorrências por mês | | |
+| E1.18 | Pirataria / roubo armado — 1º DN (RJ–ES) | 3 | ocorrências por mês | | |
+| E1.19 | Pirataria / roubo armado — 8º DN (SP) | 3 | ocorrências por mês | | |
+| E1.20 | Pirataria / roubo armado — 5º DN (SC–RS) | 1,5 | ocorrências por mês | | |
+| E1.21 | Imigração irregular — 2º DN (BA–SE) | 3 | ocorrências por mês | | |
+| E1.22 | Imigração irregular — 1º DN (RJ–ES) | 1,5 | ocorrências por mês | | |
+| E1.23 | Imigração irregular — 8º DN (SP) | 1,5 | ocorrências por mês | | |
+| E1.24 | Imigração irregular — 5º DN (SC–RS) | 3 | ocorrências por mês | | |
+
+### E2. Janela de oportunidade (prioridade alta)
+
+Por quantos dias, em média, a embarcação envolvida permanece ao alcance de uma interceptação antes de sair da área ou concluir o ilícito?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| E2.1 | Narcotráfico | 2 | dias | | |
+| E2.2 | Contrabando / descaminho | 2 | dias | | |
+| E2.3 | Pesca irregular (IUU) | 3 | dias | | |
+| E2.4 | Crime ambiental | 3 | dias | | |
+| E2.5 | Pirataria / roubo armado | 1 | dias | | |
+| E2.6 | Imigração irregular | 2 | dias | | |
+
+### E3. Dificuldade de detecção (prioridade alta)
+
+Quanto as práticas de ocultação de cada tipo de ilícito reduzem a chance de detecção e identificação, em relação a um contato que não se oculta?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| E3.1 | Narcotráfico | 30 | % de redução | | |
+| E3.2 | Contrabando / descaminho | 20 | % de redução | | |
+| E3.3 | Pesca irregular (IUU) | 10 | % de redução | | |
+| E3.4 | Crime ambiental | 20 | % de redução | | |
+| E3.5 | Pirataria / roubo armado | 25 | % de redução | | |
+| E3.6 | Imigração irregular | 5 | % de redução | | |
+
+### E4. Quando a repressão se efetiva (prioridade alta)
+
+Em que fase da ação a ocorrência pode ser considerada reprimida?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| E4.1 | Narcotráfico | apresamento | escolha: interrogação / identificação / abordagem / inspeção / apresamento | | |
+| E4.2 | Contrabando / descaminho | apresamento | escolha: interrogação / identificação / abordagem / inspeção / apresamento | | |
+| E4.3 | Pesca irregular (IUU) | apresamento | escolha: interrogação / identificação / abordagem / inspeção / apresamento | | |
+| E4.4 | Crime ambiental | inspeção | escolha: interrogação / identificação / abordagem / inspeção / apresamento | | |
+| E4.5 | Pirataria / roubo armado | abordagem | escolha: interrogação / identificação / abordagem / inspeção / apresamento | | |
+| E4.6 | Imigração irregular | abordagem | escolha: interrogação / identificação / abordagem / inspeção / apresamento | | |
+
+### E5. Ilícitos como instrumento de um ator estatal (prioridade alta)
+
+Um ator estatal pode estimular ilícitos no mar para saturar os meios de patrulha, ou usá-los como cobertura para ações hostis.
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| E5.1 | Interesse do ator em explorar: Narcotráfico (0 = nenhum, 3 = muito) | 1 | 0 a 3 | | |
+| E5.2 | Interesse do ator em explorar: Contrabando / descaminho (0 = nenhum, 3 = muito) | 1 | 0 a 3 | | |
+| E5.3 | Interesse do ator em explorar: Pesca irregular (IUU) (0 = nenhum, 3 = muito) | 3 | 0 a 3 | | |
+| E5.4 | Interesse do ator em explorar: Crime ambiental (0 = nenhum, 3 = muito) | 2 | 0 a 3 | | |
+| E5.5 | Interesse do ator em explorar: Pirataria / roubo armado (0 = nenhum, 3 = muito) | 1 | 0 a 3 | | |
+| E5.6 | Interesse do ator em explorar: Imigração irregular (0 = nenhum, 3 = muito) | 2 | 0 a 3 | | |
+| E5.7 | Ocorrências adicionais por mês, em campanha de intensidade máxima, nas áreas fora do esforço principal do ator | 45 | ocorrências por mês | | |
+| E5.8 | Fração das ocorrências rotineiras que serviriam de cobertura, em campanha de intensidade máxima | 15 | % | | |
+| E5.9 | Fase da ação em que o vínculo de uma ocorrência de cobertura com o ator viria à tona | inspeção | escolha: interrogação / identificação / abordagem / inspeção / apresamento | | |
+
+## Ameaça híbrida
+
+### F1. Ritmo da campanha (prioridade alta)
+
+Em uma campanha híbrida de intensidade máxima contra a infraestrutura marítima brasileira:
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| F1.1 | Quantas ações hostis por mês? | 18 | ações por mês | | |
+| F1.2 | Que fração delas concentrada na área de esforço principal? | 70 | % | | |
+| F1.3 | Com a postura já em Crise, qual a chance, em um mês, de o ator passar ao emprego aberto de meios? | 78,54 | % em um mês | | |
+
+### F2. Frequência relativa dos modos de ação (prioridade alta)
+
+Distribua 100% entre os modos de ação, segundo a frequência com que o ator os empregaria.
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| F2.1 | Frota-sombra (transponder desligado, bandeira de conveniência) | 21,43 | % do total | | |
+| F2.2 | Milícia marítima (pesqueiros a serviço de outro Estado) | 21,43 | % do total | | |
+| F2.3 | Sabotagem de cabos e dutos submarinos | 14,29 | % do total | | |
+| F2.4 | Drones de superfície ou aéreos sem identificação | 14,29 | % do total | | |
+| F2.5 | Interferência em navegação por satélite (GNSS) | 14,29 | % do total | | |
+| F2.6 | Ataque cibernético a terminais e portos | 7,14 | % do total | | |
+| F2.7 | Minagem encoberta | 7,14 | % do total | | |
+
+### F3. Prazo até o efeito (prioridade alta)
+
+Entre o início da ação (presença na área) e o dano consumado, quantos dias decorrem?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| F3.1 | Frota-sombra (transponder desligado, bandeira de conveniência) | 3 | dias | | |
+| F3.2 | Milícia marítima (pesqueiros a serviço de outro Estado) | 2 | dias | | |
+| F3.3 | Sabotagem de cabos e dutos submarinos | 2 | dias | | |
+| F3.4 | Drones de superfície ou aéreos sem identificação | 1 | dias | | |
+| F3.5 | Interferência em navegação por satélite (GNSS) | 2 | dias | | |
+| F3.6 | Minagem encoberta | 3 | dias | | |
+
+### F4. Gravidade do dano (prioridade alta)
+
+Que gravidade de dano cada modo de ação causa ao alvo (porto, plataforma, cabo ou duto)?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| F4.1 | Frota-sombra (transponder desligado, bandeira de conveniência) | moderado | escolha: leve / moderado / grave | | |
+| F4.2 | Milícia marítima (pesqueiros a serviço de outro Estado) | leve | escolha: leve / moderado / grave | | |
+| F4.3 | Sabotagem de cabos e dutos submarinos | grave | escolha: leve / moderado / grave | | |
+| F4.4 | Drones de superfície ou aéreos sem identificação | moderado | escolha: leve / moderado / grave | | |
+| F4.5 | Interferência em navegação por satélite (GNSS) | leve | escolha: leve / moderado / grave | | |
+| F4.6 | Ataque cibernético a terminais e portos | moderado | escolha: leve / moderado / grave | | |
+| F4.7 | Minagem encoberta | grave | escolha: leve / moderado / grave | | |
+
+### F5. Dificuldade de detecção (prioridade alta)
+
+Quanto as práticas de ocultação de cada modo de ação reduzem a chance de detecção e identificação?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| F5.1 | Frota-sombra (transponder desligado, bandeira de conveniência) | 35 | % de redução | | |
+| F5.2 | Milícia marítima (pesqueiros a serviço de outro Estado) | 10 | % de redução | | |
+| F5.3 | Sabotagem de cabos e dutos submarinos | 45 | % de redução | | |
+| F5.4 | Drones de superfície ou aéreos sem identificação | 30 | % de redução | | |
+| F5.5 | Interferência em navegação por satélite (GNSS) | 20 | % de redução | | |
+| F5.6 | Minagem encoberta | 40 | % de redução | | |
+
+### F6. Fase da ação que frustra a ameaça (prioridade alta)
+
+Até que fase a ação de um meio naval precisa chegar para frustrar cada modo de ação?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| F6.1 | Frota-sombra (transponder desligado, bandeira de conveniência) | abordagem | escolha: interrogação / identificação / abordagem / inspeção / apresamento | | |
+| F6.2 | Milícia marítima (pesqueiros a serviço de outro Estado) | interrogação | escolha: interrogação / identificação / abordagem / inspeção / apresamento | | |
+| F6.3 | Sabotagem de cabos e dutos submarinos | identificação | escolha: interrogação / identificação / abordagem / inspeção / apresamento | | |
+| F6.4 | Drones de superfície ou aéreos sem identificação | identificação | escolha: interrogação / identificação / abordagem / inspeção / apresamento | | |
+| F6.5 | Interferência em navegação por satélite (GNSS) | identificação | escolha: interrogação / identificação / abordagem / inspeção / apresamento | | |
+| F6.6 | Minagem encoberta | identificação | escolha: interrogação / identificação / abordagem / inspeção / apresamento | | |
+
+### F7. Ataque cibernético a portos (prioridade alta)
+
+Qual a chance de um ataque cibernético a um terminal portuário causar dano efetivo?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| F7.1 | Sem defesa cibernética integrada ao quadro | 100 | % | | |
+| F7.2 | Com defesa integrada plena | 50 | % | | |
+| F7.3 | Convicção inicial sobre a autoria logo após o ataque | 10 | % de convicção | | |
+
+### F8. Desinformação (prioridade alta)
+
+Sobre a desinformação contra a atuação da Marinha:
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| F8.1 | Sem um fato real a explorar, a cada quantos dias surge uma campanha fabricada? | 5 | dias | | |
+| F8.2 | Uma campanha fabricada tem que fração do efeito de uma que explora um fato real? | 50 | % | | |
+
+## Apoio interagências
+
+### G1. Prazos e disponibilidade (prioridade média)
+
+Para cada órgão, quando solicitado pelo comando operacional:
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| G1.1 | Patrulha marítima (FAB): dias até o apoio estar em ação | 1 | dias | | |
+| G1.2 | Patrulha marítima (FAB): dias de permanência do apoio | 1 | dias | | |
+| G1.3 | Patrulha marítima (FAB): em que fração das solicitações o apoio é concedido | 80 | % | | |
+| G1.4 | Polícia Federal: dias até o apoio estar em ação | 1 | dias | | |
+| G1.5 | Polícia Federal: dias de permanência do apoio | 3 | dias | | |
+| G1.6 | Polícia Federal: em que fração das solicitações o apoio é concedido | 90 | % | | |
+| G1.7 | Receita Federal: dias até o apoio estar em ação | 1 | dias | | |
+| G1.8 | Receita Federal: dias de permanência do apoio | 3 | dias | | |
+| G1.9 | Receita Federal: em que fração das solicitações o apoio é concedido | 90 | % | | |
+| G1.10 | IBAMA: dias até o apoio estar em ação | 2 | dias | | |
+| G1.11 | IBAMA: dias de permanência do apoio | 3 | dias | | |
+| G1.12 | IBAMA: em que fração das solicitações o apoio é concedido | 80 | % | | |
+| G1.13 | CENSIPAM (imageamento): dias até o apoio estar em ação | 1 | dias | | |
+| G1.14 | CENSIPAM (imageamento): dias de permanência do apoio | 2 | dias | | |
+| G1.15 | CENSIPAM (imageamento): em que fração das solicitações o apoio é concedido | 90 | % | | |
+| G1.16 | Inteligência internacional: dias até o apoio estar em ação | 3 | dias | | |
+| G1.17 | Inteligência internacional: dias de permanência do apoio | 5 | dias | | |
+| G1.18 | Inteligência internacional: em que fração das solicitações o apoio é concedido | 60 | % | | |
+
+### G2. Efeito do apoio (prioridade média)
+
+Quando o apoio está presente, quanto ele melhora a ação naval no seu campo de atuação?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| G2.1 | Patrulha marítima (FAB): acréscimo na qualidade do quadro (pontos percentuais) | 20 | pontos percentuais | | |
+| G2.2 | Polícia Federal: ganho de efetividade da ação de repressão | 30 | % de ganho | | |
+| G2.3 | Receita Federal: ganho de efetividade da ação de repressão | 30 | % de ganho | | |
+| G2.4 | IBAMA: ganho de efetividade da ação de repressão | 30 | % de ganho | | |
+| G2.5 | CENSIPAM (imageamento): acréscimo na qualidade do quadro (pontos percentuais) | 10 | pontos percentuais | | |
+| G2.6 | Inteligência internacional: aceleração do esclarecimento de autoria | 50 | % de ganho | | |
+
+## Prontidão
+
+### H1. Tempo de resposta por escalão (prioridade não medida)
+
+Entre a ordem de acionamento e o início do movimento, quantos dias decorrem em cada escalão de prontidão?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| H1.1 | Navio SAR | 0 | dias | | |
+| H1.2 | Força de Pronto Emprego | 1 | dias | | |
+| H1.3 | Demais unidades (aprestamento) | 2 | dias | | |
+
+### H2. Meios em cada escalão (prioridade não medida)
+
+Quantos meios cada comando mantém em cada escalão de prontidão?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| H2.1 | Navio SAR — Comando-em-Chefe da Esquadra | 1 | meios | | |
+| H2.2 | Navio SAR — cada Distrito Naval | 1 | meios | | |
+| H2.3 | Força de Pronto Emprego — Comando-em-Chefe da Esquadra | 3 | meios | | |
+| H2.4 | Força de Pronto Emprego — cada Distrito Naval | 2 | meios | | |
+
+## Opinião pública e desgaste político
+
+### I1. Apoio da sociedade (prioridade média)
+
+Sobre o apoio da opinião pública à atuação da Marinha na segurança marítima (0–100%):
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| I1.1 | Apoio no início de um período de tensão | 60 | % | | |
+| I1.2 | Patamar habitual para o qual o apoio tende sem novos fatos | 60 | % | | |
+| I1.3 | Em quantos dias, sem novos fatos, o apoio recupera metade da distância até o patamar habitual | 13,51 | dias | | |
+| I1.4 | Abaixo de que apoio as regras de engajamento tendem a ser restringidas | 30 | % | | |
+| I1.5 | Acima de que apoio as regras de engajamento tendem a ser ampliadas | 75 | % | | |
+
+### I2. Efeito de fatos no mar sobre o apoio (prioridade média)
+
+Quantos pontos percentuais de apoio público cada fato costuma somar (+) ou tirar (−)?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| I2.1 | Ilícito reprimido e divulgado | 0,5 | pontos percentuais | | |
+| I2.2 | Salvamento bem-sucedido | 3 | pontos percentuais | | |
+| I2.3 | Salvamento malsucedido, com vítimas | -4 | pontos percentuais | | |
+| I2.4 | Dano a infraestrutura crítica | -2 | pontos percentuais | | |
+| I2.5 | Incidente sem resposta visível | -1 | pontos percentuais | | |
+| I2.6 | Danos a terceiros por ação da Marinha | -5 | pontos percentuais | | |
+| I2.7 | Dano ambiental por ação militar | -4 | pontos percentuais | | |
+
+### I3. Desinformação e comunicação (prioridade média)
+
+Sobre a disputa de narrativas:
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| I3.1 | Pontos de apoio perdidos com uma campanha de desinformação de intensidade máxima | 6 | pontos percentuais | | |
+| I3.2 | Quanto a mais rende a desinformação quando explora um erro real da Marinha | 50 | % de ganho | | |
+| I3.3 | Pontos de apoio recuperados por: comunicação estratégica | 3 | pontos percentuais | | |
+| I3.4 | Pontos de apoio recuperados por: transparência proativa | 2 | pontos percentuais | | |
+| I3.5 | Pontos de apoio recuperados por: divulgação de prova documentada | 6 | pontos percentuais | | |
+| I3.6 | Quanto do efeito da desinformação a comunicação preventiva (prebunking) neutraliza | 50 | % | | |
+| I3.7 | Por quantos dias dura a proteção da comunicação preventiva | 3 | dias | | |
+
+### I4. Gravidade relativa de erros e excessos (prioridade alta)
+
+Atribua a cada situação um grau de desgaste político, tomando como referência: abordar um navio suspeito sem indícios suficientes = 10 pontos.
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| I4.1 | Interrogar um navio sem indícios | 1,25 | pontos (abordagem sem indícios = 10) | | |
+| I4.2 | Inspecionar a carga sem indícios suficientes | 10 | pontos (abordagem sem indícios = 10) | | |
+| I4.3 | Apresar sem prova | 35 | pontos (abordagem sem indícios = 10) | | |
+| I4.4 | Interromper desnecessariamente a navegação de um navio mercante | 25 | pontos (abordagem sem indícios = 10) | | |
+| I4.5 | Usar força desnecessária contra um mercante ou pesqueiro (sem vítimas) | 50 | pontos (abordagem sem indícios = 10) | | |
+| I4.6 | Causar danos a terceiros (lesões, avarias) | 37,5 | pontos (abordagem sem indícios = 10) | | |
+| I4.7 | Causar dano ambiental em ação militar | 37,5 | pontos (abordagem sem indícios = 10) | | |
+| I4.8 | Desgaste acumulado a partir do qual a operação perde sustentação política | 312,5 | pontos (abordagem sem indícios = 10) | | |
+
+### I5. Desgaste e opinião pública (prioridade média)
+
+Sobre a relação entre desgaste político e apoio público:
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| I5.1 | Pontos de apoio perdidos por um episódio de abordagem sem indícios | 2,4 | pontos percentuais | | |
+| I5.2 | Com o apoio público em 30%, quanto mais pesa o mesmo erro do que com o apoio no patamar habitual | 25 | % a mais | | |
+
+## Embarcações inocentes e danos a terceiros
+
+### J1. Falsos alarmes (prioridade média)
+
+Embarcações em atividade legal são, às vezes, tomadas por suspeitas. Em cada área de Distrito Naval:
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| J1.1 | Quantas por mês, com integração mínima do quadro? | 9 | embarcações por mês | | |
+| J1.2 | Quantas por mês, com integração plena do quadro? | 3,6 | embarcações por mês | | |
+| J1.3 | Fração que são: navio mercante em trânsito regular | 50 | % do total | | |
+| J1.4 | Fração que são: pesqueiro em atividade legal | 50 | % do total | | |
+| J1.5 | Fase da ação em que a inocência fica clara | inspeção | escolha: interrogação / identificação / abordagem / inspeção / apresamento | | |
+| J1.6 | Fração esclarecida já na interrogação, antes da abordagem, com integração mínima do quadro | 20 | % | | |
+| J1.7 | Idem, com integração plena do quadro | 70 | % | | |
+
+### J2. Uso de força desnecessário (prioridade média)
+
+Na abordagem de uma embarcação que se revelará inocente, qual a chance de a situação evoluir para uso de força desnecessário, conforme a postura vigente?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| J2.1 | Rotina | 5 | % | | |
+| J2.2 | Tensão | 10 | % | | |
+| J2.3 | Crise | 20 | % | | |
+| J2.4 | Conflito | 30 | % | | |
+| J2.5 | Havendo uso de força, chance de causar lesões ou avarias | 30 | % | | |
+
+### J3. Danos ambientais (prioridade média)
+
+Na abordagem ou em ação mais coercitiva contra cada modo de ação hostil, em postura de Crise, qual a chance de dano ambiental (derrame, rompimento de duto, detonação)?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| J3.1 | Frota-sombra (transponder desligado, bandeira de conveniência) | 5 | % | | |
+| J3.2 | Milícia marítima (pesqueiros a serviço de outro Estado) | 2 | % | | |
+| J3.3 | Sabotagem de cabos e dutos submarinos | 4 | % | | |
+| J3.4 | Minagem encoberta | 10 | % | | |
+| J3.5 | Risco ambiental em Rotina, em % do risco em Crise | 50 | % | | |
+| J3.6 | Risco ambiental em Tensão, em % do risco em Crise | 75 | % | | |
+| J3.7 | Risco ambiental em Crise, em % do risco em Crise | 100 | % | | |
+| J3.8 | Risco ambiental em Conflito, em % do risco em Crise | 150 | % | | |
+
+## Crises
+
+### K1. Prazos de detecção e resposta (prioridade não medida)
+
+Para cada tipo de crise, em quantos dias, contados do início, deveriam ocorrer a detecção e a resposta? Indique o prazo ideal e o prazo além do qual a resposta é considerada falha.
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| K1.1 | Crimes e ilícitos no mar: detecção, prazo ideal | 1 | dias | | |
+| K1.2 | Crimes e ilícitos no mar: detecção, prazo máximo | 3 | dias | | |
+| K1.3 | Crimes e ilícitos no mar: resposta, prazo ideal | 2 | dias | | |
+| K1.4 | Crimes e ilícitos no mar: resposta, prazo máximo | 5 | dias | | |
+| K1.5 | Sabotagem de infraestrutura crítica: detecção, prazo ideal | 1 | dias | | |
+| K1.6 | Sabotagem de infraestrutura crítica: detecção, prazo máximo | 4 | dias | | |
+| K1.7 | Sabotagem de infraestrutura crítica: resposta, prazo ideal | 2 | dias | | |
+| K1.8 | Sabotagem de infraestrutura crítica: resposta, prazo máximo | 6 | dias | | |
+| K1.9 | Pesca ilegal em massa: detecção, prazo ideal | 1 | dias | | |
+| K1.10 | Pesca ilegal em massa: detecção, prazo máximo | 3 | dias | | |
+| K1.11 | Pesca ilegal em massa: resposta, prazo ideal | 3 | dias | | |
+| K1.12 | Pesca ilegal em massa: resposta, prazo máximo | 6 | dias | | |
+| K1.13 | Salvaguarda da vida humana no mar (SAR): detecção, prazo ideal | 0 | dias | | |
+| K1.14 | Salvaguarda da vida humana no mar (SAR): detecção, prazo máximo | 2 | dias | | |
+| K1.15 | Salvaguarda da vida humana no mar (SAR): resposta, prazo ideal | 1 | dias | | |
+| K1.16 | Salvaguarda da vida humana no mar (SAR): resposta, prazo máximo | 3 | dias | | |
+| K1.17 | Resposta a desastres: detecção, prazo ideal | 1 | dias | | |
+| K1.18 | Resposta a desastres: detecção, prazo máximo | 3 | dias | | |
+| K1.19 | Resposta a desastres: resposta, prazo ideal | 2 | dias | | |
+| K1.20 | Resposta a desastres: resposta, prazo máximo | 5 | dias | | |
+
+### K2. Porte das crises (prioridade não medida)
+
+Qual o porte típico de cada crise?
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| K2.1 | Crimes e ilícitos no mar: embarcações envolvidas | 3 | embarcações | | |
+| K2.2 | Pesca ilegal em massa: embarcações envolvidas | 8 | embarcações | | |
+| K2.3 | Crimes e ilícitos / pesca em massa: fração das embarcações reprimidas para considerar a resposta adequada | 50 | % | | |
+| K2.4 | Salvamento: pessoas em perigo | 30 | pessoas | | |
+| K2.5 | Salvamento: meios necessários | 1 | meios | | |
+| K2.6 | Desastre: meios necessários | 2 | meios | | |
+| K2.7 | Sabotagem de infraestrutura: convicção inicial sobre a autoria | 20 | % de convicção | | |
+
+## Condução pelo comando
+
+### L1. Capacidade de um comando (prioridade média)
+
+Sobre a capacidade de condução de um Comando de Distrito Naval ou da Esquadra:
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| L1.1 | Quantas ações distintas (designação de meio a um contato) o comando consegue conduzir por dia | 4 | ações por dia | | |
+| L1.2 | Quantas ações extras em um dia de sobrecarga | 2 | ações | | |
+| L1.3 | Quantas ações a menos no dia seguinte a uma sobrecarga | 2 | ações | | |
+| L1.4 | Faltando quantos dias para o dano, o comandante aceita agir além do que os indícios fundamentam | 1 | dias | | |
+| L1.5 | Abaixo de que apoio público o comando priorizaria a comunicação estratégica | 50 | % | | |
+| L1.6 | A cada quantos dias renovar a comunicação preventiva | 7 | dias | | |
+
+## Critérios de êxito
+
+### M1. Resultado de uma campanha de 45 dias (prioridade alta)
+
+Ao fim de uma campanha de 45 dias sem conflito aberto, que resultados caracterizam:
+
+| Nº | Item | Hipótese atual | Unidade | Concorda? | Sua estimativa |
+|---|---|---|---|---|---|
+| M1.1 | Êxito da Força Azul: integridade mínima da infraestrutura crítica | 80 | % preservada | | |
+| M1.2 | Êxito da Força Azul: fração mínima dos ilícitos reprimidos | 40 | % | | |
+| M1.3 | Êxito do adversário: integridade da infraestrutura abaixo de | 60 | % preservada | | |
+
+## Questões abertas
+
+### O1. Áreas de responsabilidade (prioridade não medida)
+
+A divisão do litoral em quatro áreas (2º DN: BA–SE; 1º DN: RJ–ES; 8º DN: SP; 5º DN: SC–RS) representa adequadamente as áreas de responsabilidade para a segurança marítima? O que mudaria?
+
+Resposta: 
+
+### O2. Ordem de batalha e bases (prioridade estrutural)
+
+Veja a aba "Meios e infraestrutura". A distribuição de meios por comando e as bases de operação são realistas? O que falta ou sobra?
+
+Resposta: 
+
+### O3. Infraestrutura crítica (prioridade estrutural)
+
+Veja a aba "Meios e infraestrutura". A lista de plataformas, portos, cabos e dutos considerada crítica, e sua importância relativa, é adequada?
+
+Resposta: 
+
+### O4. Alvos de cada modo de ação (prioridade alta)
+
+Os alvos atribuídos a cada modo de ação hostil (por exemplo, frota-sombra contra portos; sabotagem contra cabos e dutos) são os mais prováveis? A minagem exige contramedidas de minagem para ser frustrada?
+
+Resposta: 
+
+### O5. Campo de atuação de cada órgão (prioridade média)
+
+O campo de atuação de cada órgão de apoio (Polícia Federal: narcotráfico; Receita Federal: contrabando; IBAMA: crimes ambientais e pesca; patrulha aérea e imageamento: todos; inteligência internacional: ameaças híbridas) está correto?
+
+Resposta: 
+
+### O6. Onde ocorrem os ilícitos (prioridade alta)
+
+Em que ambientes ocorre cada tipo de ilícito (águas rasas, plataforma continental, águas profundas, áreas de exploração de petróleo)?
+
+Resposta: 
+
+### O7. Comportamento do comandante (prioridade média)
+
+Diante de ameaças híbridas, o comandante tenderia a abordar contatos suspeitos com mais frequência do que só quando os indícios fundamentam? Em que circunstâncias?
+
+Resposta: 
 
