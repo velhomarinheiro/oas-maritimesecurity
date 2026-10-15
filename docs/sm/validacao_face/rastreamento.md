@@ -294,10 +294,10 @@ Uso do analista. Liga cada item do questionário de validação (`questionario.x
 | J3.2 | Milícia marítima (pesqueiros a serviço de outro Estado) | `TERCEIROS.ambiental.pPorVetor.milicia_maritima` | percentual | parâmetro = resposta ÷ 100 | 2 % | 0,02 | média |
 | J3.3 | Sabotagem de cabos e dutos submarinos | `TERCEIROS.ambiental.pPorVetor.sabotagem_submarina` | percentual | parâmetro = resposta ÷ 100 | 4 % | 0,04 | média |
 | J3.4 | Minagem encoberta | `TERCEIROS.ambiental.pPorVetor.minagem` | percentual | parâmetro = resposta ÷ 100 | 10 % | 0,1 | média |
-| J3.5 | Risco ambiental em Rotina, em % do risco em Crise | `TERCEIROS.ambiental.fatorNivel.0` | percentual | parâmetro = resposta ÷ 100 | 50 % | 0,5 | média |
-| J3.6 | Risco ambiental em Tensão, em % do risco em Crise | `TERCEIROS.ambiental.fatorNivel.1` | percentual | parâmetro = resposta ÷ 100 | 75 % | 0,75 | média |
-| J3.7 | Risco ambiental em Crise, em % do risco em Crise | `TERCEIROS.ambiental.fatorNivel.2` | percentual | parâmetro = resposta ÷ 100 | 100 % | 1 | média |
-| J3.8 | Risco ambiental em Conflito, em % do risco em Crise | `TERCEIROS.ambiental.fatorNivel.3` | percentual | parâmetro = resposta ÷ 100 | 150 % | 1,5 | média |
+| J3.5 | Risco ambiental em Rotina, em % do risco em Crise | `TERCEIROS.ambiental.fatorNivel.0` | percentual | parâmetro = resposta ÷ 100 | 50 % do risco em Crise | 0,5 | média |
+| J3.6 | Risco ambiental em Tensão, em % do risco em Crise | `TERCEIROS.ambiental.fatorNivel.1` | percentual | parâmetro = resposta ÷ 100 | 75 % do risco em Crise | 0,75 | média |
+| J3.7 | Risco ambiental em Crise, em % do risco em Crise | `TERCEIROS.ambiental.fatorNivel.2` | percentual | parâmetro = resposta ÷ 100 | 100 % do risco em Crise | 1 | média |
+| J3.8 | Risco ambiental em Conflito, em % do risco em Crise | `TERCEIROS.ambiental.fatorNivel.3` | percentual | parâmetro = resposta ÷ 100 | 150 % do risco em Crise | 1,5 | média |
 | K1.1 | Crimes e ilícitos no mar: detecção, prazo ideal | `CRISES.crimes_ilicitos.deteccao.ideal` | dias | parâmetro (turnos de 24 h) = resposta, arredondada | 1 dias | 1 | não medida |
 | K1.2 | Crimes e ilícitos no mar: detecção, prazo máximo | `CRISES.crimes_ilicitos.deteccao.max` | dias | parâmetro (turnos de 24 h) = resposta, arredondada | 3 dias | 3 | não medida |
 | K1.3 | Crimes e ilícitos no mar: resposta, prazo ideal | `CRISES.crimes_ilicitos.resposta.ideal` | dias | parâmetro (turnos de 24 h) = resposta, arredondada | 2 dias | 2 | não medida |
