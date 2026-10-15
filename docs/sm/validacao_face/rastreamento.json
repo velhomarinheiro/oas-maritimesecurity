@@ -1,0 +1,5327 @@
+{
+ "gerado_por": "shared/sm/questionario_profissional.js",
+ "conversoes": {
+  "percentual": {
+   "unidade": "%",
+   "regra": "parâmetro = resposta ÷ 100"
+  },
+  "por_mes": {
+   "unidade": "por mês",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30"
+  },
+  "dias": {
+   "unidade": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada"
+  },
+  "horas": {
+   "unidade": "horas",
+   "regra": "parâmetro (turnos de 24 h) = resposta ÷ 24, arredondada"
+  },
+  "inteiro": {
+   "unidade": "quantidade",
+   "regra": "parâmetro = resposta, arredondada"
+  },
+  "pontos": {
+   "unidade": "pontos",
+   "regra": "parâmetro = resposta"
+  },
+  "escala10": {
+   "unidade": "0 a 10",
+   "regra": "parâmetro = resposta ÷ 10"
+  },
+  "ganho": {
+   "unidade": "% de ganho",
+   "regra": "multiplicador = 1 + resposta ÷ 100"
+  },
+  "prob_mensal": {
+   "unidade": "% em um mês",
+   "regra": "probabilidade por turno = 1 − (1 − resposta ÷ 100)^(1/30)"
+  },
+  "meia_vida": {
+   "unidade": "dias",
+   "regra": "fração recuperada por turno = 1 − 0,5^(1/resposta)"
+  },
+  "categoria": {
+   "unidade": "escolha",
+   "regra": "opção escolhida → valor da tabela de opções"
+  },
+  "normalizado": {
+   "unidade": "% do total",
+   "regra": "participação relativa; os valores do grupo são reescalados para manter a soma atual do grupo"
+  },
+  "diferenca": {
+   "unidade": "%",
+   "regra": "parâmetro = (resposta − resposta da linha de referência) ÷ 100"
+  },
+  "reducao": {
+   "unidade": "%",
+   "regra": "parâmetro = (resposta da linha de referência − resposta) ÷ 100"
+  },
+  "formula": {
+   "unidade": "",
+   "regra": "fórmula própria do item (ver \"regra\" do item)"
+  },
+  "manual": {
+   "unidade": "texto",
+   "regra": "sem conversão automática: a resposta é interpretada pelo analista e registrada no código ou na sobrescrita"
+  }
+ },
+ "itens": [
+  {
+   "id": "A1.1",
+   "questao": "A1",
+   "tema": "Consciência situacional marítima",
+   "titulo": "Contribuição das fontes de dados",
+   "item": "AIS",
+   "parametros": [
+    "FONTES.ais.peso"
+   ],
+   "conversao": "normalizado",
+   "regra": "participação relativa; os valores do grupo são reescalados para manter a soma atual do grupo",
+   "grupo": "fontes",
+   "unidade": "% do total",
+   "prioridade": "alta",
+   "hipotese_atual": 20,
+   "valor_atual": 0.2
+  },
+  {
+   "id": "A1.2",
+   "questao": "A1",
+   "tema": "Consciência situacional marítima",
+   "titulo": "Contribuição das fontes de dados",
+   "item": "PREPS",
+   "parametros": [
+    "FONTES.preps.peso"
+   ],
+   "conversao": "normalizado",
+   "regra": "participação relativa; os valores do grupo são reescalados para manter a soma atual do grupo",
+   "grupo": "fontes",
+   "unidade": "% do total",
+   "prioridade": "alta",
+   "hipotese_atual": 10,
+   "valor_atual": 0.1
+  },
+  {
+   "id": "A1.3",
+   "questao": "A1",
+   "tema": "Consciência situacional marítima",
+   "titulo": "Contribuição das fontes de dados",
+   "item": "Radares costeiros",
+   "parametros": [
+    "FONTES.radar.peso"
+   ],
+   "conversao": "normalizado",
+   "regra": "participação relativa; os valores do grupo são reescalados para manter a soma atual do grupo",
+   "grupo": "fontes",
+   "unidade": "% do total",
+   "prioridade": "alta",
+   "hipotese_atual": 15,
+   "valor_atual": 0.15
+  },
+  {
+   "id": "A1.4",
+   "questao": "A1",
+   "tema": "Consciência situacional marítima",
+   "titulo": "Contribuição das fontes de dados",
+   "item": "Contatos de unidades em patrulha",
+   "parametros": [
+    "FONTES.unidades.peso"
+   ],
+   "conversao": "normalizado",
+   "regra": "participação relativa; os valores do grupo são reescalados para manter a soma atual do grupo",
+   "grupo": "fontes",
+   "unidade": "% do total",
+   "prioridade": "alta",
+   "hipotese_atual": 20,
+   "valor_atual": 0.2
+  },
+  {
+   "id": "A1.5",
+   "questao": "A1",
+   "tema": "Consciência situacional marítima",
+   "titulo": "Contribuição das fontes de dados",
+   "item": "Satélite",
+   "parametros": [
+    "FONTES.satelite.peso"
+   ],
+   "conversao": "normalizado",
+   "regra": "participação relativa; os valores do grupo são reescalados para manter a soma atual do grupo",
+   "grupo": "fontes",
+   "unidade": "% do total",
+   "prioridade": "alta",
+   "hipotese_atual": 20,
+   "valor_atual": 0.2
+  },
+  {
+   "id": "A1.6",
+   "questao": "A1",
+   "tema": "Consciência situacional marítima",
+   "titulo": "Contribuição das fontes de dados",
+   "item": "Sistemas de inteligência",
+   "parametros": [
+    "FONTES.inteligencia.peso"
+   ],
+   "conversao": "normalizado",
+   "regra": "participação relativa; os valores do grupo são reescalados para manter a soma atual do grupo",
+   "grupo": "fontes",
+   "unidade": "% do total",
+   "prioridade": "alta",
+   "hipotese_atual": 15,
+   "valor_atual": 0.15
+  },
+  {
+   "id": "A2.1",
+   "questao": "A2",
+   "tema": "Consciência situacional marítima",
+   "titulo": "Confiabilidade de cada fonte",
+   "item": "AIS",
+   "parametros": [
+    "FONTES.ais.confiabilidade"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "alta",
+   "hipotese_atual": 70,
+   "valor_atual": 0.7
+  },
+  {
+   "id": "A2.2",
+   "questao": "A2",
+   "tema": "Consciência situacional marítima",
+   "titulo": "Confiabilidade de cada fonte",
+   "item": "PREPS",
+   "parametros": [
+    "FONTES.preps.confiabilidade"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "alta",
+   "hipotese_atual": 80,
+   "valor_atual": 0.8
+  },
+  {
+   "id": "A2.3",
+   "questao": "A2",
+   "tema": "Consciência situacional marítima",
+   "titulo": "Confiabilidade de cada fonte",
+   "item": "Radares costeiros",
+   "parametros": [
+    "FONTES.radar.confiabilidade"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "alta",
+   "hipotese_atual": 85,
+   "valor_atual": 0.85
+  },
+  {
+   "id": "A2.4",
+   "questao": "A2",
+   "tema": "Consciência situacional marítima",
+   "titulo": "Confiabilidade de cada fonte",
+   "item": "Contatos de unidades em patrulha",
+   "parametros": [
+    "FONTES.unidades.confiabilidade"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "alta",
+   "hipotese_atual": 95,
+   "valor_atual": 0.95
+  },
+  {
+   "id": "A2.5",
+   "questao": "A2",
+   "tema": "Consciência situacional marítima",
+   "titulo": "Confiabilidade de cada fonte",
+   "item": "Satélite",
+   "parametros": [
+    "FONTES.satelite.confiabilidade"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "alta",
+   "hipotese_atual": 60,
+   "valor_atual": 0.6
+  },
+  {
+   "id": "A2.6",
+   "questao": "A2",
+   "tema": "Consciência situacional marítima",
+   "titulo": "Confiabilidade de cada fonte",
+   "item": "Sistemas de inteligência",
+   "parametros": [
+    "FONTES.inteligencia.confiabilidade"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "alta",
+   "hipotese_atual": 50,
+   "valor_atual": 0.5
+  },
+  {
+   "id": "A3.1",
+   "questao": "A3",
+   "tema": "Consciência situacional marítima",
+   "titulo": "Atraso de cada fonte",
+   "item": "AIS",
+   "parametros": [
+    "FONTES.ais.latencia"
+   ],
+   "conversao": "horas",
+   "regra": "parâmetro (turnos de 24 h) = resposta ÷ 24, arredondada",
+   "unidade": "horas (até 12 h = imediato)",
+   "prioridade": "alta",
+   "hipotese_atual": 0,
+   "valor_atual": 0
+  },
+  {
+   "id": "A3.2",
+   "questao": "A3",
+   "tema": "Consciência situacional marítima",
+   "titulo": "Atraso de cada fonte",
+   "item": "PREPS",
+   "parametros": [
+    "FONTES.preps.latencia"
+   ],
+   "conversao": "horas",
+   "regra": "parâmetro (turnos de 24 h) = resposta ÷ 24, arredondada",
+   "unidade": "horas (até 12 h = imediato)",
+   "prioridade": "alta",
+   "hipotese_atual": 0,
+   "valor_atual": 0
+  },
+  {
+   "id": "A3.3",
+   "questao": "A3",
+   "tema": "Consciência situacional marítima",
+   "titulo": "Atraso de cada fonte",
+   "item": "Radares costeiros",
+   "parametros": [
+    "FONTES.radar.latencia"
+   ],
+   "conversao": "horas",
+   "regra": "parâmetro (turnos de 24 h) = resposta ÷ 24, arredondada",
+   "unidade": "horas (até 12 h = imediato)",
+   "prioridade": "alta",
+   "hipotese_atual": 0,
+   "valor_atual": 0
+  },
+  {
+   "id": "A3.4",
+   "questao": "A3",
+   "tema": "Consciência situacional marítima",
+   "titulo": "Atraso de cada fonte",
+   "item": "Contatos de unidades em patrulha",
+   "parametros": [
+    "FONTES.unidades.latencia"
+   ],
+   "conversao": "horas",
+   "regra": "parâmetro (turnos de 24 h) = resposta ÷ 24, arredondada",
+   "unidade": "horas (até 12 h = imediato)",
+   "prioridade": "alta",
+   "hipotese_atual": 0,
+   "valor_atual": 0
+  },
+  {
+   "id": "A3.5",
+   "questao": "A3",
+   "tema": "Consciência situacional marítima",
+   "titulo": "Atraso de cada fonte",
+   "item": "Satélite",
+   "parametros": [
+    "FONTES.satelite.latencia"
+   ],
+   "conversao": "horas",
+   "regra": "parâmetro (turnos de 24 h) = resposta ÷ 24, arredondada",
+   "unidade": "horas (até 12 h = imediato)",
+   "prioridade": "alta",
+   "hipotese_atual": 24,
+   "valor_atual": 1
+  },
+  {
+   "id": "A3.6",
+   "questao": "A3",
+   "tema": "Consciência situacional marítima",
+   "titulo": "Atraso de cada fonte",
+   "item": "Sistemas de inteligência",
+   "parametros": [
+    "FONTES.inteligencia.latencia"
+   ],
+   "conversao": "horas",
+   "regra": "parâmetro (turnos de 24 h) = resposta ÷ 24, arredondada",
+   "unidade": "horas (até 12 h = imediato)",
+   "prioridade": "alta",
+   "hipotese_atual": 24,
+   "valor_atual": 1
+  },
+  {
+   "id": "A4.1",
+   "questao": "A4",
+   "tema": "Consciência situacional marítima",
+   "titulo": "Valor do sistema integrado de gerenciamento",
+   "item": "Consciência situacional sem o sistema integrado",
+   "parametros": [
+    "TETO_FUSAO_SEM_C"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "alta",
+   "hipotese_atual": 55.00000000000001,
+   "valor_atual": 0.55
+  },
+  {
+   "id": "A5.1",
+   "questao": "A5",
+   "tema": "Consciência situacional marítima",
+   "titulo": "Entrada de um contato suspeito no quadro",
+   "item": "Com integração mínima das fontes",
+   "parametros": [
+    "DOUTRINA.quadro.base"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 25,
+   "valor_atual": 0.25
+  },
+  {
+   "id": "A5.2",
+   "questao": "A5",
+   "tema": "Consciência situacional marítima",
+   "titulo": "Entrada de um contato suspeito no quadro",
+   "item": "Com integração plena das fontes",
+   "parametros": [
+    "DOUTRINA.quadro.porFusao"
+   ],
+   "conversao": "diferenca",
+   "regra": "parâmetro = (resposta − resposta da linha de referência) ÷ 100",
+   "referencia": "A5.1",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 85,
+   "valor_atual": 0.6
+  },
+  {
+   "id": "A5.3",
+   "questao": "A5",
+   "tema": "Consciência situacional marítima",
+   "titulo": "Entrada de um contato suspeito no quadro",
+   "item": "Acréscimo, em pontos percentuais, quando há veículos não tripulados (USV/UAV) na área",
+   "parametros": [
+    "DOUTRINA.quadro.bonusUsv"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "pontos percentuais",
+   "prioridade": "média",
+   "hipotese_atual": 15,
+   "valor_atual": 0.15
+  },
+  {
+   "id": "A5.4",
+   "questao": "A5",
+   "tema": "Consciência situacional marítima",
+   "titulo": "Entrada de um contato suspeito no quadro",
+   "item": "Redução, em %, quando a embarcação procura ativamente não ser detectada (transponder desligado, ocultação)",
+   "parametros": [
+    "DOUTRINA.quadro.pesoEvasao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100; o modelo multiplica pela evasão de cada ameaça (questão F2)",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 50,
+   "valor_atual": 0.5
+  },
+  {
+   "id": "B1.1",
+   "questao": "B1",
+   "tema": "Desempenho dos meios",
+   "titulo": "Êxito em cada fase da ação",
+   "item": "Detecção do contato",
+   "parametros": [
+    "P_BASE.deteccao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "alta",
+   "hipotese_atual": 85,
+   "valor_atual": 0.85
+  },
+  {
+   "id": "B1.2",
+   "questao": "B1",
+   "tema": "Desempenho dos meios",
+   "titulo": "Êxito em cada fase da ação",
+   "item": "Identificação / classificação",
+   "parametros": [
+    "P_BASE.identificacao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "alta",
+   "hipotese_atual": 75,
+   "valor_atual": 0.75
+  },
+  {
+   "id": "B1.3",
+   "questao": "B1",
+   "tema": "Desempenho dos meios",
+   "titulo": "Êxito em cada fase da ação",
+   "item": "Interrogação (rádio ou visual)",
+   "parametros": [
+    "P_BASE.interrogacao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "alta",
+   "hipotese_atual": 80,
+   "valor_atual": 0.8
+  },
+  {
+   "id": "B1.4",
+   "questao": "B1",
+   "tema": "Desempenho dos meios",
+   "titulo": "Êxito em cada fase da ação",
+   "item": "Abordagem e visita",
+   "parametros": [
+    "P_BASE.abordagem"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "alta",
+   "hipotese_atual": 70,
+   "valor_atual": 0.7
+  },
+  {
+   "id": "B1.5",
+   "questao": "B1",
+   "tema": "Desempenho dos meios",
+   "titulo": "Êxito em cada fase da ação",
+   "item": "Inspeção",
+   "parametros": [
+    "P_BASE.inspecao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "alta",
+   "hipotese_atual": 80,
+   "valor_atual": 0.8
+  },
+  {
+   "id": "B1.6",
+   "questao": "B1",
+   "tema": "Desempenho dos meios",
+   "titulo": "Êxito em cada fase da ação",
+   "item": "Apresamento e condução ao porto",
+   "parametros": [
+    "P_BASE.apresamento"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "alta",
+   "hipotese_atual": 75,
+   "valor_atual": 0.75
+  },
+  {
+   "id": "B2.1",
+   "questao": "B2",
+   "tema": "Desempenho dos meios",
+   "titulo": "Efeito da falta de quadro integrado",
+   "item": "Detecção do contato",
+   "parametros": [
+    "PISO_FUSAO.deteccao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% do valor da questão B1",
+   "prioridade": "alta",
+   "hipotese_atual": 40,
+   "valor_atual": 0.4
+  },
+  {
+   "id": "B2.2",
+   "questao": "B2",
+   "tema": "Desempenho dos meios",
+   "titulo": "Efeito da falta de quadro integrado",
+   "item": "Identificação / classificação",
+   "parametros": [
+    "PISO_FUSAO.identificacao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% do valor da questão B1",
+   "prioridade": "alta",
+   "hipotese_atual": 45,
+   "valor_atual": 0.45
+  },
+  {
+   "id": "B2.3",
+   "questao": "B2",
+   "tema": "Desempenho dos meios",
+   "titulo": "Efeito da falta de quadro integrado",
+   "item": "Interrogação (rádio ou visual)",
+   "parametros": [
+    "PISO_FUSAO.interrogacao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% do valor da questão B1",
+   "prioridade": "alta",
+   "hipotese_atual": 70,
+   "valor_atual": 0.7
+  },
+  {
+   "id": "B2.4",
+   "questao": "B2",
+   "tema": "Desempenho dos meios",
+   "titulo": "Efeito da falta de quadro integrado",
+   "item": "Abordagem e visita",
+   "parametros": [
+    "PISO_FUSAO.abordagem"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% do valor da questão B1",
+   "prioridade": "alta",
+   "hipotese_atual": 85,
+   "valor_atual": 0.85
+  },
+  {
+   "id": "B2.5",
+   "questao": "B2",
+   "tema": "Desempenho dos meios",
+   "titulo": "Efeito da falta de quadro integrado",
+   "item": "Inspeção",
+   "parametros": [
+    "PISO_FUSAO.inspecao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% do valor da questão B1",
+   "prioridade": "alta",
+   "hipotese_atual": 80,
+   "valor_atual": 0.8
+  },
+  {
+   "id": "B2.6",
+   "questao": "B2",
+   "tema": "Desempenho dos meios",
+   "titulo": "Efeito da falta de quadro integrado",
+   "item": "Apresamento e condução ao porto",
+   "parametros": [
+    "PISO_FUSAO.apresamento"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% do valor da questão B1",
+   "prioridade": "alta",
+   "hipotese_atual": 90,
+   "valor_atual": 0.9
+  },
+  {
+   "id": "B3.1",
+   "questao": "B3",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de vigilância de cada meio",
+   "item": "Navio-patrulha oceânico (Cl. Amazonas)",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.patrulha_oc.sensor"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 8.5,
+   "valor_atual": 0.85
+  },
+  {
+   "id": "B3.2",
+   "questao": "B3",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de vigilância de cada meio",
+   "item": "Navio-patrulha costeiro (Cl. Grajaú, Macaé, Bracuí)",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.patrulha_c.sensor"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 6.5,
+   "valor_atual": 0.65
+  },
+  {
+   "id": "B3.3",
+   "questao": "B3",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de vigilância de cada meio",
+   "item": "Fragata",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.fragata.sensor"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 10,
+   "valor_atual": 1
+  },
+  {
+   "id": "B3.4",
+   "questao": "B3",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de vigilância de cada meio",
+   "item": "Corveta",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.corveta.sensor"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 9,
+   "valor_atual": 0.9
+  },
+  {
+   "id": "B3.5",
+   "questao": "B3",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de vigilância de cada meio",
+   "item": "Contratorpedeiro",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.destroier.sensor"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 10,
+   "valor_atual": 1
+  },
+  {
+   "id": "B3.6",
+   "questao": "B3",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de vigilância de cada meio",
+   "item": "Navio anfíbio / doca multipropósito",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.amphib.sensor"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 6,
+   "valor_atual": 0.6
+  },
+  {
+   "id": "B3.7",
+   "questao": "B3",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de vigilância de cada meio",
+   "item": "Navio-aeródromo / porta-helicópteros",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.carrier.sensor"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 8,
+   "valor_atual": 0.8
+  },
+  {
+   "id": "B3.8",
+   "questao": "B3",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de vigilância de cada meio",
+   "item": "Aeronave de patrulha marítima (P-3AM)",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.patrulha.sensor"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 10,
+   "valor_atual": 1
+  },
+  {
+   "id": "B3.9",
+   "questao": "B3",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de vigilância de cada meio",
+   "item": "Helicóptero embarcado",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.helicoptero.sensor"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 7,
+   "valor_atual": 0.7
+  },
+  {
+   "id": "B3.10",
+   "questao": "B3",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de vigilância de cada meio",
+   "item": "Aeronave de alarme aéreo antecipado",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.aew.sensor"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 9,
+   "valor_atual": 0.9
+  },
+  {
+   "id": "B3.11",
+   "questao": "B3",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de vigilância de cada meio",
+   "item": "Submarino convencional",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.submarino.sensor"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 7,
+   "valor_atual": 0.7
+  },
+  {
+   "id": "B3.12",
+   "questao": "B3",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de vigilância de cada meio",
+   "item": "Submarino de propulsão nuclear",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.sub_nuclear.sensor"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 8,
+   "valor_atual": 0.8
+  },
+  {
+   "id": "B3.13",
+   "questao": "B3",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de vigilância de cada meio",
+   "item": "Grupamento de operações especiais",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.specops.sensor"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 4,
+   "valor_atual": 0.4
+  },
+  {
+   "id": "B3.14",
+   "questao": "B3",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de vigilância de cada meio",
+   "item": "Navio de apoio logístico",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.logistico.sensor"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 3,
+   "valor_atual": 0.3
+  },
+  {
+   "id": "B3.15",
+   "questao": "B3",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de vigilância de cada meio",
+   "item": "Navio-tanque",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.tanque.sensor"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 3,
+   "valor_atual": 0.3
+  },
+  {
+   "id": "B3.16",
+   "questao": "B3",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de vigilância de cada meio",
+   "item": "Lancha / aviso de inspeção naval (DN)",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.inspecao_naval.sensor"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 4,
+   "valor_atual": 0.4
+  },
+  {
+   "id": "B3.17",
+   "questao": "B3",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de vigilância de cada meio",
+   "item": "Navio de contramedidas de minagem",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.mcm.sensor"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 5,
+   "valor_atual": 0.5
+  },
+  {
+   "id": "B3.18",
+   "questao": "B3",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de vigilância de cada meio",
+   "item": "Veículo de superfície não tripulado (USV)",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.usv.sensor"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 7,
+   "valor_atual": 0.7
+  },
+  {
+   "id": "B3.19",
+   "questao": "B3",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de vigilância de cada meio",
+   "item": "Aeronave remotamente pilotada (UAV)",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.uav.sensor"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 8,
+   "valor_atual": 0.8
+  },
+  {
+   "id": "B3.20",
+   "questao": "B3",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de vigilância de cada meio",
+   "item": "Veículo submarino remotamente operado (ROV)",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.rov.sensor"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 6,
+   "valor_atual": 0.6
+  },
+  {
+   "id": "B4.1",
+   "questao": "B4",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de visita e inspeção de cada meio",
+   "item": "Navio-patrulha oceânico (Cl. Amazonas)",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.patrulha_oc.gvi"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 9,
+   "valor_atual": 0.9
+  },
+  {
+   "id": "B4.2",
+   "questao": "B4",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de visita e inspeção de cada meio",
+   "item": "Navio-patrulha costeiro (Cl. Grajaú, Macaé, Bracuí)",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.patrulha_c.gvi"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 8,
+   "valor_atual": 0.8
+  },
+  {
+   "id": "B4.3",
+   "questao": "B4",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de visita e inspeção de cada meio",
+   "item": "Fragata",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.fragata.gvi"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 7.5,
+   "valor_atual": 0.75
+  },
+  {
+   "id": "B4.4",
+   "questao": "B4",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de visita e inspeção de cada meio",
+   "item": "Corveta",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.corveta.gvi"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 7.5,
+   "valor_atual": 0.75
+  },
+  {
+   "id": "B4.5",
+   "questao": "B4",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de visita e inspeção de cada meio",
+   "item": "Contratorpedeiro",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.destroier.gvi"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 7,
+   "valor_atual": 0.7
+  },
+  {
+   "id": "B4.6",
+   "questao": "B4",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de visita e inspeção de cada meio",
+   "item": "Navio anfíbio / doca multipropósito",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.amphib.gvi"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 10,
+   "valor_atual": 1
+  },
+  {
+   "id": "B4.7",
+   "questao": "B4",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de visita e inspeção de cada meio",
+   "item": "Navio-aeródromo / porta-helicópteros",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.carrier.gvi"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 6,
+   "valor_atual": 0.6
+  },
+  {
+   "id": "B4.8",
+   "questao": "B4",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de visita e inspeção de cada meio",
+   "item": "Aeronave de patrulha marítima (P-3AM)",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.patrulha.gvi"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 0,
+   "valor_atual": 0
+  },
+  {
+   "id": "B4.9",
+   "questao": "B4",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de visita e inspeção de cada meio",
+   "item": "Helicóptero embarcado",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.helicoptero.gvi"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 5,
+   "valor_atual": 0.5
+  },
+  {
+   "id": "B4.10",
+   "questao": "B4",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de visita e inspeção de cada meio",
+   "item": "Aeronave de alarme aéreo antecipado",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.aew.gvi"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 0,
+   "valor_atual": 0
+  },
+  {
+   "id": "B4.11",
+   "questao": "B4",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de visita e inspeção de cada meio",
+   "item": "Submarino convencional",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.submarino.gvi"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 0,
+   "valor_atual": 0
+  },
+  {
+   "id": "B4.12",
+   "questao": "B4",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de visita e inspeção de cada meio",
+   "item": "Submarino de propulsão nuclear",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.sub_nuclear.gvi"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 0,
+   "valor_atual": 0
+  },
+  {
+   "id": "B4.13",
+   "questao": "B4",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de visita e inspeção de cada meio",
+   "item": "Grupamento de operações especiais",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.specops.gvi"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 10,
+   "valor_atual": 1
+  },
+  {
+   "id": "B4.14",
+   "questao": "B4",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de visita e inspeção de cada meio",
+   "item": "Navio de apoio logístico",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.logistico.gvi"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 2,
+   "valor_atual": 0.2
+  },
+  {
+   "id": "B4.15",
+   "questao": "B4",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de visita e inspeção de cada meio",
+   "item": "Navio-tanque",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.tanque.gvi"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 1,
+   "valor_atual": 0.1
+  },
+  {
+   "id": "B4.16",
+   "questao": "B4",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de visita e inspeção de cada meio",
+   "item": "Lancha / aviso de inspeção naval (DN)",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.inspecao_naval.gvi"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 9,
+   "valor_atual": 0.9
+  },
+  {
+   "id": "B4.17",
+   "questao": "B4",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de visita e inspeção de cada meio",
+   "item": "Navio de contramedidas de minagem",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.mcm.gvi"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 3,
+   "valor_atual": 0.3
+  },
+  {
+   "id": "B4.18",
+   "questao": "B4",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de visita e inspeção de cada meio",
+   "item": "Veículo de superfície não tripulado (USV)",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.usv.gvi"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 0,
+   "valor_atual": 0
+  },
+  {
+   "id": "B4.19",
+   "questao": "B4",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de visita e inspeção de cada meio",
+   "item": "Aeronave remotamente pilotada (UAV)",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.uav.gvi"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 0,
+   "valor_atual": 0
+  },
+  {
+   "id": "B4.20",
+   "questao": "B4",
+   "tema": "Desempenho dos meios",
+   "titulo": "Capacidade de visita e inspeção de cada meio",
+   "item": "Veículo submarino remotamente operado (ROV)",
+   "parametros": [
+    "CAPACIDADE_POR_TIPO.rov.gvi"
+   ],
+   "conversao": "escala10",
+   "regra": "parâmetro = resposta ÷ 10",
+   "unidade": "0 a 10",
+   "prioridade": "alta",
+   "hipotese_atual": 0,
+   "valor_atual": 0
+  },
+  {
+   "id": "B5.1",
+   "questao": "B5",
+   "tema": "Desempenho dos meios",
+   "titulo": "Grupo de Visita e Inspeção de Fuzileiros Navais",
+   "item": "Capacidade de abordagem sem o grupo embarcado",
+   "parametros": [
+    "FATOR_SEM_GVI"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% da capacidade com o grupo",
+   "prioridade": "não medida",
+   "hipotese_atual": 50,
+   "valor_atual": 0.5
+  },
+  {
+   "id": "C1.1",
+   "questao": "C1",
+   "tema": "Autoria e convicção",
+   "titulo": "O quanto cada fase esclarece a autoria",
+   "item": "Detecção do contato",
+   "parametros": [
+    "GANHO_EVIDENCIA.deteccao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% da dúvida remanescente",
+   "prioridade": "alta",
+   "hipotese_atual": 5,
+   "valor_atual": 0.05
+  },
+  {
+   "id": "C1.2",
+   "questao": "C1",
+   "tema": "Autoria e convicção",
+   "titulo": "O quanto cada fase esclarece a autoria",
+   "item": "Identificação / classificação",
+   "parametros": [
+    "GANHO_EVIDENCIA.identificacao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% da dúvida remanescente",
+   "prioridade": "alta",
+   "hipotese_atual": 15,
+   "valor_atual": 0.15
+  },
+  {
+   "id": "C1.3",
+   "questao": "C1",
+   "tema": "Autoria e convicção",
+   "titulo": "O quanto cada fase esclarece a autoria",
+   "item": "Interrogação (rádio ou visual)",
+   "parametros": [
+    "GANHO_EVIDENCIA.interrogacao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% da dúvida remanescente",
+   "prioridade": "alta",
+   "hipotese_atual": 15,
+   "valor_atual": 0.15
+  },
+  {
+   "id": "C1.4",
+   "questao": "C1",
+   "tema": "Autoria e convicção",
+   "titulo": "O quanto cada fase esclarece a autoria",
+   "item": "Abordagem e visita",
+   "parametros": [
+    "GANHO_EVIDENCIA.abordagem"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% da dúvida remanescente",
+   "prioridade": "alta",
+   "hipotese_atual": 20,
+   "valor_atual": 0.2
+  },
+  {
+   "id": "C1.5",
+   "questao": "C1",
+   "tema": "Autoria e convicção",
+   "titulo": "O quanto cada fase esclarece a autoria",
+   "item": "Inspeção",
+   "parametros": [
+    "GANHO_EVIDENCIA.inspecao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% da dúvida remanescente",
+   "prioridade": "alta",
+   "hipotese_atual": 30,
+   "valor_atual": 0.3
+  },
+  {
+   "id": "C1.6",
+   "questao": "C1",
+   "tema": "Autoria e convicção",
+   "titulo": "O quanto cada fase esclarece a autoria",
+   "item": "Apresamento e condução ao porto",
+   "parametros": [
+    "GANHO_EVIDENCIA.apresamento"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% da dúvida remanescente",
+   "prioridade": "alta",
+   "hipotese_atual": 30,
+   "valor_atual": 0.3
+  },
+  {
+   "id": "C2.1",
+   "questao": "C2",
+   "tema": "Autoria e convicção",
+   "titulo": "Dificuldade de atribuição por tipo de ameaça",
+   "item": "Ilícito comum (referência)",
+   "parametros": [
+    "FATOR_NEGABILIDADE.baixa"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% do esclarecimento de um ilícito comum",
+   "prioridade": "alta",
+   "hipotese_atual": 100,
+   "valor_atual": 1
+  },
+  {
+   "id": "C2.2",
+   "questao": "C2",
+   "tema": "Autoria e convicção",
+   "titulo": "Dificuldade de atribuição por tipo de ameaça",
+   "item": "Interferência em GNSS, ataque cibernético",
+   "parametros": [
+    "FATOR_NEGABILIDADE.media"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% do esclarecimento de um ilícito comum",
+   "prioridade": "alta",
+   "hipotese_atual": 80,
+   "valor_atual": 0.8
+  },
+  {
+   "id": "C2.3",
+   "questao": "C2",
+   "tema": "Autoria e convicção",
+   "titulo": "Dificuldade de atribuição por tipo de ameaça",
+   "item": "Frota-sombra, milícia marítima, drones, minagem",
+   "parametros": [
+    "FATOR_NEGABILIDADE.alta"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% do esclarecimento de um ilícito comum",
+   "prioridade": "alta",
+   "hipotese_atual": 55.00000000000001,
+   "valor_atual": 0.55
+  },
+  {
+   "id": "C2.4",
+   "questao": "C2",
+   "tema": "Autoria e convicção",
+   "titulo": "Dificuldade de atribuição por tipo de ameaça",
+   "item": "Sabotagem de cabos e dutos submarinos",
+   "parametros": [
+    "FATOR_NEGABILIDADE.muito_alta"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% do esclarecimento de um ilícito comum",
+   "prioridade": "alta",
+   "hipotese_atual": 35,
+   "valor_atual": 0.35
+  },
+  {
+   "id": "C3.1",
+   "questao": "C3",
+   "tema": "Autoria e convicção",
+   "titulo": "Investigação sem o quadro integrado",
+   "item": "Rendimento da investigação sem o quadro integrado",
+   "parametros": [
+    "PISO_FUSAO_EVIDENCIA"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% do rendimento com o quadro",
+   "prioridade": "alta",
+   "hipotese_atual": 50,
+   "valor_atual": 0.5
+  },
+  {
+   "id": "C4.1",
+   "questao": "C4",
+   "tema": "Autoria e convicção",
+   "titulo": "Convicção mínima para agir",
+   "item": "Interrogação (rádio ou visual)",
+   "parametros": [
+    "LIMIAR_ATRIBUICAO.interrogacao"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "% de convicção",
+   "prioridade": "alta",
+   "hipotese_atual": 20,
+   "valor_atual": 20
+  },
+  {
+   "id": "C4.2",
+   "questao": "C4",
+   "tema": "Autoria e convicção",
+   "titulo": "Convicção mínima para agir",
+   "item": "Abordagem e visita",
+   "parametros": [
+    "LIMIAR_ATRIBUICAO.abordagem"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "% de convicção",
+   "prioridade": "alta",
+   "hipotese_atual": 40,
+   "valor_atual": 40
+  },
+  {
+   "id": "C4.3",
+   "questao": "C4",
+   "tema": "Autoria e convicção",
+   "titulo": "Convicção mínima para agir",
+   "item": "Inspeção",
+   "parametros": [
+    "LIMIAR_ATRIBUICAO.inspecao"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "% de convicção",
+   "prioridade": "alta",
+   "hipotese_atual": 40,
+   "valor_atual": 40
+  },
+  {
+   "id": "C4.4",
+   "questao": "C4",
+   "tema": "Autoria e convicção",
+   "titulo": "Convicção mínima para agir",
+   "item": "Apresamento e condução ao porto",
+   "parametros": [
+    "LIMIAR_ATRIBUICAO.apresamento"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "% de convicção",
+   "prioridade": "alta",
+   "hipotese_atual": 70,
+   "valor_atual": 70
+  },
+  {
+   "id": "C5.1",
+   "questao": "C5",
+   "tema": "Autoria e convicção",
+   "titulo": "O que é uma atribuição \"robusta\"",
+   "item": "Elevar a postura a Crise após dano a infraestrutura crítica",
+   "parametros": [
+    "GATILHOS_ESCALADA.N2.atribuicaoMin"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "% de convicção",
+   "prioridade": "média",
+   "hipotese_atual": 70,
+   "valor_atual": 70
+  },
+  {
+   "id": "C5.2",
+   "questao": "C5",
+   "tema": "Autoria e convicção",
+   "titulo": "O que é uma atribuição \"robusta\"",
+   "item": "Propor o emprego aberto da força (Conflito) após ataque armado",
+   "parametros": [
+    "GATILHOS_ESCALADA.N3.atribuicaoMin"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "% de convicção",
+   "prioridade": "média",
+   "hipotese_atual": 70,
+   "valor_atual": 70
+  },
+  {
+   "id": "C5.3",
+   "questao": "C5",
+   "tema": "Autoria e convicção",
+   "titulo": "O que é uma atribuição \"robusta\"",
+   "item": "Dar por concluída uma investigação de autoria",
+   "parametros": [
+    "HIBRIDO.investigacao.robusta"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "% de convicção",
+   "prioridade": "alta",
+   "hipotese_atual": 70,
+   "valor_atual": 70
+  },
+  {
+   "id": "C6.1",
+   "questao": "C6",
+   "tema": "Autoria e convicção",
+   "titulo": "Investigação depois do fato",
+   "item": "Em quantos dias uma investigação típica chega à convicção robusta?",
+   "parametros": [
+    "HIBRIDO.investigacao.ganho"
+   ],
+   "conversao": "formula",
+   "regra": "ganho diário g tal que, partindo de 10% de convicção, a convicção robusta R (C5) seja atingida em d dias: g = 1 − ((1 − R/100) ÷ 0,9)^(1/d)",
+   "unidade": "dias",
+   "prioridade": "alta",
+   "hipotese_atual": 6.759903551316161,
+   "valor_atual": 0.15
+  },
+  {
+   "id": "C6.2",
+   "questao": "C6",
+   "tema": "Autoria e convicção",
+   "titulo": "Investigação depois do fato",
+   "item": "Por quantos dias a investigação costuma ser mantida antes de ser arquivada sem conclusão?",
+   "parametros": [
+    "HIBRIDO.investigacao.turnos"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "alta",
+   "hipotese_atual": 10,
+   "valor_atual": 10
+  },
+  {
+   "id": "D1.1",
+   "questao": "D1",
+   "tema": "Postura e escalada",
+   "titulo": "Passagem de Rotina a Tensão",
+   "item": "Número de incidentes de natureza híbrida…",
+   "parametros": [
+    "GATILHOS_ESCALADA.N1.incidentesJanela"
+   ],
+   "conversao": "inteiro",
+   "regra": "parâmetro = resposta, arredondada",
+   "unidade": "incidentes",
+   "prioridade": "média",
+   "hipotese_atual": 3,
+   "valor_atual": 3
+  },
+  {
+   "id": "D1.2",
+   "questao": "D1",
+   "tema": "Postura e escalada",
+   "titulo": "Passagem de Rotina a Tensão",
+   "item": "…dentro de quantos dias",
+   "parametros": [
+    "GATILHOS_ESCALADA.N1.janelaTurnos"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "média",
+   "hipotese_atual": 3,
+   "valor_atual": 3
+  },
+  {
+   "id": "D1.3",
+   "questao": "D1",
+   "tema": "Postura e escalada",
+   "titulo": "Passagem de Rotina a Tensão",
+   "item": "Ou um único incidente com convicção sobre a autoria de pelo menos",
+   "parametros": [
+    "GATILHOS_ESCALADA.N1.atribuicaoMin"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "% de convicção",
+   "prioridade": "média",
+   "hipotese_atual": 40,
+   "valor_atual": 40
+  },
+  {
+   "id": "D2.1",
+   "questao": "D2",
+   "tema": "Postura e escalada",
+   "titulo": "Retorno à postura anterior",
+   "item": "Dias sem novos gatilhos",
+   "parametros": [
+    "TURNOS_PARA_DESESCALAR"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "baixa",
+   "hipotese_atual": 4,
+   "valor_atual": 4
+  },
+  {
+   "id": "E1.1",
+   "questao": "E1",
+   "tema": "Ilícitos no mar",
+   "titulo": "Incidência mensal por área",
+   "item": "Narcotráfico — 2º DN (BA–SE)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.narcotrafico.lambda.2DN"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "ocorrências por mês",
+   "prioridade": "alta",
+   "hipotese_atual": 4.5,
+   "valor_atual": 0.15
+  },
+  {
+   "id": "E1.2",
+   "questao": "E1",
+   "tema": "Ilícitos no mar",
+   "titulo": "Incidência mensal por área",
+   "item": "Narcotráfico — 1º DN (RJ–ES)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.narcotrafico.lambda.1DN"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "ocorrências por mês",
+   "prioridade": "alta",
+   "hipotese_atual": 6,
+   "valor_atual": 0.2
+  },
+  {
+   "id": "E1.3",
+   "questao": "E1",
+   "tema": "Ilícitos no mar",
+   "titulo": "Incidência mensal por área",
+   "item": "Narcotráfico — 8º DN (SP)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.narcotrafico.lambda.8DN"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "ocorrências por mês",
+   "prioridade": "alta",
+   "hipotese_atual": 9,
+   "valor_atual": 0.3
+  },
+  {
+   "id": "E1.4",
+   "questao": "E1",
+   "tema": "Ilícitos no mar",
+   "titulo": "Incidência mensal por área",
+   "item": "Narcotráfico — 5º DN (SC–RS)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.narcotrafico.lambda.5DN"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "ocorrências por mês",
+   "prioridade": "alta",
+   "hipotese_atual": 4.5,
+   "valor_atual": 0.15
+  },
+  {
+   "id": "E1.5",
+   "questao": "E1",
+   "tema": "Ilícitos no mar",
+   "titulo": "Incidência mensal por área",
+   "item": "Contrabando / descaminho — 2º DN (BA–SE)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.contrabando.lambda.2DN"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "ocorrências por mês",
+   "prioridade": "alta",
+   "hipotese_atual": 3,
+   "valor_atual": 0.1
+  },
+  {
+   "id": "E1.6",
+   "questao": "E1",
+   "tema": "Ilícitos no mar",
+   "titulo": "Incidência mensal por área",
+   "item": "Contrabando / descaminho — 1º DN (RJ–ES)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.contrabando.lambda.1DN"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "ocorrências por mês",
+   "prioridade": "alta",
+   "hipotese_atual": 4.5,
+   "valor_atual": 0.15
+  },
+  {
+   "id": "E1.7",
+   "questao": "E1",
+   "tema": "Ilícitos no mar",
+   "titulo": "Incidência mensal por área",
+   "item": "Contrabando / descaminho — 8º DN (SP)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.contrabando.lambda.8DN"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "ocorrências por mês",
+   "prioridade": "alta",
+   "hipotese_atual": 6,
+   "valor_atual": 0.2
+  },
+  {
+   "id": "E1.8",
+   "questao": "E1",
+   "tema": "Ilícitos no mar",
+   "titulo": "Incidência mensal por área",
+   "item": "Contrabando / descaminho — 5º DN (SC–RS)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.contrabando.lambda.5DN"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "ocorrências por mês",
+   "prioridade": "alta",
+   "hipotese_atual": 4.5,
+   "valor_atual": 0.15
+  },
+  {
+   "id": "E1.9",
+   "questao": "E1",
+   "tema": "Ilícitos no mar",
+   "titulo": "Incidência mensal por área",
+   "item": "Pesca irregular (IUU) — 2º DN (BA–SE)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.pesca_iuu.lambda.2DN"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "ocorrências por mês",
+   "prioridade": "alta",
+   "hipotese_atual": 7.5,
+   "valor_atual": 0.25
+  },
+  {
+   "id": "E1.10",
+   "questao": "E1",
+   "tema": "Ilícitos no mar",
+   "titulo": "Incidência mensal por área",
+   "item": "Pesca irregular (IUU) — 1º DN (RJ–ES)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.pesca_iuu.lambda.1DN"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "ocorrências por mês",
+   "prioridade": "alta",
+   "hipotese_atual": 4.5,
+   "valor_atual": 0.15
+  },
+  {
+   "id": "E1.11",
+   "questao": "E1",
+   "tema": "Ilícitos no mar",
+   "titulo": "Incidência mensal por área",
+   "item": "Pesca irregular (IUU) — 8º DN (SP)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.pesca_iuu.lambda.8DN"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "ocorrências por mês",
+   "prioridade": "alta",
+   "hipotese_atual": 4.5,
+   "valor_atual": 0.15
+  },
+  {
+   "id": "E1.12",
+   "questao": "E1",
+   "tema": "Ilícitos no mar",
+   "titulo": "Incidência mensal por área",
+   "item": "Pesca irregular (IUU) — 5º DN (SC–RS)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.pesca_iuu.lambda.5DN"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "ocorrências por mês",
+   "prioridade": "alta",
+   "hipotese_atual": 9,
+   "valor_atual": 0.3
+  },
+  {
+   "id": "E1.13",
+   "questao": "E1",
+   "tema": "Ilícitos no mar",
+   "titulo": "Incidência mensal por área",
+   "item": "Crime ambiental — 2º DN (BA–SE)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.crime_ambiental.lambda.2DN"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "ocorrências por mês",
+   "prioridade": "alta",
+   "hipotese_atual": 1.5,
+   "valor_atual": 0.05
+  },
+  {
+   "id": "E1.14",
+   "questao": "E1",
+   "tema": "Ilícitos no mar",
+   "titulo": "Incidência mensal por área",
+   "item": "Crime ambiental — 1º DN (RJ–ES)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.crime_ambiental.lambda.1DN"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "ocorrências por mês",
+   "prioridade": "alta",
+   "hipotese_atual": 4.5,
+   "valor_atual": 0.15
+  },
+  {
+   "id": "E1.15",
+   "questao": "E1",
+   "tema": "Ilícitos no mar",
+   "titulo": "Incidência mensal por área",
+   "item": "Crime ambiental — 8º DN (SP)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.crime_ambiental.lambda.8DN"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "ocorrências por mês",
+   "prioridade": "alta",
+   "hipotese_atual": 3,
+   "valor_atual": 0.1
+  },
+  {
+   "id": "E1.16",
+   "questao": "E1",
+   "tema": "Ilícitos no mar",
+   "titulo": "Incidência mensal por área",
+   "item": "Crime ambiental — 5º DN (SC–RS)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.crime_ambiental.lambda.5DN"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "ocorrências por mês",
+   "prioridade": "alta",
+   "hipotese_atual": 1.5,
+   "valor_atual": 0.05
+  },
+  {
+   "id": "E1.17",
+   "questao": "E1",
+   "tema": "Ilícitos no mar",
+   "titulo": "Incidência mensal por área",
+   "item": "Pirataria / roubo armado — 2º DN (BA–SE)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.pirataria.lambda.2DN"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "ocorrências por mês",
+   "prioridade": "alta",
+   "hipotese_atual": 1.5,
+   "valor_atual": 0.05
+  },
+  {
+   "id": "E1.18",
+   "questao": "E1",
+   "tema": "Ilícitos no mar",
+   "titulo": "Incidência mensal por área",
+   "item": "Pirataria / roubo armado — 1º DN (RJ–ES)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.pirataria.lambda.1DN"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "ocorrências por mês",
+   "prioridade": "alta",
+   "hipotese_atual": 3,
+   "valor_atual": 0.1
+  },
+  {
+   "id": "E1.19",
+   "questao": "E1",
+   "tema": "Ilícitos no mar",
+   "titulo": "Incidência mensal por área",
+   "item": "Pirataria / roubo armado — 8º DN (SP)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.pirataria.lambda.8DN"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "ocorrências por mês",
+   "prioridade": "alta",
+   "hipotese_atual": 3,
+   "valor_atual": 0.1
+  },
+  {
+   "id": "E1.20",
+   "questao": "E1",
+   "tema": "Ilícitos no mar",
+   "titulo": "Incidência mensal por área",
+   "item": "Pirataria / roubo armado — 5º DN (SC–RS)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.pirataria.lambda.5DN"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "ocorrências por mês",
+   "prioridade": "alta",
+   "hipotese_atual": 1.5,
+   "valor_atual": 0.05
+  },
+  {
+   "id": "E1.21",
+   "questao": "E1",
+   "tema": "Ilícitos no mar",
+   "titulo": "Incidência mensal por área",
+   "item": "Imigração irregular — 2º DN (BA–SE)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.imigracao.lambda.2DN"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "ocorrências por mês",
+   "prioridade": "alta",
+   "hipotese_atual": 3,
+   "valor_atual": 0.1
+  },
+  {
+   "id": "E1.22",
+   "questao": "E1",
+   "tema": "Ilícitos no mar",
+   "titulo": "Incidência mensal por área",
+   "item": "Imigração irregular — 1º DN (RJ–ES)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.imigracao.lambda.1DN"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "ocorrências por mês",
+   "prioridade": "alta",
+   "hipotese_atual": 1.5,
+   "valor_atual": 0.05
+  },
+  {
+   "id": "E1.23",
+   "questao": "E1",
+   "tema": "Ilícitos no mar",
+   "titulo": "Incidência mensal por área",
+   "item": "Imigração irregular — 8º DN (SP)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.imigracao.lambda.8DN"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "ocorrências por mês",
+   "prioridade": "alta",
+   "hipotese_atual": 1.5,
+   "valor_atual": 0.05
+  },
+  {
+   "id": "E1.24",
+   "questao": "E1",
+   "tema": "Ilícitos no mar",
+   "titulo": "Incidência mensal por área",
+   "item": "Imigração irregular — 5º DN (SC–RS)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.imigracao.lambda.5DN"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "ocorrências por mês",
+   "prioridade": "alta",
+   "hipotese_atual": 3,
+   "valor_atual": 0.1
+  },
+  {
+   "id": "E2.1",
+   "questao": "E2",
+   "tema": "Ilícitos no mar",
+   "titulo": "Janela de oportunidade",
+   "item": "Narcotráfico",
+   "parametros": [
+    "TIPOS_OCORRENCIA.narcotrafico.duracao"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "alta",
+   "hipotese_atual": 2,
+   "valor_atual": 2
+  },
+  {
+   "id": "E2.2",
+   "questao": "E2",
+   "tema": "Ilícitos no mar",
+   "titulo": "Janela de oportunidade",
+   "item": "Contrabando / descaminho",
+   "parametros": [
+    "TIPOS_OCORRENCIA.contrabando.duracao"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "alta",
+   "hipotese_atual": 2,
+   "valor_atual": 2
+  },
+  {
+   "id": "E2.3",
+   "questao": "E2",
+   "tema": "Ilícitos no mar",
+   "titulo": "Janela de oportunidade",
+   "item": "Pesca irregular (IUU)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.pesca_iuu.duracao"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "alta",
+   "hipotese_atual": 3,
+   "valor_atual": 3
+  },
+  {
+   "id": "E2.4",
+   "questao": "E2",
+   "tema": "Ilícitos no mar",
+   "titulo": "Janela de oportunidade",
+   "item": "Crime ambiental",
+   "parametros": [
+    "TIPOS_OCORRENCIA.crime_ambiental.duracao"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "alta",
+   "hipotese_atual": 3,
+   "valor_atual": 3
+  },
+  {
+   "id": "E2.5",
+   "questao": "E2",
+   "tema": "Ilícitos no mar",
+   "titulo": "Janela de oportunidade",
+   "item": "Pirataria / roubo armado",
+   "parametros": [
+    "TIPOS_OCORRENCIA.pirataria.duracao"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "alta",
+   "hipotese_atual": 1,
+   "valor_atual": 1
+  },
+  {
+   "id": "E2.6",
+   "questao": "E2",
+   "tema": "Ilícitos no mar",
+   "titulo": "Janela de oportunidade",
+   "item": "Imigração irregular",
+   "parametros": [
+    "TIPOS_OCORRENCIA.imigracao.duracao"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "alta",
+   "hipotese_atual": 2,
+   "valor_atual": 2
+  },
+  {
+   "id": "E3.1",
+   "questao": "E3",
+   "tema": "Ilícitos no mar",
+   "titulo": "Dificuldade de detecção",
+   "item": "Narcotráfico",
+   "parametros": [
+    "TIPOS_OCORRENCIA.narcotrafico.evasao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% de redução",
+   "prioridade": "alta",
+   "hipotese_atual": 30,
+   "valor_atual": 0.3
+  },
+  {
+   "id": "E3.2",
+   "questao": "E3",
+   "tema": "Ilícitos no mar",
+   "titulo": "Dificuldade de detecção",
+   "item": "Contrabando / descaminho",
+   "parametros": [
+    "TIPOS_OCORRENCIA.contrabando.evasao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% de redução",
+   "prioridade": "alta",
+   "hipotese_atual": 20,
+   "valor_atual": 0.2
+  },
+  {
+   "id": "E3.3",
+   "questao": "E3",
+   "tema": "Ilícitos no mar",
+   "titulo": "Dificuldade de detecção",
+   "item": "Pesca irregular (IUU)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.pesca_iuu.evasao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% de redução",
+   "prioridade": "alta",
+   "hipotese_atual": 10,
+   "valor_atual": 0.1
+  },
+  {
+   "id": "E3.4",
+   "questao": "E3",
+   "tema": "Ilícitos no mar",
+   "titulo": "Dificuldade de detecção",
+   "item": "Crime ambiental",
+   "parametros": [
+    "TIPOS_OCORRENCIA.crime_ambiental.evasao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% de redução",
+   "prioridade": "alta",
+   "hipotese_atual": 20,
+   "valor_atual": 0.2
+  },
+  {
+   "id": "E3.5",
+   "questao": "E3",
+   "tema": "Ilícitos no mar",
+   "titulo": "Dificuldade de detecção",
+   "item": "Pirataria / roubo armado",
+   "parametros": [
+    "TIPOS_OCORRENCIA.pirataria.evasao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% de redução",
+   "prioridade": "alta",
+   "hipotese_atual": 25,
+   "valor_atual": 0.25
+  },
+  {
+   "id": "E3.6",
+   "questao": "E3",
+   "tema": "Ilícitos no mar",
+   "titulo": "Dificuldade de detecção",
+   "item": "Imigração irregular",
+   "parametros": [
+    "TIPOS_OCORRENCIA.imigracao.evasao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% de redução",
+   "prioridade": "alta",
+   "hipotese_atual": 5,
+   "valor_atual": 0.05
+  },
+  {
+   "id": "E4.1",
+   "questao": "E4",
+   "tema": "Ilícitos no mar",
+   "titulo": "Quando a repressão se efetiva",
+   "item": "Narcotráfico",
+   "parametros": [
+    "TIPOS_OCORRENCIA.narcotrafico.etapaRepressao"
+   ],
+   "conversao": "categoria",
+   "regra": "opção escolhida → valor da tabela de opções",
+   "opcoes": {
+    "interrogação": "interrogacao",
+    "identificação": "identificacao",
+    "abordagem": "abordagem",
+    "inspeção": "inspecao",
+    "apresamento": "apresamento"
+   },
+   "unidade": "escolha",
+   "prioridade": "alta",
+   "hipotese_atual": "apresamento",
+   "valor_atual": "apresamento"
+  },
+  {
+   "id": "E4.2",
+   "questao": "E4",
+   "tema": "Ilícitos no mar",
+   "titulo": "Quando a repressão se efetiva",
+   "item": "Contrabando / descaminho",
+   "parametros": [
+    "TIPOS_OCORRENCIA.contrabando.etapaRepressao"
+   ],
+   "conversao": "categoria",
+   "regra": "opção escolhida → valor da tabela de opções",
+   "opcoes": {
+    "interrogação": "interrogacao",
+    "identificação": "identificacao",
+    "abordagem": "abordagem",
+    "inspeção": "inspecao",
+    "apresamento": "apresamento"
+   },
+   "unidade": "escolha",
+   "prioridade": "alta",
+   "hipotese_atual": "apresamento",
+   "valor_atual": "apresamento"
+  },
+  {
+   "id": "E4.3",
+   "questao": "E4",
+   "tema": "Ilícitos no mar",
+   "titulo": "Quando a repressão se efetiva",
+   "item": "Pesca irregular (IUU)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.pesca_iuu.etapaRepressao"
+   ],
+   "conversao": "categoria",
+   "regra": "opção escolhida → valor da tabela de opções",
+   "opcoes": {
+    "interrogação": "interrogacao",
+    "identificação": "identificacao",
+    "abordagem": "abordagem",
+    "inspeção": "inspecao",
+    "apresamento": "apresamento"
+   },
+   "unidade": "escolha",
+   "prioridade": "alta",
+   "hipotese_atual": "apresamento",
+   "valor_atual": "apresamento"
+  },
+  {
+   "id": "E4.4",
+   "questao": "E4",
+   "tema": "Ilícitos no mar",
+   "titulo": "Quando a repressão se efetiva",
+   "item": "Crime ambiental",
+   "parametros": [
+    "TIPOS_OCORRENCIA.crime_ambiental.etapaRepressao"
+   ],
+   "conversao": "categoria",
+   "regra": "opção escolhida → valor da tabela de opções",
+   "opcoes": {
+    "interrogação": "interrogacao",
+    "identificação": "identificacao",
+    "abordagem": "abordagem",
+    "inspeção": "inspecao",
+    "apresamento": "apresamento"
+   },
+   "unidade": "escolha",
+   "prioridade": "alta",
+   "hipotese_atual": "inspeção",
+   "valor_atual": "inspecao"
+  },
+  {
+   "id": "E4.5",
+   "questao": "E4",
+   "tema": "Ilícitos no mar",
+   "titulo": "Quando a repressão se efetiva",
+   "item": "Pirataria / roubo armado",
+   "parametros": [
+    "TIPOS_OCORRENCIA.pirataria.etapaRepressao"
+   ],
+   "conversao": "categoria",
+   "regra": "opção escolhida → valor da tabela de opções",
+   "opcoes": {
+    "interrogação": "interrogacao",
+    "identificação": "identificacao",
+    "abordagem": "abordagem",
+    "inspeção": "inspecao",
+    "apresamento": "apresamento"
+   },
+   "unidade": "escolha",
+   "prioridade": "alta",
+   "hipotese_atual": "abordagem",
+   "valor_atual": "abordagem"
+  },
+  {
+   "id": "E4.6",
+   "questao": "E4",
+   "tema": "Ilícitos no mar",
+   "titulo": "Quando a repressão se efetiva",
+   "item": "Imigração irregular",
+   "parametros": [
+    "TIPOS_OCORRENCIA.imigracao.etapaRepressao"
+   ],
+   "conversao": "categoria",
+   "regra": "opção escolhida → valor da tabela de opções",
+   "opcoes": {
+    "interrogação": "interrogacao",
+    "identificação": "identificacao",
+    "abordagem": "abordagem",
+    "inspeção": "inspecao",
+    "apresamento": "apresamento"
+   },
+   "unidade": "escolha",
+   "prioridade": "alta",
+   "hipotese_atual": "abordagem",
+   "valor_atual": "abordagem"
+  },
+  {
+   "id": "E5.1",
+   "questao": "E5",
+   "tema": "Ilícitos no mar",
+   "titulo": "Ilícitos como instrumento de um ator estatal",
+   "item": "Interesse do ator em explorar: Narcotráfico (0 = nenhum, 3 = muito)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.narcotrafico.exploravel"
+   ],
+   "conversao": "inteiro",
+   "regra": "parâmetro = resposta, arredondada",
+   "unidade": "0 a 3",
+   "prioridade": "alta",
+   "hipotese_atual": 1,
+   "valor_atual": 1
+  },
+  {
+   "id": "E5.2",
+   "questao": "E5",
+   "tema": "Ilícitos no mar",
+   "titulo": "Ilícitos como instrumento de um ator estatal",
+   "item": "Interesse do ator em explorar: Contrabando / descaminho (0 = nenhum, 3 = muito)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.contrabando.exploravel"
+   ],
+   "conversao": "inteiro",
+   "regra": "parâmetro = resposta, arredondada",
+   "unidade": "0 a 3",
+   "prioridade": "alta",
+   "hipotese_atual": 1,
+   "valor_atual": 1
+  },
+  {
+   "id": "E5.3",
+   "questao": "E5",
+   "tema": "Ilícitos no mar",
+   "titulo": "Ilícitos como instrumento de um ator estatal",
+   "item": "Interesse do ator em explorar: Pesca irregular (IUU) (0 = nenhum, 3 = muito)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.pesca_iuu.exploravel"
+   ],
+   "conversao": "inteiro",
+   "regra": "parâmetro = resposta, arredondada",
+   "unidade": "0 a 3",
+   "prioridade": "alta",
+   "hipotese_atual": 3,
+   "valor_atual": 3
+  },
+  {
+   "id": "E5.4",
+   "questao": "E5",
+   "tema": "Ilícitos no mar",
+   "titulo": "Ilícitos como instrumento de um ator estatal",
+   "item": "Interesse do ator em explorar: Crime ambiental (0 = nenhum, 3 = muito)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.crime_ambiental.exploravel"
+   ],
+   "conversao": "inteiro",
+   "regra": "parâmetro = resposta, arredondada",
+   "unidade": "0 a 3",
+   "prioridade": "alta",
+   "hipotese_atual": 2,
+   "valor_atual": 2
+  },
+  {
+   "id": "E5.5",
+   "questao": "E5",
+   "tema": "Ilícitos no mar",
+   "titulo": "Ilícitos como instrumento de um ator estatal",
+   "item": "Interesse do ator em explorar: Pirataria / roubo armado (0 = nenhum, 3 = muito)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.pirataria.exploravel"
+   ],
+   "conversao": "inteiro",
+   "regra": "parâmetro = resposta, arredondada",
+   "unidade": "0 a 3",
+   "prioridade": "alta",
+   "hipotese_atual": 1,
+   "valor_atual": 1
+  },
+  {
+   "id": "E5.6",
+   "questao": "E5",
+   "tema": "Ilícitos no mar",
+   "titulo": "Ilícitos como instrumento de um ator estatal",
+   "item": "Interesse do ator em explorar: Imigração irregular (0 = nenhum, 3 = muito)",
+   "parametros": [
+    "TIPOS_OCORRENCIA.imigracao.exploravel"
+   ],
+   "conversao": "inteiro",
+   "regra": "parâmetro = resposta, arredondada",
+   "unidade": "0 a 3",
+   "prioridade": "alta",
+   "hipotese_atual": 2,
+   "valor_atual": 2
+  },
+  {
+   "id": "E5.7",
+   "questao": "E5",
+   "tema": "Ilícitos no mar",
+   "titulo": "Ilícitos como instrumento de um ator estatal",
+   "item": "Ocorrências adicionais por mês, em campanha de intensidade máxima, nas áreas fora do esforço principal do ator",
+   "parametros": [
+    "ACOPLAMENTO.lambdaSaturacaoMax"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "ocorrências por mês",
+   "prioridade": "alta",
+   "hipotese_atual": 45,
+   "valor_atual": 1.5
+  },
+  {
+   "id": "E5.8",
+   "questao": "E5",
+   "tema": "Ilícitos no mar",
+   "titulo": "Ilícitos como instrumento de um ator estatal",
+   "item": "Fração das ocorrências rotineiras que serviriam de cobertura, em campanha de intensidade máxima",
+   "parametros": [
+    "ACOPLAMENTO.pCoberturaMax"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "alta",
+   "hipotese_atual": 15,
+   "valor_atual": 0.15
+  },
+  {
+   "id": "E5.9",
+   "questao": "E5",
+   "tema": "Ilícitos no mar",
+   "titulo": "Ilícitos como instrumento de um ator estatal",
+   "item": "Fase da ação em que o vínculo de uma ocorrência de cobertura com o ator viria à tona",
+   "parametros": [
+    "ACOPLAMENTO.etapaRevelaVinculo"
+   ],
+   "conversao": "categoria",
+   "regra": "opção escolhida → valor da tabela de opções",
+   "opcoes": {
+    "interrogação": "interrogacao",
+    "identificação": "identificacao",
+    "abordagem": "abordagem",
+    "inspeção": "inspecao",
+    "apresamento": "apresamento"
+   },
+   "unidade": "escolha",
+   "prioridade": "alta",
+   "hipotese_atual": "inspeção",
+   "valor_atual": "inspecao"
+  },
+  {
+   "id": "F1.1",
+   "questao": "F1",
+   "tema": "Ameaça híbrida",
+   "titulo": "Ritmo da campanha",
+   "item": "Quantas ações hostis por mês?",
+   "parametros": [
+    "HIBRIDO.acoesPorTurno"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "ações por mês",
+   "prioridade": "alta",
+   "hipotese_atual": 18,
+   "valor_atual": 0.6
+  },
+  {
+   "id": "F1.2",
+   "questao": "F1",
+   "tema": "Ameaça híbrida",
+   "titulo": "Ritmo da campanha",
+   "item": "Que fração delas concentrada na área de esforço principal?",
+   "parametros": [
+    "HIBRIDO.pAreaAlvo"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "alta",
+   "hipotese_atual": 70,
+   "valor_atual": 0.7
+  },
+  {
+   "id": "F1.3",
+   "questao": "F1",
+   "tema": "Ameaça híbrida",
+   "titulo": "Ritmo da campanha",
+   "item": "Com a postura já em Crise, qual a chance, em um mês, de o ator passar ao emprego aberto de meios?",
+   "parametros": [
+    "HIBRIDO.empregoAberto.pPorTurno"
+   ],
+   "conversao": "prob_mensal",
+   "regra": "probabilidade por turno = 1 − (1 − resposta ÷ 100)^(1/30)",
+   "unidade": "% em um mês",
+   "prioridade": "alta",
+   "hipotese_atual": 78.53612360570628,
+   "valor_atual": 0.05
+  },
+  {
+   "id": "F2.1",
+   "questao": "F2",
+   "tema": "Ameaça híbrida",
+   "titulo": "Frequência relativa dos modos de ação",
+   "item": "Frota-sombra (transponder desligado, bandeira de conveniência)",
+   "parametros": [
+    "HIBRIDO.vetores.frota_sombra.peso"
+   ],
+   "conversao": "normalizado",
+   "regra": "participação relativa; os valores do grupo são reescalados para manter a soma atual do grupo",
+   "grupo": "vetores",
+   "unidade": "% do total",
+   "prioridade": "alta",
+   "hipotese_atual": 21.428571428571427,
+   "valor_atual": 3
+  },
+  {
+   "id": "F2.2",
+   "questao": "F2",
+   "tema": "Ameaça híbrida",
+   "titulo": "Frequência relativa dos modos de ação",
+   "item": "Milícia marítima (pesqueiros a serviço de outro Estado)",
+   "parametros": [
+    "HIBRIDO.vetores.milicia_maritima.peso"
+   ],
+   "conversao": "normalizado",
+   "regra": "participação relativa; os valores do grupo são reescalados para manter a soma atual do grupo",
+   "grupo": "vetores",
+   "unidade": "% do total",
+   "prioridade": "alta",
+   "hipotese_atual": 21.428571428571427,
+   "valor_atual": 3
+  },
+  {
+   "id": "F2.3",
+   "questao": "F2",
+   "tema": "Ameaça híbrida",
+   "titulo": "Frequência relativa dos modos de ação",
+   "item": "Sabotagem de cabos e dutos submarinos",
+   "parametros": [
+    "HIBRIDO.vetores.sabotagem_submarina.peso"
+   ],
+   "conversao": "normalizado",
+   "regra": "participação relativa; os valores do grupo são reescalados para manter a soma atual do grupo",
+   "grupo": "vetores",
+   "unidade": "% do total",
+   "prioridade": "alta",
+   "hipotese_atual": 14.285714285714286,
+   "valor_atual": 2
+  },
+  {
+   "id": "F2.4",
+   "questao": "F2",
+   "tema": "Ameaça híbrida",
+   "titulo": "Frequência relativa dos modos de ação",
+   "item": "Drones de superfície ou aéreos sem identificação",
+   "parametros": [
+    "HIBRIDO.vetores.usv_uav.peso"
+   ],
+   "conversao": "normalizado",
+   "regra": "participação relativa; os valores do grupo são reescalados para manter a soma atual do grupo",
+   "grupo": "vetores",
+   "unidade": "% do total",
+   "prioridade": "alta",
+   "hipotese_atual": 14.285714285714286,
+   "valor_atual": 2
+  },
+  {
+   "id": "F2.5",
+   "questao": "F2",
+   "tema": "Ameaça híbrida",
+   "titulo": "Frequência relativa dos modos de ação",
+   "item": "Interferência em navegação por satélite (GNSS)",
+   "parametros": [
+    "HIBRIDO.vetores.gnss.peso"
+   ],
+   "conversao": "normalizado",
+   "regra": "participação relativa; os valores do grupo são reescalados para manter a soma atual do grupo",
+   "grupo": "vetores",
+   "unidade": "% do total",
+   "prioridade": "alta",
+   "hipotese_atual": 14.285714285714286,
+   "valor_atual": 2
+  },
+  {
+   "id": "F2.6",
+   "questao": "F2",
+   "tema": "Ameaça híbrida",
+   "titulo": "Frequência relativa dos modos de ação",
+   "item": "Ataque cibernético a terminais e portos",
+   "parametros": [
+    "HIBRIDO.vetores.ciber.peso"
+   ],
+   "conversao": "normalizado",
+   "regra": "participação relativa; os valores do grupo são reescalados para manter a soma atual do grupo",
+   "grupo": "vetores",
+   "unidade": "% do total",
+   "prioridade": "alta",
+   "hipotese_atual": 7.142857142857143,
+   "valor_atual": 1
+  },
+  {
+   "id": "F2.7",
+   "questao": "F2",
+   "tema": "Ameaça híbrida",
+   "titulo": "Frequência relativa dos modos de ação",
+   "item": "Minagem encoberta",
+   "parametros": [
+    "HIBRIDO.vetores.minagem.peso"
+   ],
+   "conversao": "normalizado",
+   "regra": "participação relativa; os valores do grupo são reescalados para manter a soma atual do grupo",
+   "grupo": "vetores",
+   "unidade": "% do total",
+   "prioridade": "alta",
+   "hipotese_atual": 7.142857142857143,
+   "valor_atual": 1
+  },
+  {
+   "id": "F3.1",
+   "questao": "F3",
+   "tema": "Ameaça híbrida",
+   "titulo": "Prazo até o efeito",
+   "item": "Frota-sombra (transponder desligado, bandeira de conveniência)",
+   "parametros": [
+    "HIBRIDO.vetores.frota_sombra.janela"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "alta",
+   "hipotese_atual": 3,
+   "valor_atual": 3
+  },
+  {
+   "id": "F3.2",
+   "questao": "F3",
+   "tema": "Ameaça híbrida",
+   "titulo": "Prazo até o efeito",
+   "item": "Milícia marítima (pesqueiros a serviço de outro Estado)",
+   "parametros": [
+    "HIBRIDO.vetores.milicia_maritima.janela"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "alta",
+   "hipotese_atual": 2,
+   "valor_atual": 2
+  },
+  {
+   "id": "F3.3",
+   "questao": "F3",
+   "tema": "Ameaça híbrida",
+   "titulo": "Prazo até o efeito",
+   "item": "Sabotagem de cabos e dutos submarinos",
+   "parametros": [
+    "HIBRIDO.vetores.sabotagem_submarina.janela"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "alta",
+   "hipotese_atual": 2,
+   "valor_atual": 2
+  },
+  {
+   "id": "F3.4",
+   "questao": "F3",
+   "tema": "Ameaça híbrida",
+   "titulo": "Prazo até o efeito",
+   "item": "Drones de superfície ou aéreos sem identificação",
+   "parametros": [
+    "HIBRIDO.vetores.usv_uav.janela"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "alta",
+   "hipotese_atual": 1,
+   "valor_atual": 1
+  },
+  {
+   "id": "F3.5",
+   "questao": "F3",
+   "tema": "Ameaça híbrida",
+   "titulo": "Prazo até o efeito",
+   "item": "Interferência em navegação por satélite (GNSS)",
+   "parametros": [
+    "HIBRIDO.vetores.gnss.janela"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "alta",
+   "hipotese_atual": 2,
+   "valor_atual": 2
+  },
+  {
+   "id": "F3.6",
+   "questao": "F3",
+   "tema": "Ameaça híbrida",
+   "titulo": "Prazo até o efeito",
+   "item": "Minagem encoberta",
+   "parametros": [
+    "HIBRIDO.vetores.minagem.janela"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "alta",
+   "hipotese_atual": 3,
+   "valor_atual": 3
+  },
+  {
+   "id": "F4.1",
+   "questao": "F4",
+   "tema": "Ameaça híbrida",
+   "titulo": "Gravidade do dano",
+   "item": "Frota-sombra (transponder desligado, bandeira de conveniência)",
+   "parametros": [
+    "HIBRIDO.vetores.frota_sombra.dano"
+   ],
+   "conversao": "categoria",
+   "regra": "opção escolhida → valor da tabela de opções",
+   "opcoes": {
+    "leve": 1,
+    "moderado": 2,
+    "grave": 3
+   },
+   "unidade": "escolha",
+   "prioridade": "alta",
+   "hipotese_atual": "moderado",
+   "valor_atual": 2
+  },
+  {
+   "id": "F4.2",
+   "questao": "F4",
+   "tema": "Ameaça híbrida",
+   "titulo": "Gravidade do dano",
+   "item": "Milícia marítima (pesqueiros a serviço de outro Estado)",
+   "parametros": [
+    "HIBRIDO.vetores.milicia_maritima.dano"
+   ],
+   "conversao": "categoria",
+   "regra": "opção escolhida → valor da tabela de opções",
+   "opcoes": {
+    "leve": 1,
+    "moderado": 2,
+    "grave": 3
+   },
+   "unidade": "escolha",
+   "prioridade": "alta",
+   "hipotese_atual": "leve",
+   "valor_atual": 1
+  },
+  {
+   "id": "F4.3",
+   "questao": "F4",
+   "tema": "Ameaça híbrida",
+   "titulo": "Gravidade do dano",
+   "item": "Sabotagem de cabos e dutos submarinos",
+   "parametros": [
+    "HIBRIDO.vetores.sabotagem_submarina.dano"
+   ],
+   "conversao": "categoria",
+   "regra": "opção escolhida → valor da tabela de opções",
+   "opcoes": {
+    "leve": 1,
+    "moderado": 2,
+    "grave": 3
+   },
+   "unidade": "escolha",
+   "prioridade": "alta",
+   "hipotese_atual": "grave",
+   "valor_atual": 3
+  },
+  {
+   "id": "F4.4",
+   "questao": "F4",
+   "tema": "Ameaça híbrida",
+   "titulo": "Gravidade do dano",
+   "item": "Drones de superfície ou aéreos sem identificação",
+   "parametros": [
+    "HIBRIDO.vetores.usv_uav.dano"
+   ],
+   "conversao": "categoria",
+   "regra": "opção escolhida → valor da tabela de opções",
+   "opcoes": {
+    "leve": 1,
+    "moderado": 2,
+    "grave": 3
+   },
+   "unidade": "escolha",
+   "prioridade": "alta",
+   "hipotese_atual": "moderado",
+   "valor_atual": 2
+  },
+  {
+   "id": "F4.5",
+   "questao": "F4",
+   "tema": "Ameaça híbrida",
+   "titulo": "Gravidade do dano",
+   "item": "Interferência em navegação por satélite (GNSS)",
+   "parametros": [
+    "HIBRIDO.vetores.gnss.dano"
+   ],
+   "conversao": "categoria",
+   "regra": "opção escolhida → valor da tabela de opções",
+   "opcoes": {
+    "leve": 1,
+    "moderado": 2,
+    "grave": 3
+   },
+   "unidade": "escolha",
+   "prioridade": "alta",
+   "hipotese_atual": "leve",
+   "valor_atual": 1
+  },
+  {
+   "id": "F4.6",
+   "questao": "F4",
+   "tema": "Ameaça híbrida",
+   "titulo": "Gravidade do dano",
+   "item": "Ataque cibernético a terminais e portos",
+   "parametros": [
+    "HIBRIDO.vetores.ciber.dano"
+   ],
+   "conversao": "categoria",
+   "regra": "opção escolhida → valor da tabela de opções",
+   "opcoes": {
+    "leve": 1,
+    "moderado": 2,
+    "grave": 3
+   },
+   "unidade": "escolha",
+   "prioridade": "alta",
+   "hipotese_atual": "moderado",
+   "valor_atual": 2
+  },
+  {
+   "id": "F4.7",
+   "questao": "F4",
+   "tema": "Ameaça híbrida",
+   "titulo": "Gravidade do dano",
+   "item": "Minagem encoberta",
+   "parametros": [
+    "HIBRIDO.vetores.minagem.dano"
+   ],
+   "conversao": "categoria",
+   "regra": "opção escolhida → valor da tabela de opções",
+   "opcoes": {
+    "leve": 1,
+    "moderado": 2,
+    "grave": 3
+   },
+   "unidade": "escolha",
+   "prioridade": "alta",
+   "hipotese_atual": "grave",
+   "valor_atual": 3
+  },
+  {
+   "id": "F5.1",
+   "questao": "F5",
+   "tema": "Ameaça híbrida",
+   "titulo": "Dificuldade de detecção",
+   "item": "Frota-sombra (transponder desligado, bandeira de conveniência)",
+   "parametros": [
+    "HIBRIDO.vetores.frota_sombra.evasao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% de redução",
+   "prioridade": "alta",
+   "hipotese_atual": 35,
+   "valor_atual": 0.35
+  },
+  {
+   "id": "F5.2",
+   "questao": "F5",
+   "tema": "Ameaça híbrida",
+   "titulo": "Dificuldade de detecção",
+   "item": "Milícia marítima (pesqueiros a serviço de outro Estado)",
+   "parametros": [
+    "HIBRIDO.vetores.milicia_maritima.evasao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% de redução",
+   "prioridade": "alta",
+   "hipotese_atual": 10,
+   "valor_atual": 0.1
+  },
+  {
+   "id": "F5.3",
+   "questao": "F5",
+   "tema": "Ameaça híbrida",
+   "titulo": "Dificuldade de detecção",
+   "item": "Sabotagem de cabos e dutos submarinos",
+   "parametros": [
+    "HIBRIDO.vetores.sabotagem_submarina.evasao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% de redução",
+   "prioridade": "alta",
+   "hipotese_atual": 45,
+   "valor_atual": 0.45
+  },
+  {
+   "id": "F5.4",
+   "questao": "F5",
+   "tema": "Ameaça híbrida",
+   "titulo": "Dificuldade de detecção",
+   "item": "Drones de superfície ou aéreos sem identificação",
+   "parametros": [
+    "HIBRIDO.vetores.usv_uav.evasao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% de redução",
+   "prioridade": "alta",
+   "hipotese_atual": 30,
+   "valor_atual": 0.3
+  },
+  {
+   "id": "F5.5",
+   "questao": "F5",
+   "tema": "Ameaça híbrida",
+   "titulo": "Dificuldade de detecção",
+   "item": "Interferência em navegação por satélite (GNSS)",
+   "parametros": [
+    "HIBRIDO.vetores.gnss.evasao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% de redução",
+   "prioridade": "alta",
+   "hipotese_atual": 20,
+   "valor_atual": 0.2
+  },
+  {
+   "id": "F5.6",
+   "questao": "F5",
+   "tema": "Ameaça híbrida",
+   "titulo": "Dificuldade de detecção",
+   "item": "Minagem encoberta",
+   "parametros": [
+    "HIBRIDO.vetores.minagem.evasao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "% de redução",
+   "prioridade": "alta",
+   "hipotese_atual": 40,
+   "valor_atual": 0.4
+  },
+  {
+   "id": "F6.1",
+   "questao": "F6",
+   "tema": "Ameaça híbrida",
+   "titulo": "Fase da ação que frustra a ameaça",
+   "item": "Frota-sombra (transponder desligado, bandeira de conveniência)",
+   "parametros": [
+    "HIBRIDO.vetores.frota_sombra.etapaNeutraliza"
+   ],
+   "conversao": "categoria",
+   "regra": "opção escolhida → valor da tabela de opções",
+   "opcoes": {
+    "interrogação": "interrogacao",
+    "identificação": "identificacao",
+    "abordagem": "abordagem",
+    "inspeção": "inspecao",
+    "apresamento": "apresamento"
+   },
+   "unidade": "escolha",
+   "prioridade": "alta",
+   "hipotese_atual": "abordagem",
+   "valor_atual": "abordagem"
+  },
+  {
+   "id": "F6.2",
+   "questao": "F6",
+   "tema": "Ameaça híbrida",
+   "titulo": "Fase da ação que frustra a ameaça",
+   "item": "Milícia marítima (pesqueiros a serviço de outro Estado)",
+   "parametros": [
+    "HIBRIDO.vetores.milicia_maritima.etapaNeutraliza"
+   ],
+   "conversao": "categoria",
+   "regra": "opção escolhida → valor da tabela de opções",
+   "opcoes": {
+    "interrogação": "interrogacao",
+    "identificação": "identificacao",
+    "abordagem": "abordagem",
+    "inspeção": "inspecao",
+    "apresamento": "apresamento"
+   },
+   "unidade": "escolha",
+   "prioridade": "alta",
+   "hipotese_atual": "interrogação",
+   "valor_atual": "interrogacao"
+  },
+  {
+   "id": "F6.3",
+   "questao": "F6",
+   "tema": "Ameaça híbrida",
+   "titulo": "Fase da ação que frustra a ameaça",
+   "item": "Sabotagem de cabos e dutos submarinos",
+   "parametros": [
+    "HIBRIDO.vetores.sabotagem_submarina.etapaNeutraliza"
+   ],
+   "conversao": "categoria",
+   "regra": "opção escolhida → valor da tabela de opções",
+   "opcoes": {
+    "interrogação": "interrogacao",
+    "identificação": "identificacao",
+    "abordagem": "abordagem",
+    "inspeção": "inspecao",
+    "apresamento": "apresamento"
+   },
+   "unidade": "escolha",
+   "prioridade": "alta",
+   "hipotese_atual": "identificação",
+   "valor_atual": "identificacao"
+  },
+  {
+   "id": "F6.4",
+   "questao": "F6",
+   "tema": "Ameaça híbrida",
+   "titulo": "Fase da ação que frustra a ameaça",
+   "item": "Drones de superfície ou aéreos sem identificação",
+   "parametros": [
+    "HIBRIDO.vetores.usv_uav.etapaNeutraliza"
+   ],
+   "conversao": "categoria",
+   "regra": "opção escolhida → valor da tabela de opções",
+   "opcoes": {
+    "interrogação": "interrogacao",
+    "identificação": "identificacao",
+    "abordagem": "abordagem",
+    "inspeção": "inspecao",
+    "apresamento": "apresamento"
+   },
+   "unidade": "escolha",
+   "prioridade": "alta",
+   "hipotese_atual": "identificação",
+   "valor_atual": "identificacao"
+  },
+  {
+   "id": "F6.5",
+   "questao": "F6",
+   "tema": "Ameaça híbrida",
+   "titulo": "Fase da ação que frustra a ameaça",
+   "item": "Interferência em navegação por satélite (GNSS)",
+   "parametros": [
+    "HIBRIDO.vetores.gnss.etapaNeutraliza"
+   ],
+   "conversao": "categoria",
+   "regra": "opção escolhida → valor da tabela de opções",
+   "opcoes": {
+    "interrogação": "interrogacao",
+    "identificação": "identificacao",
+    "abordagem": "abordagem",
+    "inspeção": "inspecao",
+    "apresamento": "apresamento"
+   },
+   "unidade": "escolha",
+   "prioridade": "alta",
+   "hipotese_atual": "identificação",
+   "valor_atual": "identificacao"
+  },
+  {
+   "id": "F6.6",
+   "questao": "F6",
+   "tema": "Ameaça híbrida",
+   "titulo": "Fase da ação que frustra a ameaça",
+   "item": "Minagem encoberta",
+   "parametros": [
+    "HIBRIDO.vetores.minagem.etapaNeutraliza"
+   ],
+   "conversao": "categoria",
+   "regra": "opção escolhida → valor da tabela de opções",
+   "opcoes": {
+    "interrogação": "interrogacao",
+    "identificação": "identificacao",
+    "abordagem": "abordagem",
+    "inspeção": "inspecao",
+    "apresamento": "apresamento"
+   },
+   "unidade": "escolha",
+   "prioridade": "alta",
+   "hipotese_atual": "identificação",
+   "valor_atual": "identificacao"
+  },
+  {
+   "id": "F7.1",
+   "questao": "F7",
+   "tema": "Ameaça híbrida",
+   "titulo": "Ataque cibernético a portos",
+   "item": "Sem defesa cibernética integrada ao quadro",
+   "parametros": [
+    "HIBRIDO.ciber.pDano"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "alta",
+   "hipotese_atual": 100,
+   "valor_atual": 1
+  },
+  {
+   "id": "F7.2",
+   "questao": "F7",
+   "tema": "Ameaça híbrida",
+   "titulo": "Ataque cibernético a portos",
+   "item": "Com defesa integrada plena",
+   "parametros": [
+    "HIBRIDO.ciber.reducaoPorFusao"
+   ],
+   "conversao": "reducao",
+   "regra": "parâmetro = (resposta da linha de referência − resposta) ÷ 100",
+   "referencia": "F7.1",
+   "unidade": "%",
+   "prioridade": "alta",
+   "hipotese_atual": 50,
+   "valor_atual": 0.5
+  },
+  {
+   "id": "F7.3",
+   "questao": "F7",
+   "tema": "Ameaça híbrida",
+   "titulo": "Ataque cibernético a portos",
+   "item": "Convicção inicial sobre a autoria logo após o ataque",
+   "parametros": [
+    "HIBRIDO.ciber.atribuicao"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "% de convicção",
+   "prioridade": "alta",
+   "hipotese_atual": 10,
+   "valor_atual": 10
+  },
+  {
+   "id": "F8.1",
+   "questao": "F8",
+   "tema": "Ameaça híbrida",
+   "titulo": "Desinformação",
+   "item": "Sem um fato real a explorar, a cada quantos dias surge uma campanha fabricada?",
+   "parametros": [
+    "HIBRIDO.fabricarACada"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "alta",
+   "hipotese_atual": 5,
+   "valor_atual": 5
+  },
+  {
+   "id": "F8.2",
+   "questao": "F8",
+   "tema": "Ameaça híbrida",
+   "titulo": "Desinformação",
+   "item": "Uma campanha fabricada tem que fração do efeito de uma que explora um fato real?",
+   "parametros": [
+    "HIBRIDO.intensidadeFabricacao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "alta",
+   "hipotese_atual": 50,
+   "valor_atual": 0.5
+  },
+  {
+   "id": "G1.1",
+   "questao": "G1",
+   "tema": "Apoio interagências",
+   "titulo": "Prazos e disponibilidade",
+   "item": "Patrulha marítima (FAB): dias até o apoio estar em ação",
+   "parametros": [
+    "APOIOS.mpa.prazo"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "média",
+   "hipotese_atual": 1,
+   "valor_atual": 1
+  },
+  {
+   "id": "G1.2",
+   "questao": "G1",
+   "tema": "Apoio interagências",
+   "titulo": "Prazos e disponibilidade",
+   "item": "Patrulha marítima (FAB): dias de permanência do apoio",
+   "parametros": [
+    "APOIOS.mpa.duracao"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "média",
+   "hipotese_atual": 1,
+   "valor_atual": 1
+  },
+  {
+   "id": "G1.3",
+   "questao": "G1",
+   "tema": "Apoio interagências",
+   "titulo": "Prazos e disponibilidade",
+   "item": "Patrulha marítima (FAB): em que fração das solicitações o apoio é concedido",
+   "parametros": [
+    "APOIOS.mpa.disponibilidade"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 80,
+   "valor_atual": 0.8
+  },
+  {
+   "id": "G1.4",
+   "questao": "G1",
+   "tema": "Apoio interagências",
+   "titulo": "Prazos e disponibilidade",
+   "item": "Polícia Federal: dias até o apoio estar em ação",
+   "parametros": [
+    "APOIOS.pf.prazo"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "média",
+   "hipotese_atual": 1,
+   "valor_atual": 1
+  },
+  {
+   "id": "G1.5",
+   "questao": "G1",
+   "tema": "Apoio interagências",
+   "titulo": "Prazos e disponibilidade",
+   "item": "Polícia Federal: dias de permanência do apoio",
+   "parametros": [
+    "APOIOS.pf.duracao"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "média",
+   "hipotese_atual": 3,
+   "valor_atual": 3
+  },
+  {
+   "id": "G1.6",
+   "questao": "G1",
+   "tema": "Apoio interagências",
+   "titulo": "Prazos e disponibilidade",
+   "item": "Polícia Federal: em que fração das solicitações o apoio é concedido",
+   "parametros": [
+    "APOIOS.pf.disponibilidade"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 90,
+   "valor_atual": 0.9
+  },
+  {
+   "id": "G1.7",
+   "questao": "G1",
+   "tema": "Apoio interagências",
+   "titulo": "Prazos e disponibilidade",
+   "item": "Receita Federal: dias até o apoio estar em ação",
+   "parametros": [
+    "APOIOS.rf.prazo"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "média",
+   "hipotese_atual": 1,
+   "valor_atual": 1
+  },
+  {
+   "id": "G1.8",
+   "questao": "G1",
+   "tema": "Apoio interagências",
+   "titulo": "Prazos e disponibilidade",
+   "item": "Receita Federal: dias de permanência do apoio",
+   "parametros": [
+    "APOIOS.rf.duracao"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "média",
+   "hipotese_atual": 3,
+   "valor_atual": 3
+  },
+  {
+   "id": "G1.9",
+   "questao": "G1",
+   "tema": "Apoio interagências",
+   "titulo": "Prazos e disponibilidade",
+   "item": "Receita Federal: em que fração das solicitações o apoio é concedido",
+   "parametros": [
+    "APOIOS.rf.disponibilidade"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 90,
+   "valor_atual": 0.9
+  },
+  {
+   "id": "G1.10",
+   "questao": "G1",
+   "tema": "Apoio interagências",
+   "titulo": "Prazos e disponibilidade",
+   "item": "IBAMA: dias até o apoio estar em ação",
+   "parametros": [
+    "APOIOS.ibama.prazo"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "média",
+   "hipotese_atual": 2,
+   "valor_atual": 2
+  },
+  {
+   "id": "G1.11",
+   "questao": "G1",
+   "tema": "Apoio interagências",
+   "titulo": "Prazos e disponibilidade",
+   "item": "IBAMA: dias de permanência do apoio",
+   "parametros": [
+    "APOIOS.ibama.duracao"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "média",
+   "hipotese_atual": 3,
+   "valor_atual": 3
+  },
+  {
+   "id": "G1.12",
+   "questao": "G1",
+   "tema": "Apoio interagências",
+   "titulo": "Prazos e disponibilidade",
+   "item": "IBAMA: em que fração das solicitações o apoio é concedido",
+   "parametros": [
+    "APOIOS.ibama.disponibilidade"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 80,
+   "valor_atual": 0.8
+  },
+  {
+   "id": "G1.13",
+   "questao": "G1",
+   "tema": "Apoio interagências",
+   "titulo": "Prazos e disponibilidade",
+   "item": "CENSIPAM (imageamento): dias até o apoio estar em ação",
+   "parametros": [
+    "APOIOS.censipam.prazo"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "média",
+   "hipotese_atual": 1,
+   "valor_atual": 1
+  },
+  {
+   "id": "G1.14",
+   "questao": "G1",
+   "tema": "Apoio interagências",
+   "titulo": "Prazos e disponibilidade",
+   "item": "CENSIPAM (imageamento): dias de permanência do apoio",
+   "parametros": [
+    "APOIOS.censipam.duracao"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "média",
+   "hipotese_atual": 2,
+   "valor_atual": 2
+  },
+  {
+   "id": "G1.15",
+   "questao": "G1",
+   "tema": "Apoio interagências",
+   "titulo": "Prazos e disponibilidade",
+   "item": "CENSIPAM (imageamento): em que fração das solicitações o apoio é concedido",
+   "parametros": [
+    "APOIOS.censipam.disponibilidade"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 90,
+   "valor_atual": 0.9
+  },
+  {
+   "id": "G1.16",
+   "questao": "G1",
+   "tema": "Apoio interagências",
+   "titulo": "Prazos e disponibilidade",
+   "item": "Inteligência internacional: dias até o apoio estar em ação",
+   "parametros": [
+    "APOIOS.intl.prazo"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "média",
+   "hipotese_atual": 3,
+   "valor_atual": 3
+  },
+  {
+   "id": "G1.17",
+   "questao": "G1",
+   "tema": "Apoio interagências",
+   "titulo": "Prazos e disponibilidade",
+   "item": "Inteligência internacional: dias de permanência do apoio",
+   "parametros": [
+    "APOIOS.intl.duracao"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "média",
+   "hipotese_atual": 5,
+   "valor_atual": 5
+  },
+  {
+   "id": "G1.18",
+   "questao": "G1",
+   "tema": "Apoio interagências",
+   "titulo": "Prazos e disponibilidade",
+   "item": "Inteligência internacional: em que fração das solicitações o apoio é concedido",
+   "parametros": [
+    "APOIOS.intl.disponibilidade"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 60,
+   "valor_atual": 0.6
+  },
+  {
+   "id": "G2.1",
+   "questao": "G2",
+   "tema": "Apoio interagências",
+   "titulo": "Efeito do apoio",
+   "item": "Patrulha marítima (FAB): acréscimo na qualidade do quadro (pontos percentuais)",
+   "parametros": [
+    "APOIOS.mpa.bonusFusao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "pontos percentuais",
+   "prioridade": "média",
+   "hipotese_atual": 20,
+   "valor_atual": 0.2
+  },
+  {
+   "id": "G2.2",
+   "questao": "G2",
+   "tema": "Apoio interagências",
+   "titulo": "Efeito do apoio",
+   "item": "Polícia Federal: ganho de efetividade da ação de repressão",
+   "parametros": [
+    "APOIOS.pf.fatorCapacidade"
+   ],
+   "conversao": "ganho",
+   "regra": "multiplicador = 1 + resposta ÷ 100",
+   "unidade": "% de ganho",
+   "prioridade": "média",
+   "hipotese_atual": 30.000000000000004,
+   "valor_atual": 1.3
+  },
+  {
+   "id": "G2.3",
+   "questao": "G2",
+   "tema": "Apoio interagências",
+   "titulo": "Efeito do apoio",
+   "item": "Receita Federal: ganho de efetividade da ação de repressão",
+   "parametros": [
+    "APOIOS.rf.fatorCapacidade"
+   ],
+   "conversao": "ganho",
+   "regra": "multiplicador = 1 + resposta ÷ 100",
+   "unidade": "% de ganho",
+   "prioridade": "média",
+   "hipotese_atual": 30.000000000000004,
+   "valor_atual": 1.3
+  },
+  {
+   "id": "G2.4",
+   "questao": "G2",
+   "tema": "Apoio interagências",
+   "titulo": "Efeito do apoio",
+   "item": "IBAMA: ganho de efetividade da ação de repressão",
+   "parametros": [
+    "APOIOS.ibama.fatorCapacidade"
+   ],
+   "conversao": "ganho",
+   "regra": "multiplicador = 1 + resposta ÷ 100",
+   "unidade": "% de ganho",
+   "prioridade": "média",
+   "hipotese_atual": 30.000000000000004,
+   "valor_atual": 1.3
+  },
+  {
+   "id": "G2.5",
+   "questao": "G2",
+   "tema": "Apoio interagências",
+   "titulo": "Efeito do apoio",
+   "item": "CENSIPAM (imageamento): acréscimo na qualidade do quadro (pontos percentuais)",
+   "parametros": [
+    "APOIOS.censipam.bonusFusao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "pontos percentuais",
+   "prioridade": "média",
+   "hipotese_atual": 10,
+   "valor_atual": 0.1
+  },
+  {
+   "id": "G2.6",
+   "questao": "G2",
+   "tema": "Apoio interagências",
+   "titulo": "Efeito do apoio",
+   "item": "Inteligência internacional: aceleração do esclarecimento de autoria",
+   "parametros": [
+    "APOIOS.intl.fatorRitmo"
+   ],
+   "conversao": "ganho",
+   "regra": "multiplicador = 1 + resposta ÷ 100",
+   "unidade": "% de ganho",
+   "prioridade": "média",
+   "hipotese_atual": 50,
+   "valor_atual": 1.5
+  },
+  {
+   "id": "H1.1",
+   "questao": "H1",
+   "tema": "Prontidão",
+   "titulo": "Tempo de resposta por escalão",
+   "item": "Navio SAR",
+   "parametros": [
+    "PRONTIDAO.sar.atraso"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "não medida",
+   "hipotese_atual": 0,
+   "valor_atual": 0
+  },
+  {
+   "id": "H1.2",
+   "questao": "H1",
+   "tema": "Prontidão",
+   "titulo": "Tempo de resposta por escalão",
+   "item": "Força de Pronto Emprego",
+   "parametros": [
+    "PRONTIDAO.fpe.atraso"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "não medida",
+   "hipotese_atual": 1,
+   "valor_atual": 1
+  },
+  {
+   "id": "H1.3",
+   "questao": "H1",
+   "tema": "Prontidão",
+   "titulo": "Tempo de resposta por escalão",
+   "item": "Demais unidades (aprestamento)",
+   "parametros": [
+    "PRONTIDAO.demais.atraso"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "não medida",
+   "hipotese_atual": 2,
+   "valor_atual": 2
+  },
+  {
+   "id": "H2.1",
+   "questao": "H2",
+   "tema": "Prontidão",
+   "titulo": "Meios em cada escalão",
+   "item": "Navio SAR — Comando-em-Chefe da Esquadra",
+   "parametros": [
+    "PRONTIDAO.sar.porEstacao.ComemCh"
+   ],
+   "conversao": "inteiro",
+   "regra": "parâmetro = resposta, arredondada",
+   "unidade": "meios",
+   "prioridade": "não medida",
+   "hipotese_atual": 1,
+   "valor_atual": 1
+  },
+  {
+   "id": "H2.2",
+   "questao": "H2",
+   "tema": "Prontidão",
+   "titulo": "Meios em cada escalão",
+   "item": "Navio SAR — cada Distrito Naval",
+   "parametros": [
+    "PRONTIDAO.sar.porEstacao.DN"
+   ],
+   "conversao": "inteiro",
+   "regra": "parâmetro = resposta, arredondada",
+   "unidade": "meios",
+   "prioridade": "não medida",
+   "hipotese_atual": 1,
+   "valor_atual": 1
+  },
+  {
+   "id": "H2.3",
+   "questao": "H2",
+   "tema": "Prontidão",
+   "titulo": "Meios em cada escalão",
+   "item": "Força de Pronto Emprego — Comando-em-Chefe da Esquadra",
+   "parametros": [
+    "PRONTIDAO.fpe.porEstacao.ComemCh"
+   ],
+   "conversao": "inteiro",
+   "regra": "parâmetro = resposta, arredondada",
+   "unidade": "meios",
+   "prioridade": "não medida",
+   "hipotese_atual": 3,
+   "valor_atual": 3
+  },
+  {
+   "id": "H2.4",
+   "questao": "H2",
+   "tema": "Prontidão",
+   "titulo": "Meios em cada escalão",
+   "item": "Força de Pronto Emprego — cada Distrito Naval",
+   "parametros": [
+    "PRONTIDAO.fpe.porEstacao.DN"
+   ],
+   "conversao": "inteiro",
+   "regra": "parâmetro = resposta, arredondada",
+   "unidade": "meios",
+   "prioridade": "não medida",
+   "hipotese_atual": 2,
+   "valor_atual": 2
+  },
+  {
+   "id": "I1.1",
+   "questao": "I1",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Apoio da sociedade",
+   "item": "Apoio no início de um período de tensão",
+   "parametros": [
+    "INFOCOG.apoioInicial"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 60,
+   "valor_atual": 60
+  },
+  {
+   "id": "I1.2",
+   "questao": "I1",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Apoio da sociedade",
+   "item": "Patamar habitual para o qual o apoio tende sem novos fatos",
+   "parametros": [
+    "INFOCOG.apoioReferencia"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 60,
+   "valor_atual": 60
+  },
+  {
+   "id": "I1.3",
+   "questao": "I1",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Apoio da sociedade",
+   "item": "Em quantos dias, sem novos fatos, o apoio recupera metade da distância até o patamar habitual",
+   "parametros": [
+    "INFOCOG.retornoPorTurno"
+   ],
+   "conversao": "meia_vida",
+   "regra": "fração recuperada por turno = 1 − 0,5^(1/resposta)",
+   "unidade": "dias",
+   "prioridade": "média",
+   "hipotese_atual": 13.513407333964874,
+   "valor_atual": 0.05
+  },
+  {
+   "id": "I1.4",
+   "questao": "I1",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Apoio da sociedade",
+   "item": "Abaixo de que apoio as regras de engajamento tendem a ser restringidas",
+   "parametros": [
+    "INFOCOG.faixasRoe.estreita"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 30,
+   "valor_atual": 30
+  },
+  {
+   "id": "I1.5",
+   "questao": "I1",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Apoio da sociedade",
+   "item": "Acima de que apoio as regras de engajamento tendem a ser ampliadas",
+   "parametros": [
+    "INFOCOG.faixasRoe.amplia"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 75,
+   "valor_atual": 75
+  },
+  {
+   "id": "I2.1",
+   "questao": "I2",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Efeito de fatos no mar sobre o apoio",
+   "item": "Ilícito reprimido e divulgado",
+   "parametros": [
+    "INFOCOG.eventosMar.reprimida"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "pontos percentuais",
+   "prioridade": "média",
+   "hipotese_atual": 0.5,
+   "valor_atual": 0.5
+  },
+  {
+   "id": "I2.2",
+   "questao": "I2",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Efeito de fatos no mar sobre o apoio",
+   "item": "Salvamento bem-sucedido",
+   "parametros": [
+    "INFOCOG.eventosMar.sar_sucesso"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "pontos percentuais",
+   "prioridade": "média",
+   "hipotese_atual": 3,
+   "valor_atual": 3
+  },
+  {
+   "id": "I2.3",
+   "questao": "I2",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Efeito de fatos no mar sobre o apoio",
+   "item": "Salvamento malsucedido, com vítimas",
+   "parametros": [
+    "INFOCOG.eventosMar.sar_falha"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "pontos percentuais",
+   "prioridade": "média",
+   "hipotese_atual": -4,
+   "valor_atual": -4
+  },
+  {
+   "id": "I2.4",
+   "questao": "I2",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Efeito de fatos no mar sobre o apoio",
+   "item": "Dano a infraestrutura crítica",
+   "parametros": [
+    "INFOCOG.eventosMar.dano_infra"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "pontos percentuais",
+   "prioridade": "média",
+   "hipotese_atual": -2,
+   "valor_atual": -2
+  },
+  {
+   "id": "I2.5",
+   "questao": "I2",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Efeito de fatos no mar sobre o apoio",
+   "item": "Incidente sem resposta visível",
+   "parametros": [
+    "INFOCOG.eventosMar.incidente_nao_respondido"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "pontos percentuais",
+   "prioridade": "média",
+   "hipotese_atual": -1,
+   "valor_atual": -1
+  },
+  {
+   "id": "I2.6",
+   "questao": "I2",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Efeito de fatos no mar sobre o apoio",
+   "item": "Danos a terceiros por ação da Marinha",
+   "parametros": [
+    "INFOCOG.eventosMar.dano_terceiros"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "pontos percentuais",
+   "prioridade": "média",
+   "hipotese_atual": -5,
+   "valor_atual": -5
+  },
+  {
+   "id": "I2.7",
+   "questao": "I2",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Efeito de fatos no mar sobre o apoio",
+   "item": "Dano ambiental por ação militar",
+   "parametros": [
+    "INFOCOG.eventosMar.dano_ambiental"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "pontos percentuais",
+   "prioridade": "média",
+   "hipotese_atual": -4,
+   "valor_atual": -4
+  },
+  {
+   "id": "I3.1",
+   "questao": "I3",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Desinformação e comunicação",
+   "item": "Pontos de apoio perdidos com uma campanha de desinformação de intensidade máxima",
+   "parametros": [
+    "INFOCOG.desinformacao.base"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "pontos percentuais",
+   "prioridade": "média",
+   "hipotese_atual": 6,
+   "valor_atual": 6
+  },
+  {
+   "id": "I3.2",
+   "questao": "I3",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Desinformação e comunicação",
+   "item": "Quanto a mais rende a desinformação quando explora um erro real da Marinha",
+   "parametros": [
+    "INFOCOG.desinformacao.gatilhoReal"
+   ],
+   "conversao": "ganho",
+   "regra": "multiplicador = 1 + resposta ÷ 100",
+   "unidade": "% de ganho",
+   "prioridade": "média",
+   "hipotese_atual": 50,
+   "valor_atual": 1.5
+  },
+  {
+   "id": "I3.3",
+   "questao": "I3",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Desinformação e comunicação",
+   "item": "Pontos de apoio recuperados por: comunicação estratégica",
+   "parametros": [
+    "INFOCOG.campanhas.comunicacao_estrategica.ganho"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "pontos percentuais",
+   "prioridade": "média",
+   "hipotese_atual": 3,
+   "valor_atual": 3
+  },
+  {
+   "id": "I3.4",
+   "questao": "I3",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Desinformação e comunicação",
+   "item": "Pontos de apoio recuperados por: transparência proativa",
+   "parametros": [
+    "INFOCOG.campanhas.transparencia.ganho"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "pontos percentuais",
+   "prioridade": "média",
+   "hipotese_atual": 2,
+   "valor_atual": 2
+  },
+  {
+   "id": "I3.5",
+   "questao": "I3",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Desinformação e comunicação",
+   "item": "Pontos de apoio recuperados por: divulgação de prova documentada",
+   "parametros": [
+    "INFOCOG.campanhas.prova_documentada.ganho"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "pontos percentuais",
+   "prioridade": "média",
+   "hipotese_atual": 6,
+   "valor_atual": 6
+  },
+  {
+   "id": "I3.6",
+   "questao": "I3",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Desinformação e comunicação",
+   "item": "Quanto do efeito da desinformação a comunicação preventiva (prebunking) neutraliza",
+   "parametros": [
+    "INFOCOG.campanhas.prebunking.protecao"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 50,
+   "valor_atual": 0.5
+  },
+  {
+   "id": "I3.7",
+   "questao": "I3",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Desinformação e comunicação",
+   "item": "Por quantos dias dura a proteção da comunicação preventiva",
+   "parametros": [
+    "INFOCOG.campanhas.prebunking.duracao"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "média",
+   "hipotese_atual": 3,
+   "valor_atual": 3
+  },
+  {
+   "id": "I4.1",
+   "questao": "I4",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Gravidade relativa de erros e excessos",
+   "item": "Interrogar um navio sem indícios",
+   "parametros": [
+    "PESO_POLITICO.interrogacao"
+   ],
+   "conversao": "formula",
+   "regra": "peso = pontos × u ÷ (convicção mínima da interrogação ÷ 100), com u = custo de 1 ponto (abordagem sem indícios ÷ 10)",
+   "unidade": "pontos (abordagem sem indícios = 10)",
+   "prioridade": "alta",
+   "hipotese_atual": 1.25,
+   "valor_atual": 0.5
+  },
+  {
+   "id": "I4.2",
+   "questao": "I4",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Gravidade relativa de erros e excessos",
+   "item": "Inspecionar a carga sem indícios suficientes",
+   "parametros": [
+    "PESO_POLITICO.inspecao"
+   ],
+   "conversao": "formula",
+   "regra": "peso = pontos × u ÷ (convicção mínima da inspeção ÷ 100)",
+   "unidade": "pontos (abordagem sem indícios = 10)",
+   "prioridade": "alta",
+   "hipotese_atual": 10,
+   "valor_atual": 2
+  },
+  {
+   "id": "I4.3",
+   "questao": "I4",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Gravidade relativa de erros e excessos",
+   "item": "Apresar sem prova",
+   "parametros": [
+    "PESO_POLITICO.apresamento"
+   ],
+   "conversao": "formula",
+   "regra": "peso = pontos × u ÷ (convicção mínima do apresamento ÷ 100)",
+   "unidade": "pontos (abordagem sem indícios = 10)",
+   "prioridade": "alta",
+   "hipotese_atual": 35,
+   "valor_atual": 4
+  },
+  {
+   "id": "I4.4",
+   "questao": "I4",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Gravidade relativa de erros e excessos",
+   "item": "Interromper desnecessariamente a navegação de um navio mercante",
+   "parametros": [
+    "TERCEIROS.interrupcao.excesso"
+   ],
+   "conversao": "formula",
+   "regra": "unidades de excesso = pontos × u ÷ peso do excesso",
+   "unidade": "pontos (abordagem sem indícios = 10)",
+   "prioridade": "média",
+   "hipotese_atual": 25,
+   "valor_atual": 1
+  },
+  {
+   "id": "I4.5",
+   "questao": "I4",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Gravidade relativa de erros e excessos",
+   "item": "Usar força desnecessária contra um mercante ou pesqueiro (sem vítimas)",
+   "parametros": [
+    "TERCEIROS.forcaDesnecessaria.excesso"
+   ],
+   "conversao": "formula",
+   "regra": "unidades de excesso = pontos × u ÷ peso do excesso",
+   "unidade": "pontos (abordagem sem indícios = 10)",
+   "prioridade": "média",
+   "hipotese_atual": 50,
+   "valor_atual": 2
+  },
+  {
+   "id": "I4.6",
+   "questao": "I4",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Gravidade relativa de erros e excessos",
+   "item": "Causar danos a terceiros (lesões, avarias)",
+   "parametros": [
+    "INFOCOG.custo.pesoDanos"
+   ],
+   "conversao": "formula",
+   "regra": "peso dos danos = pontos × u",
+   "unidade": "pontos (abordagem sem indícios = 10)",
+   "prioridade": "média",
+   "hipotese_atual": 37.5,
+   "valor_atual": 3
+  },
+  {
+   "id": "I4.7",
+   "questao": "I4",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Gravidade relativa de erros e excessos",
+   "item": "Causar dano ambiental em ação militar",
+   "parametros": [
+    "TERCEIROS.ambiental.danos"
+   ],
+   "conversao": "formula",
+   "regra": "unidades de dano = pontos × u ÷ peso dos danos",
+   "unidade": "pontos (abordagem sem indícios = 10)",
+   "prioridade": "média",
+   "hipotese_atual": 37.5,
+   "valor_atual": 1
+  },
+  {
+   "id": "I4.8",
+   "questao": "I4",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Gravidade relativa de erros e excessos",
+   "item": "Desgaste acumulado a partir do qual a operação perde sustentação política",
+   "parametros": [
+    "INFOCOG.tetoCustoPolitico"
+   ],
+   "conversao": "formula",
+   "regra": "teto = pontos × u",
+   "unidade": "pontos (abordagem sem indícios = 10)",
+   "prioridade": "média",
+   "hipotese_atual": 312.5,
+   "valor_atual": 25
+  },
+  {
+   "id": "I5.1",
+   "questao": "I5",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Desgaste e opinião pública",
+   "item": "Pontos de apoio perdidos por um episódio de abordagem sem indícios",
+   "parametros": [
+    "INFOCOG.apoioPorCusto"
+   ],
+   "conversao": "formula",
+   "regra": "apoio perdido por unidade de custo = resposta ÷ (custo da abordagem sem indícios)",
+   "unidade": "pontos percentuais",
+   "prioridade": "média",
+   "hipotese_atual": 2.4,
+   "valor_atual": 3
+  },
+  {
+   "id": "I5.2",
+   "questao": "I5",
+   "tema": "Opinião pública e desgaste político",
+   "titulo": "Desgaste e opinião pública",
+   "item": "Com o apoio público em 30%, quanto mais pesa o mesmo erro do que com o apoio no patamar habitual",
+   "parametros": [
+    "INFOCOG.custo.modulacao"
+   ],
+   "conversao": "formula",
+   "regra": "multiplicador = 1 + modulação × (patamar − 30) ÷ patamar; modulação = (resposta ÷ 100) × patamar ÷ (patamar − 30)",
+   "unidade": "% a mais",
+   "prioridade": "média",
+   "hipotese_atual": 25,
+   "valor_atual": 0.5
+  },
+  {
+   "id": "J1.1",
+   "questao": "J1",
+   "tema": "Embarcações inocentes e danos a terceiros",
+   "titulo": "Falsos alarmes",
+   "item": "Quantas por mês, com integração mínima do quadro?",
+   "parametros": [
+    "TERCEIROS.falsosAlarmes.lambda"
+   ],
+   "conversao": "por_mes",
+   "regra": "parâmetro (por turno de 24 h) = resposta ÷ 30",
+   "unidade": "embarcações por mês",
+   "prioridade": "média",
+   "hipotese_atual": 9,
+   "valor_atual": 0.3
+  },
+  {
+   "id": "J1.2",
+   "questao": "J1",
+   "tema": "Embarcações inocentes e danos a terceiros",
+   "titulo": "Falsos alarmes",
+   "item": "Quantas por mês, com integração plena do quadro?",
+   "parametros": [
+    "TERCEIROS.falsosAlarmes.reducaoPorFusao"
+   ],
+   "conversao": "formula",
+   "regra": "redução = 1 − (resposta ÷ resposta da linha J1.1)",
+   "referencia": "J1.1",
+   "unidade": "embarcações por mês",
+   "prioridade": "média",
+   "hipotese_atual": 3.6,
+   "valor_atual": 0.6
+  },
+  {
+   "id": "J1.3",
+   "questao": "J1",
+   "tema": "Embarcações inocentes e danos a terceiros",
+   "titulo": "Falsos alarmes",
+   "item": "Fração que são: navio mercante em trânsito regular",
+   "parametros": [
+    "TERCEIROS.falsosAlarmes.tipos.mercante.peso"
+   ],
+   "conversao": "normalizado",
+   "regra": "participação relativa; os valores do grupo são reescalados para manter a soma atual do grupo",
+   "grupo": "inocentes",
+   "unidade": "% do total",
+   "prioridade": "média",
+   "hipotese_atual": 50,
+   "valor_atual": 1
+  },
+  {
+   "id": "J1.4",
+   "questao": "J1",
+   "tema": "Embarcações inocentes e danos a terceiros",
+   "titulo": "Falsos alarmes",
+   "item": "Fração que são: pesqueiro em atividade legal",
+   "parametros": [
+    "TERCEIROS.falsosAlarmes.tipos.pesqueiro.peso"
+   ],
+   "conversao": "normalizado",
+   "regra": "participação relativa; os valores do grupo são reescalados para manter a soma atual do grupo",
+   "grupo": "inocentes",
+   "unidade": "% do total",
+   "prioridade": "média",
+   "hipotese_atual": 50,
+   "valor_atual": 1
+  },
+  {
+   "id": "J1.5",
+   "questao": "J1",
+   "tema": "Embarcações inocentes e danos a terceiros",
+   "titulo": "Falsos alarmes",
+   "item": "Fase da ação em que a inocência fica clara",
+   "parametros": [
+    "TERCEIROS.falsosAlarmes.etapaRevela"
+   ],
+   "conversao": "categoria",
+   "regra": "opção escolhida → valor da tabela de opções",
+   "opcoes": {
+    "interrogação": "interrogacao",
+    "identificação": "identificacao",
+    "abordagem": "abordagem",
+    "inspeção": "inspecao",
+    "apresamento": "apresamento"
+   },
+   "unidade": "escolha",
+   "prioridade": "média",
+   "hipotese_atual": "inspeção",
+   "valor_atual": "inspecao"
+  },
+  {
+   "id": "J1.6",
+   "questao": "J1",
+   "tema": "Embarcações inocentes e danos a terceiros",
+   "titulo": "Falsos alarmes",
+   "item": "Fração esclarecida já na interrogação, antes da abordagem, com integração mínima do quadro",
+   "parametros": [
+    "TERCEIROS.falsosAlarmes.esclareceNaInterrogacao.base"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 20,
+   "valor_atual": 0.2
+  },
+  {
+   "id": "J1.7",
+   "questao": "J1",
+   "tema": "Embarcações inocentes e danos a terceiros",
+   "titulo": "Falsos alarmes",
+   "item": "Idem, com integração plena do quadro",
+   "parametros": [
+    "TERCEIROS.falsosAlarmes.esclareceNaInterrogacao.porFusao"
+   ],
+   "conversao": "diferenca",
+   "regra": "parâmetro = (resposta − resposta da linha de referência) ÷ 100",
+   "referencia": "J1.6",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 70,
+   "valor_atual": 0.5
+  },
+  {
+   "id": "J2.1",
+   "questao": "J2",
+   "tema": "Embarcações inocentes e danos a terceiros",
+   "titulo": "Uso de força desnecessário",
+   "item": "Rotina",
+   "parametros": [
+    "TERCEIROS.forcaDesnecessaria.pPorNivel.0"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 5,
+   "valor_atual": 0.05
+  },
+  {
+   "id": "J2.2",
+   "questao": "J2",
+   "tema": "Embarcações inocentes e danos a terceiros",
+   "titulo": "Uso de força desnecessário",
+   "item": "Tensão",
+   "parametros": [
+    "TERCEIROS.forcaDesnecessaria.pPorNivel.1"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 10,
+   "valor_atual": 0.1
+  },
+  {
+   "id": "J2.3",
+   "questao": "J2",
+   "tema": "Embarcações inocentes e danos a terceiros",
+   "titulo": "Uso de força desnecessário",
+   "item": "Crise",
+   "parametros": [
+    "TERCEIROS.forcaDesnecessaria.pPorNivel.2"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 20,
+   "valor_atual": 0.2
+  },
+  {
+   "id": "J2.4",
+   "questao": "J2",
+   "tema": "Embarcações inocentes e danos a terceiros",
+   "titulo": "Uso de força desnecessário",
+   "item": "Conflito",
+   "parametros": [
+    "TERCEIROS.forcaDesnecessaria.pPorNivel.3"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 30,
+   "valor_atual": 0.3
+  },
+  {
+   "id": "J2.5",
+   "questao": "J2",
+   "tema": "Embarcações inocentes e danos a terceiros",
+   "titulo": "Uso de força desnecessário",
+   "item": "Havendo uso de força, chance de causar lesões ou avarias",
+   "parametros": [
+    "TERCEIROS.forcaDesnecessaria.pDano"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 30,
+   "valor_atual": 0.3
+  },
+  {
+   "id": "J3.1",
+   "questao": "J3",
+   "tema": "Embarcações inocentes e danos a terceiros",
+   "titulo": "Danos ambientais",
+   "item": "Frota-sombra (transponder desligado, bandeira de conveniência)",
+   "parametros": [
+    "TERCEIROS.ambiental.pPorVetor.frota_sombra"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 5,
+   "valor_atual": 0.05
+  },
+  {
+   "id": "J3.2",
+   "questao": "J3",
+   "tema": "Embarcações inocentes e danos a terceiros",
+   "titulo": "Danos ambientais",
+   "item": "Milícia marítima (pesqueiros a serviço de outro Estado)",
+   "parametros": [
+    "TERCEIROS.ambiental.pPorVetor.milicia_maritima"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 2,
+   "valor_atual": 0.02
+  },
+  {
+   "id": "J3.3",
+   "questao": "J3",
+   "tema": "Embarcações inocentes e danos a terceiros",
+   "titulo": "Danos ambientais",
+   "item": "Sabotagem de cabos e dutos submarinos",
+   "parametros": [
+    "TERCEIROS.ambiental.pPorVetor.sabotagem_submarina"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 4,
+   "valor_atual": 0.04
+  },
+  {
+   "id": "J3.4",
+   "questao": "J3",
+   "tema": "Embarcações inocentes e danos a terceiros",
+   "titulo": "Danos ambientais",
+   "item": "Minagem encoberta",
+   "parametros": [
+    "TERCEIROS.ambiental.pPorVetor.minagem"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 10,
+   "valor_atual": 0.1
+  },
+  {
+   "id": "J3.5",
+   "questao": "J3",
+   "tema": "Embarcações inocentes e danos a terceiros",
+   "titulo": "Danos ambientais",
+   "item": "Risco ambiental em Rotina, em % do risco em Crise",
+   "parametros": [
+    "TERCEIROS.ambiental.fatorNivel.0"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 50,
+   "valor_atual": 0.5
+  },
+  {
+   "id": "J3.6",
+   "questao": "J3",
+   "tema": "Embarcações inocentes e danos a terceiros",
+   "titulo": "Danos ambientais",
+   "item": "Risco ambiental em Tensão, em % do risco em Crise",
+   "parametros": [
+    "TERCEIROS.ambiental.fatorNivel.1"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 75,
+   "valor_atual": 0.75
+  },
+  {
+   "id": "J3.7",
+   "questao": "J3",
+   "tema": "Embarcações inocentes e danos a terceiros",
+   "titulo": "Danos ambientais",
+   "item": "Risco ambiental em Crise, em % do risco em Crise",
+   "parametros": [
+    "TERCEIROS.ambiental.fatorNivel.2"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 100,
+   "valor_atual": 1
+  },
+  {
+   "id": "J3.8",
+   "questao": "J3",
+   "tema": "Embarcações inocentes e danos a terceiros",
+   "titulo": "Danos ambientais",
+   "item": "Risco ambiental em Conflito, em % do risco em Crise",
+   "parametros": [
+    "TERCEIROS.ambiental.fatorNivel.3"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 150,
+   "valor_atual": 1.5
+  },
+  {
+   "id": "K1.1",
+   "questao": "K1",
+   "tema": "Crises",
+   "titulo": "Prazos de detecção e resposta",
+   "item": "Crimes e ilícitos no mar: detecção, prazo ideal",
+   "parametros": [
+    "CRISES.crimes_ilicitos.deteccao.ideal"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "não medida",
+   "hipotese_atual": 1,
+   "valor_atual": 1
+  },
+  {
+   "id": "K1.2",
+   "questao": "K1",
+   "tema": "Crises",
+   "titulo": "Prazos de detecção e resposta",
+   "item": "Crimes e ilícitos no mar: detecção, prazo máximo",
+   "parametros": [
+    "CRISES.crimes_ilicitos.deteccao.max"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "não medida",
+   "hipotese_atual": 3,
+   "valor_atual": 3
+  },
+  {
+   "id": "K1.3",
+   "questao": "K1",
+   "tema": "Crises",
+   "titulo": "Prazos de detecção e resposta",
+   "item": "Crimes e ilícitos no mar: resposta, prazo ideal",
+   "parametros": [
+    "CRISES.crimes_ilicitos.resposta.ideal"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "não medida",
+   "hipotese_atual": 2,
+   "valor_atual": 2
+  },
+  {
+   "id": "K1.4",
+   "questao": "K1",
+   "tema": "Crises",
+   "titulo": "Prazos de detecção e resposta",
+   "item": "Crimes e ilícitos no mar: resposta, prazo máximo",
+   "parametros": [
+    "CRISES.crimes_ilicitos.resposta.max"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "não medida",
+   "hipotese_atual": 5,
+   "valor_atual": 5
+  },
+  {
+   "id": "K1.5",
+   "questao": "K1",
+   "tema": "Crises",
+   "titulo": "Prazos de detecção e resposta",
+   "item": "Sabotagem de infraestrutura crítica: detecção, prazo ideal",
+   "parametros": [
+    "CRISES.sabotagem_ic.deteccao.ideal"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "não medida",
+   "hipotese_atual": 1,
+   "valor_atual": 1
+  },
+  {
+   "id": "K1.6",
+   "questao": "K1",
+   "tema": "Crises",
+   "titulo": "Prazos de detecção e resposta",
+   "item": "Sabotagem de infraestrutura crítica: detecção, prazo máximo",
+   "parametros": [
+    "CRISES.sabotagem_ic.deteccao.max"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "não medida",
+   "hipotese_atual": 4,
+   "valor_atual": 4
+  },
+  {
+   "id": "K1.7",
+   "questao": "K1",
+   "tema": "Crises",
+   "titulo": "Prazos de detecção e resposta",
+   "item": "Sabotagem de infraestrutura crítica: resposta, prazo ideal",
+   "parametros": [
+    "CRISES.sabotagem_ic.resposta.ideal"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "não medida",
+   "hipotese_atual": 2,
+   "valor_atual": 2
+  },
+  {
+   "id": "K1.8",
+   "questao": "K1",
+   "tema": "Crises",
+   "titulo": "Prazos de detecção e resposta",
+   "item": "Sabotagem de infraestrutura crítica: resposta, prazo máximo",
+   "parametros": [
+    "CRISES.sabotagem_ic.resposta.max"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "não medida",
+   "hipotese_atual": 6,
+   "valor_atual": 6
+  },
+  {
+   "id": "K1.9",
+   "questao": "K1",
+   "tema": "Crises",
+   "titulo": "Prazos de detecção e resposta",
+   "item": "Pesca ilegal em massa: detecção, prazo ideal",
+   "parametros": [
+    "CRISES.pesca_massa.deteccao.ideal"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "não medida",
+   "hipotese_atual": 1,
+   "valor_atual": 1
+  },
+  {
+   "id": "K1.10",
+   "questao": "K1",
+   "tema": "Crises",
+   "titulo": "Prazos de detecção e resposta",
+   "item": "Pesca ilegal em massa: detecção, prazo máximo",
+   "parametros": [
+    "CRISES.pesca_massa.deteccao.max"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "não medida",
+   "hipotese_atual": 3,
+   "valor_atual": 3
+  },
+  {
+   "id": "K1.11",
+   "questao": "K1",
+   "tema": "Crises",
+   "titulo": "Prazos de detecção e resposta",
+   "item": "Pesca ilegal em massa: resposta, prazo ideal",
+   "parametros": [
+    "CRISES.pesca_massa.resposta.ideal"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "não medida",
+   "hipotese_atual": 3,
+   "valor_atual": 3
+  },
+  {
+   "id": "K1.12",
+   "questao": "K1",
+   "tema": "Crises",
+   "titulo": "Prazos de detecção e resposta",
+   "item": "Pesca ilegal em massa: resposta, prazo máximo",
+   "parametros": [
+    "CRISES.pesca_massa.resposta.max"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "não medida",
+   "hipotese_atual": 6,
+   "valor_atual": 6
+  },
+  {
+   "id": "K1.13",
+   "questao": "K1",
+   "tema": "Crises",
+   "titulo": "Prazos de detecção e resposta",
+   "item": "Salvaguarda da vida humana no mar (SAR): detecção, prazo ideal",
+   "parametros": [
+    "CRISES.sar.deteccao.ideal"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "não medida",
+   "hipotese_atual": 0,
+   "valor_atual": 0
+  },
+  {
+   "id": "K1.14",
+   "questao": "K1",
+   "tema": "Crises",
+   "titulo": "Prazos de detecção e resposta",
+   "item": "Salvaguarda da vida humana no mar (SAR): detecção, prazo máximo",
+   "parametros": [
+    "CRISES.sar.deteccao.max"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "não medida",
+   "hipotese_atual": 2,
+   "valor_atual": 2
+  },
+  {
+   "id": "K1.15",
+   "questao": "K1",
+   "tema": "Crises",
+   "titulo": "Prazos de detecção e resposta",
+   "item": "Salvaguarda da vida humana no mar (SAR): resposta, prazo ideal",
+   "parametros": [
+    "CRISES.sar.resposta.ideal"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "não medida",
+   "hipotese_atual": 1,
+   "valor_atual": 1
+  },
+  {
+   "id": "K1.16",
+   "questao": "K1",
+   "tema": "Crises",
+   "titulo": "Prazos de detecção e resposta",
+   "item": "Salvaguarda da vida humana no mar (SAR): resposta, prazo máximo",
+   "parametros": [
+    "CRISES.sar.resposta.max"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "não medida",
+   "hipotese_atual": 3,
+   "valor_atual": 3
+  },
+  {
+   "id": "K1.17",
+   "questao": "K1",
+   "tema": "Crises",
+   "titulo": "Prazos de detecção e resposta",
+   "item": "Resposta a desastres: detecção, prazo ideal",
+   "parametros": [
+    "CRISES.desastre.deteccao.ideal"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "não medida",
+   "hipotese_atual": 1,
+   "valor_atual": 1
+  },
+  {
+   "id": "K1.18",
+   "questao": "K1",
+   "tema": "Crises",
+   "titulo": "Prazos de detecção e resposta",
+   "item": "Resposta a desastres: detecção, prazo máximo",
+   "parametros": [
+    "CRISES.desastre.deteccao.max"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "não medida",
+   "hipotese_atual": 3,
+   "valor_atual": 3
+  },
+  {
+   "id": "K1.19",
+   "questao": "K1",
+   "tema": "Crises",
+   "titulo": "Prazos de detecção e resposta",
+   "item": "Resposta a desastres: resposta, prazo ideal",
+   "parametros": [
+    "CRISES.desastre.resposta.ideal"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "não medida",
+   "hipotese_atual": 2,
+   "valor_atual": 2
+  },
+  {
+   "id": "K1.20",
+   "questao": "K1",
+   "tema": "Crises",
+   "titulo": "Prazos de detecção e resposta",
+   "item": "Resposta a desastres: resposta, prazo máximo",
+   "parametros": [
+    "CRISES.desastre.resposta.max"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "não medida",
+   "hipotese_atual": 5,
+   "valor_atual": 5
+  },
+  {
+   "id": "K2.1",
+   "questao": "K2",
+   "tema": "Crises",
+   "titulo": "Porte das crises",
+   "item": "Crimes e ilícitos no mar: embarcações envolvidas",
+   "parametros": [
+    "CRISES.crimes_ilicitos.efeito.ocorrencias.n"
+   ],
+   "conversao": "inteiro",
+   "regra": "parâmetro = resposta, arredondada",
+   "unidade": "embarcações",
+   "prioridade": "não medida",
+   "hipotese_atual": 3,
+   "valor_atual": 3
+  },
+  {
+   "id": "K2.2",
+   "questao": "K2",
+   "tema": "Crises",
+   "titulo": "Porte das crises",
+   "item": "Pesca ilegal em massa: embarcações envolvidas",
+   "parametros": [
+    "CRISES.pesca_massa.efeito.ocorrencias.n"
+   ],
+   "conversao": "inteiro",
+   "regra": "parâmetro = resposta, arredondada",
+   "unidade": "embarcações",
+   "prioridade": "não medida",
+   "hipotese_atual": 8,
+   "valor_atual": 8
+  },
+  {
+   "id": "K2.3",
+   "questao": "K2",
+   "tema": "Crises",
+   "titulo": "Porte das crises",
+   "item": "Crimes e ilícitos / pesca em massa: fração das embarcações reprimidas para considerar a resposta adequada",
+   "parametros": [
+    "CRISES.crimes_ilicitos.resposta.fracaoReprimida",
+    "CRISES.pesca_massa.resposta.fracaoReprimida"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "não medida",
+   "hipotese_atual": 50
+  },
+  {
+   "id": "K2.4",
+   "questao": "K2",
+   "tema": "Crises",
+   "titulo": "Porte das crises",
+   "item": "Salvamento: pessoas em perigo",
+   "parametros": [
+    "CRISES.sar.efeito.sar.pessoas"
+   ],
+   "conversao": "inteiro",
+   "regra": "parâmetro = resposta, arredondada",
+   "unidade": "pessoas",
+   "prioridade": "não medida",
+   "hipotese_atual": 30,
+   "valor_atual": 30
+  },
+  {
+   "id": "K2.5",
+   "questao": "K2",
+   "tema": "Crises",
+   "titulo": "Porte das crises",
+   "item": "Salvamento: meios necessários",
+   "parametros": [
+    "CRISES.sar.efeito.sar.meios"
+   ],
+   "conversao": "inteiro",
+   "regra": "parâmetro = resposta, arredondada",
+   "unidade": "meios",
+   "prioridade": "não medida",
+   "hipotese_atual": 1,
+   "valor_atual": 1
+  },
+  {
+   "id": "K2.6",
+   "questao": "K2",
+   "tema": "Crises",
+   "titulo": "Porte das crises",
+   "item": "Desastre: meios necessários",
+   "parametros": [
+    "CRISES.desastre.efeito.desastre.meios"
+   ],
+   "conversao": "inteiro",
+   "regra": "parâmetro = resposta, arredondada",
+   "unidade": "meios",
+   "prioridade": "não medida",
+   "hipotese_atual": 2,
+   "valor_atual": 2
+  },
+  {
+   "id": "K2.7",
+   "questao": "K2",
+   "tema": "Crises",
+   "titulo": "Porte das crises",
+   "item": "Sabotagem de infraestrutura: convicção inicial sobre a autoria",
+   "parametros": [
+    "CRISES.sabotagem_ic.efeito.hibrido.atribuicao"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "% de convicção",
+   "prioridade": "não medida",
+   "hipotese_atual": 20,
+   "valor_atual": 20
+  },
+  {
+   "id": "L1.1",
+   "questao": "L1",
+   "tema": "Condução pelo comando",
+   "titulo": "Capacidade de um comando",
+   "item": "Quantas ações distintas (designação de meio a um contato) o comando consegue conduzir por dia",
+   "parametros": [
+    "DOUTRINA.acoesPorEstacao"
+   ],
+   "conversao": "inteiro",
+   "regra": "parâmetro = resposta, arredondada",
+   "unidade": "ações por dia",
+   "prioridade": "média",
+   "hipotese_atual": 4,
+   "valor_atual": 4
+  },
+  {
+   "id": "L1.2",
+   "questao": "L1",
+   "tema": "Condução pelo comando",
+   "titulo": "Capacidade de um comando",
+   "item": "Quantas ações extras em um dia de sobrecarga",
+   "parametros": [
+    "DOUTRINA.surto"
+   ],
+   "conversao": "inteiro",
+   "regra": "parâmetro = resposta, arredondada",
+   "unidade": "ações",
+   "prioridade": "média",
+   "hipotese_atual": 2,
+   "valor_atual": 2
+  },
+  {
+   "id": "L1.3",
+   "questao": "L1",
+   "tema": "Condução pelo comando",
+   "titulo": "Capacidade de um comando",
+   "item": "Quantas ações a menos no dia seguinte a uma sobrecarga",
+   "parametros": [
+    "DOUTRINA.penalidadeSurto"
+   ],
+   "conversao": "inteiro",
+   "regra": "parâmetro = resposta, arredondada",
+   "unidade": "ações",
+   "prioridade": "média",
+   "hipotese_atual": 2,
+   "valor_atual": 2
+  },
+  {
+   "id": "L1.4",
+   "questao": "L1",
+   "tema": "Condução pelo comando",
+   "titulo": "Capacidade de um comando",
+   "item": "Faltando quantos dias para o dano, o comandante aceita agir além do que os indícios fundamentam",
+   "parametros": [
+    "DOUTRINA.urgencia"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "média",
+   "hipotese_atual": 1,
+   "valor_atual": 1
+  },
+  {
+   "id": "L1.5",
+   "questao": "L1",
+   "tema": "Condução pelo comando",
+   "titulo": "Capacidade de um comando",
+   "item": "Abaixo de que apoio público o comando priorizaria a comunicação estratégica",
+   "parametros": [
+    "DOUTRINA.apoioParaComunicar"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "%",
+   "prioridade": "média",
+   "hipotese_atual": 50,
+   "valor_atual": 50
+  },
+  {
+   "id": "L1.6",
+   "questao": "L1",
+   "tema": "Condução pelo comando",
+   "titulo": "Capacidade de um comando",
+   "item": "A cada quantos dias renovar a comunicação preventiva",
+   "parametros": [
+    "DOUTRINA.prebunkingACada"
+   ],
+   "conversao": "dias",
+   "regra": "parâmetro (turnos de 24 h) = resposta, arredondada",
+   "unidade": "dias",
+   "prioridade": "média",
+   "hipotese_atual": 7,
+   "valor_atual": 7
+  },
+  {
+   "id": "M1.1",
+   "questao": "M1",
+   "tema": "Critérios de êxito",
+   "titulo": "Resultado de uma campanha de 45 dias",
+   "item": "Êxito da Força Azul: integridade mínima da infraestrutura crítica",
+   "parametros": [
+    "DESFECHO.infraVitoriaAzul"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "% preservada",
+   "prioridade": "alta",
+   "hipotese_atual": 80,
+   "valor_atual": 80
+  },
+  {
+   "id": "M1.2",
+   "questao": "M1",
+   "tema": "Critérios de êxito",
+   "titulo": "Resultado de uma campanha de 45 dias",
+   "item": "Êxito da Força Azul: fração mínima dos ilícitos reprimidos",
+   "parametros": [
+    "DESFECHO.ordemVitoriaAzul"
+   ],
+   "conversao": "percentual",
+   "regra": "parâmetro = resposta ÷ 100",
+   "unidade": "%",
+   "prioridade": "alta",
+   "hipotese_atual": 40,
+   "valor_atual": 0.4
+  },
+  {
+   "id": "M1.3",
+   "questao": "M1",
+   "tema": "Critérios de êxito",
+   "titulo": "Resultado de uma campanha de 45 dias",
+   "item": "Êxito do adversário: integridade da infraestrutura abaixo de",
+   "parametros": [
+    "DESFECHO.infraVitoriaVermelha"
+   ],
+   "conversao": "pontos",
+   "regra": "parâmetro = resposta",
+   "unidade": "% preservada",
+   "prioridade": "alta",
+   "hipotese_atual": 60,
+   "valor_atual": 60
+  },
+  {
+   "id": "O1.1",
+   "questao": "O1",
+   "tema": "Questões abertas",
+   "titulo": "Áreas de responsabilidade",
+   "item": "Comentário",
+   "parametros": [
+    "AREAS_DN"
+   ],
+   "conversao": "manual",
+   "regra": "sem conversão automática: a resposta é interpretada pelo analista e registrada no código ou na sobrescrita",
+   "unidade": "texto",
+   "prioridade": "não medida",
+   "hipotese_atual": null
+  },
+  {
+   "id": "O2.1",
+   "questao": "O2",
+   "tema": "Questões abertas",
+   "titulo": "Ordem de batalha e bases",
+   "item": "Comentário",
+   "parametros": [
+    "MEIOS_AZUIS",
+    "BASES"
+   ],
+   "conversao": "manual",
+   "regra": "sem conversão automática: a resposta é interpretada pelo analista e registrada no código ou na sobrescrita",
+   "unidade": "texto",
+   "prioridade": "estrutural",
+   "hipotese_atual": null
+  },
+  {
+   "id": "O3.1",
+   "questao": "O3",
+   "tema": "Questões abertas",
+   "titulo": "Infraestrutura crítica",
+   "item": "Comentário",
+   "parametros": [
+    "INFRA"
+   ],
+   "conversao": "manual",
+   "regra": "sem conversão automática: a resposta é interpretada pelo analista e registrada no código ou na sobrescrita",
+   "unidade": "texto",
+   "prioridade": "estrutural",
+   "hipotese_atual": null
+  },
+  {
+   "id": "O4.1",
+   "questao": "O4",
+   "tema": "Questões abertas",
+   "titulo": "Alvos de cada modo de ação",
+   "item": "Comentário",
+   "parametros": [
+    "HIBRIDO.vetores.frota_sombra.alvos",
+    "HIBRIDO.vetores.milicia_maritima.alvos",
+    "HIBRIDO.vetores.sabotagem_submarina.alvos",
+    "HIBRIDO.vetores.usv_uav.alvos",
+    "HIBRIDO.vetores.gnss.alvos",
+    "HIBRIDO.vetores.ciber.alvos",
+    "HIBRIDO.vetores.minagem.alvos"
+   ],
+   "conversao": "manual",
+   "regra": "sem conversão automática: a resposta é interpretada pelo analista e registrada no código ou na sobrescrita",
+   "unidade": "texto",
+   "prioridade": "alta",
+   "hipotese_atual": null
+  },
+  {
+   "id": "O5.1",
+   "questao": "O5",
+   "tema": "Questões abertas",
+   "titulo": "Campo de atuação de cada órgão",
+   "item": "Comentário",
+   "parametros": [
+    "APOIOS.mpa.pertinencia",
+    "APOIOS.pf.pertinencia",
+    "APOIOS.rf.pertinencia",
+    "APOIOS.ibama.pertinencia",
+    "APOIOS.censipam.pertinencia",
+    "APOIOS.intl.pertinencia"
+   ],
+   "conversao": "manual",
+   "regra": "sem conversão automática: a resposta é interpretada pelo analista e registrada no código ou na sobrescrita",
+   "unidade": "texto",
+   "prioridade": "média",
+   "hipotese_atual": null
+  },
+  {
+   "id": "O6.1",
+   "questao": "O6",
+   "tema": "Questões abertas",
+   "titulo": "Onde ocorrem os ilícitos",
+   "item": "Comentário",
+   "parametros": [
+    "TIPOS_OCORRENCIA.narcotrafico.terrenos",
+    "TIPOS_OCORRENCIA.contrabando.terrenos",
+    "TIPOS_OCORRENCIA.pesca_iuu.terrenos",
+    "TIPOS_OCORRENCIA.crime_ambiental.terrenos",
+    "TIPOS_OCORRENCIA.pirataria.terrenos",
+    "TIPOS_OCORRENCIA.imigracao.terrenos"
+   ],
+   "conversao": "manual",
+   "regra": "sem conversão automática: a resposta é interpretada pelo analista e registrada no código ou na sobrescrita",
+   "unidade": "texto",
+   "prioridade": "alta",
+   "hipotese_atual": null
+  },
+  {
+   "id": "O7.1",
+   "questao": "O7",
+   "tema": "Questões abertas",
+   "titulo": "Comportamento do comandante",
+   "item": "Comentário",
+   "parametros": [
+    "DOUTRINA"
+   ],
+   "conversao": "manual",
+   "regra": "sem conversão automática: a resposta é interpretada pelo analista e registrada no código ou na sobrescrita",
+   "unidade": "texto",
+   "prioridade": "média",
+   "hipotese_atual": null
+  }
+ ],
+ "decisoes_de_projeto": [
+  {
+   "prefixo": "DIFICULDADES",
+   "motivo": "níveis de dificuldade do jogo (névoa, ritmo para fins de jogabilidade)"
+  },
+  {
+   "prefixo": "HIBRIDO.maxAcoesHumano",
+   "motivo": "teto de jogabilidade para o jogador Vermelho humano"
+  },
+  {
+   "prefixo": "HIBRIDO.empregoAberto.intensidadeMin",
+   "motivo": "limiar da intensidade híbrida configurada no cenário"
+  },
+  {
+   "prefixo": "HIBRIDO.empregoAberto.nivelMin",
+   "motivo": "regra da escada (emprego aberto só a partir de Crise)"
+  },
+  {
+   "prefixo": "DOUTRINA.quadro.teto",
+   "motivo": "teto técnico da chance de entrar no quadro"
+  },
+  {
+   "prefixo": "INFOCOG.campanhasPorTurno",
+   "motivo": "ritmo de jogo (uma campanha por turno)"
+  },
+  {
+   "prefixo": "INFOCOG.prazoCampanha",
+   "motivo": "ritmo de jogo"
+  },
+  {
+   "prefixo": "INFOCOG.campanhas.prebunking.ganho",
+   "motivo": "a comunicação preventiva protege, não recupera apoio"
+  },
+  {
+   "prefixo": "CRISES.desastre.efeito.desastre.escala",
+   "motivo": "reservado (escala única no modelo atual)"
+  },
+  {
+   "prefixo": "LIMIAR_ATRIBUICAO.deteccao",
+   "motivo": "detecção e identificação não exigem fundamento (vigilância)"
+  },
+  {
+   "prefixo": "LIMIAR_ATRIBUICAO.identificacao",
+   "motivo": "idem"
+  },
+  {
+   "prefixo": "PESO_POLITICO.deteccao",
+   "motivo": "idem"
+  },
+  {
+   "prefixo": "PESO_POLITICO.identificacao",
+   "motivo": "idem"
+  },
+  {
+   "prefixo": "PESO_POLITICO.abordagem",
+   "motivo": "âncora da escala de gravidade da questão I4 (abordagem sem indícios = 10 pontos)"
+  },
+  {
+   "prefixo": "INFOCOG.custo.pesoExcesso",
+   "motivo": "unidade da escala de gravidade: a questão I4 move as unidades de excesso de cada situação, não o peso"
+  },
+  {
+   "prefixo": "HIBRIDO.vetores.ciber.janela",
+   "motivo": "o ataque cibernético resolve no próprio turno"
+  },
+  {
+   "prefixo": "HIBRIDO.vetores.lawfare",
+   "motivo": "lawfare age pela desinformação (questões F8 e I3), não no mar"
+  }
+ ]
+}

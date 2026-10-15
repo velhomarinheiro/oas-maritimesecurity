@@ -1,32 +1,39 @@
 # Narrativa de campanha — C3 (sem C_Fusão), intermediário
 
-Partida jogada pelo motor com a doutrina do agente Azul e o agente Vermelho (semente 5001, 45 dias, intensidade híbrida 0,5). O texto de cada turno é o boletim de situação que o jogador recebe (Conceito §8.4). Reproduzível com `node scripts/sm_validacao_face.js`.
+Campanha de 45 dias conduzida pelo próprio jogo, dos dois lados. Cada dia traz o boletim de situação que o comandante recebe: ações dos meios, fase alcançada e chance de êxito de cada uma, convicção sobre a autoria, situação da ordem no mar e da opinião pública.
 
 ## Perguntas ao revisor
 
-1. O ritmo de incidentes (híbridos e constabulares) por turno é plausível para o teatro?
+1. O ritmo de incidentes no mar — ilícitos e ações hostis — é plausível para o litoral considerado?
 
    Resposta: 
 
-2. As probabilidades por etapa ("provável", "arriscado"…) correspondem ao que se espera desses meios?
+2. As chances de êxito em cada fase da ação ("provável", "arriscado"…) correspondem ao que se espera desses meios?
 
    Resposta: 
 
-3. A atribuição sobe na velocidade certa? A escalada (N0–N3) acontece pelos motivos e no tempo plausíveis?
+3. A convicção sobre a autoria dos incidentes cresce na velocidade certa? A postura (Rotina, Tensão, Crise, Conflito) muda pelos motivos e no tempo plausíveis?
 
    Resposta: 
 
-4. O apoio público e o custo político reagem aos eventos de forma crível?
+4. O apoio da opinião pública e o desgaste político reagem aos fatos de forma crível?
 
    Resposta: 
 
-5. Há algum turno em que o comportamento do Azul (doutrina) seria claramente diferente do de um comandante real? Qual?
+5. Em algum dia, a conduta dos comandos seria claramente diferente da de um comandante real? Em qual, e o que ele faria?
 
    Resposta: 
 
 ## Resultado
 
-Desfecho **indecisa** em 45 turnos. E1_atrib 0,263 · E2_infra 84,286 · E3_escalada 45 · E4_custopol 7,958 · E5_ordem 0,053 · E6_dispersao 0,186 · nivel_max 1.
+**resultado indefinido**, após 45 dias.
+
+- Ações hostis frustradas ou com autoria esclarecida: 26%
+- Infraestrutura crítica preservada: 84%
+- Dias abaixo do limiar de conflito: 45
+- Ilícitos reprimidos: 5%
+- Postura máxima alcançada: Tensão
+- Apoio da opinião pública ao fim: 5%
 
 ## Turnos
 
