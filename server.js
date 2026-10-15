@@ -1496,13 +1496,16 @@ const io     = new Server(server, { cors: { origin: '*' } });
 
 app.use(express.json({ limit: '256kb' }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.get('/',     (_, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
+app.get('/',     (_, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));   // apresentação da OAS-SM
+app.get('/classico', (_, res) => res.sendFile(path.join(__dirname, 'public', 'classico.html')));   // lobby do jogo base
 app.get('/game', (_, res) => res.sendFile(path.join(__dirname, 'public', 'game.html')));
 app.get('/construtivo', (_, res) => res.sendFile(path.join(__dirname, 'public', 'construtivo.html')));
 app.get('/replay',      (_, res) => res.sendFile(path.join(__dirname, 'public', 'replay.html')));
 // Variante de Segurança Marítima (OAS-SM): salas no namespace /sm (sm_server.js).
 app.get('/sm',          (_, res) => res.sendFile(path.join(__dirname, 'public', 'sm.html')));
 require('./sm_server').attach(io.of('/sm'));
+// Questionário de validação (página estática; também publicada no GitHub Pages).
+app.use('/questionario', express.static(path.join(__dirname, 'docs', 'questionario'), { index: 'index.html', dotfiles: 'ignore' }));
 
 // ─── Simulação construtiva (PBC) ──────────────────────────────────────────────
 // Lotes de partidas bot-vs-bot, sem jogadores: a página /construtivo monta um
